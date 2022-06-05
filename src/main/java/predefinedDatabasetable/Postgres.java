@@ -18,7 +18,7 @@ class PostgreSQLJDBC {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "CREATE TABLE FINANZEN " +
+            String sql = "CREATE TABLE USERINFO " +
                     "(Fullname     TEXT        NOT NULL," +
                     " Username          TEXT     NOT NULL," +
                     " Password           TEXT     NOT NULL)";
@@ -34,7 +34,7 @@ class PostgreSQLJDBC {
             stmt.executeUpdate(sql);
 */
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Finanzen;");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM USERINFO;");
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("username");

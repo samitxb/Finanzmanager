@@ -17,7 +17,7 @@ public class JavaPostgres {
         String passwordOfUser = userPassword;
 
         // query
-        String query = "INSERT INTO Finanzen(Fullname ,Username, Password) VALUES(?, ?, ?)";
+        String query = "INSERT INTO USERINFO(Fullname ,Username, Password) VALUES(?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
              PreparedStatement pst = con.prepareStatement(query)) {

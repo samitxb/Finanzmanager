@@ -68,7 +68,7 @@ public class Controller {
         System.exit(0);
     }
 
-    public void getData(ActionEvent actionEvent) {
+    public void setRegistrationData(ActionEvent actionEvent) {
         System.out.println(loginName.getText());
         System.out.println(loginPassword.getText());
         JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());

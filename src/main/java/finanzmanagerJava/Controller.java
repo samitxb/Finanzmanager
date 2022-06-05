@@ -42,7 +42,8 @@ public class Controller {
     private TextField registrationUserName;
     @FXML
     private TextField registrationUserPassword;
-
+    @FXML
+    private Label regsuccsessfulllabel;
 
     //Next Window
     @FXML
@@ -53,9 +54,10 @@ public class Controller {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
         primaryStage.setTitle("FINANZMANAGER");
-        primaryStage.setScene(new Scene(root, 1082, 789 ));
+        primaryStage.setScene(new Scene(root, 1082, 726 ));
         primaryStage.show();
     }
+
 
     @FXML
     void closeApp(ActionEvent event) {
@@ -71,7 +73,16 @@ public class Controller {
     public void setRegistrationData(ActionEvent actionEvent) {
         System.out.println(loginName.getText());
         System.out.println(loginPassword.getText());
+
+        if(Objects.equals(registrationUserName.getText(), "")){
+            regsuccsessfulllabel.setText("No Login Name!");
+        } else if (Objects.equals(registrationUserPassword.getText(), "")) {
+            regsuccsessfulllabel.setText("No Password!");
+        }
+        else regsuccsessfulllabel.setText("Registered Successfully!!");
+
         JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
+
     }
 
 }

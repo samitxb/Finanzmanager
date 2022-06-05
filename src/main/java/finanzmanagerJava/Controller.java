@@ -102,8 +102,9 @@ public class Controller {
     }
 
     public void setRegistrationData(ActionEvent actionEvent) {
-        System.out.println(loginName.getText());
-        System.out.println(loginPassword.getText());
+        System.out.println(registrationUserName.getText());
+        System.out.println(registrationUserPassword.getText());
+
 
         if (Objects.equals(registrationUserName.getText(), "")) {
             regsuccsessfulllabel.setText("No Login Name!");

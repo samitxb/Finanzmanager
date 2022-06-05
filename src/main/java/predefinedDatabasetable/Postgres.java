@@ -8,33 +8,36 @@ import java.sql.Statement;
 
 class PostgreSQLJDBC {
     public static void main(String[] args) {
-        Connection c;
-        Statement stmt;
+        Connection connectionDb;
+        Statement statementDb;
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager
+            connectionDb = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/FinanzmanagerDb",
                             "postgres", "root");
             System.out.println("Opened database successfully");
 
-            stmt = c.createStatement();
+            statementDb = connectionDb.createStatement();
+
             String sql = "CREATE TABLE USERINFO " +
-                    "(Fullname     TEXT        NOT NULL," +
-                    " Username          TEXT     NOT NULL," +
+                    "(Fullname           TEXT     NOT NULL," +
+                    " Username           TEXT     NOT NULL," +
                     " Password           TEXT     NOT NULL)";
-            stmt.executeUpdate(sql);
+            statementDb.executeUpdate(sql);
 
 /*
+
             sql = "INSERT INTO Finanzen (ID,Username,Password) "
                     + "VALUES (1, 'Paul', '54665423' );";
-            stmt.executeUpdate(sql);
+            statementDb.executeUpdate(sql);
 
             sql = "INSERT INTO Finanzen (ID,Username,Password) "
                     + "VALUES (2, 'Max', '123654' );";
-            stmt.executeUpdate(sql);
+            statementDb.executeUpdate(sql);
+
 */
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM USERINFO;");
+            ResultSet rs = statementDb.executeQuery("SELECT * FROM USERINFO;");
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("username");
@@ -49,8 +52,8 @@ class PostgreSQLJDBC {
             rs.close();
 
 
-            stmt.close();
-            c.close();
+            statementDb.close();
+            connectionDb.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);

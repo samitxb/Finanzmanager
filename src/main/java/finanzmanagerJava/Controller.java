@@ -86,6 +86,7 @@ public class Controller {
         primaryStage.setTitle("FINANZMANAGER");
         primaryStage.setScene(new Scene(root, 1082, 726));
         primaryStage.show();
+        getUserCredentials(new ActionEvent());
     }
 
 
@@ -114,6 +115,11 @@ public class Controller {
 
         JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
 
+    }
+
+    public void getUserCredentials(ActionEvent actionEvent)
+    {
+        JavaPostgres.readUserCredentials();
     }
 
 

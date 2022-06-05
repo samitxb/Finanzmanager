@@ -32,15 +32,15 @@ class PostgreSQLJDBC {
                     + "VALUES (2, 'Max', '123654' );";
             //stmt.executeUpdate(sql);
 
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM Finanzen;" );
-            while ( rs.next() ) {
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Finanzen;");
+            while (rs.next()) {
                 int id = rs.getInt("id");
-                String  name = rs.getString("username");
-                int age  = rs.getInt("password");
+                String name = rs.getString("username");
+                int age = rs.getInt("password");
 
-                System.out.println( "ID = " + id );
-                System.out.println( "Username = " + name );
-                System.out.println( "Password= " + age );
+                System.out.println("ID = " + id);
+                System.out.println("Username = " + name);
+                System.out.println("Password= " + age);
 
                 System.out.println();
             }
@@ -49,8 +49,8 @@ class PostgreSQLJDBC {
 
             stmt.close();
             c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         System.out.println("Operation done successfully");

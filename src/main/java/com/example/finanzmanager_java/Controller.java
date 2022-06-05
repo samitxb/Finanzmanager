@@ -24,12 +24,16 @@ public class Controller {
         errortext.setText("Please type in your Username and Password");
     }
 
-
     @FXML
     void closeApp(ActionEvent event) {
         Platform.exit();
         System.exit(0);
     }
 
+    public void getData(ActionEvent actionEvent){
+        System.out.println(loginname.getText());
+        System.out.println(password.getText());
+       // JavaPostgreSQL.writeToDatabase(loginname.getText(), password.getText());
+    }
 
 }

@@ -20,35 +20,35 @@ import java.util.Objects;
 
 public class Controller {
     @FXML
-    private TextField loginname;
+    private TextField loginName;
+    @FXML
+    private PasswordField loginPassword;
+
+
     @FXML
     private MenuItem closeApp;
     @FXML
-    private Label errortext;
+    private Label errorText;
+
 
     @FXML
-    private PasswordField password;
+    private Button loginOkBtn;
+    @FXML
+    private Button quitBtn;
 
     @FXML
-    private Button loginokbtn;
-
+    private TextField registrationName;
     @FXML
-    private Button quitbtn;
-
+    private TextField registrationUserName;
     @FXML
-    private TextField regname;
+    private TextField registrationUserPassword;
 
-    @FXML
-    private TextField regusername;
-
-    @FXML
-    private TextField reqpassword;
 
     //Next Window
     @FXML
     void btnGOClicked(ActionEvent event) throws IOException {
-        errortext.setText("Please type in your Username and Password");
-        Stage stage = (Stage) loginokbtn.getScene().getWindow();
+        errorText.setText("Please type in your Username and Password");
+        Stage stage = (Stage) loginOkBtn.getScene().getWindow();
         stage.close();
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
@@ -69,9 +69,9 @@ public class Controller {
     }
 
     public void getData(ActionEvent actionEvent) {
-        System.out.println(loginname.getText());
-        System.out.println(password.getText());
-        JavaPostgres.writeToDatabase(loginname.getText(), password.getText());
+        System.out.println(loginName.getText());
+        System.out.println(loginPassword.getText());
+        JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
     }
 
 }

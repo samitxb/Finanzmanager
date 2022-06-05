@@ -6,23 +6,25 @@ import java.util.logging.Logger;
 
 public class JavaPostgres {
 
-    public static void writeToDatabase(String userName, String userPassword) {
+    public static void writeToDatabase(String fullName, String userName, String userPassword) {
 
         String url = "jdbc:postgresql://localhost:5432/FinanzmanagerDb";
         String userDatabase = "postgres";
         String passwordDatabase = "root";
 
-        String name = userName;
-        String password = userPassword;
+        String nameOfPerson = fullName;
+        String nameOfUser = userName;
+        String passwordOfUser = userPassword;
 
         // query
-        String query = "INSERT INTO Finanzen( Username, Password) VALUES(?, ?)";
+        String query = "INSERT INTO Finanzen(Fullname ,Username, Password) VALUES(?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
              PreparedStatement pst = con.prepareStatement(query)) {
 
-            pst.setString(1, name);
-            pst.setString(2, password);
+            pst.setString(1, nameOfPerson);
+            pst.setString(2, nameOfUser);
+            pst.setString(3, passwordOfUser);
             pst.executeUpdate();
             System.out.println("Sucessfully created.");
 

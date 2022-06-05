@@ -19,7 +19,8 @@ class PostgreSQLJDBC {
 
             stmt = c.createStatement();
             String sql = "CREATE TABLE FINANZEN " +
-                    "(Username          TEXT     NOT NULL," +
+                    "(Fullname     TEXT        NOT NULL," +
+                    " Username          TEXT     NOT NULL," +
                     " Password           TEXT     NOT NULL)";
             stmt.executeUpdate(sql);
 

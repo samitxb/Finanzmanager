@@ -45,7 +45,7 @@
                         </AnchorPane>
                         <ButtonBar layoutX="868.0" layoutY="659.0" prefHeight="40.0" prefWidth="200.0">
                           <buttons>
-                            <Button fx:id="quitbtn" mnemonicParsing="false" onAction="#quitApp" style="-fx-background-color: #D2B4DE;" text="Quit" />
+                            <Button fx:id="quitBtn" mnemonicParsing="false" onAction="#quitApp" style="-fx-background-color: #D2B4DE;" text="Quit" />
                           </buttons>
                         </ButtonBar>
                      </children></AnchorPane>

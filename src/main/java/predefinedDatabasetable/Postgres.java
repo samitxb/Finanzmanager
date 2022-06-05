@@ -1,4 +1,4 @@
-package com.example.finanzmanager_java;
+package predefinedDatabasetable;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,24 +13,25 @@ class PostgreSQLJDBC {
         try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/Finanzmanager",
+                    .getConnection("jdbc:postgresql://localhost:5432/FinanzmanagerDb",
                             "postgres", "root");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "CREATE TABLE Finanzen " +
-                    "(ID INT PRIMARY KEY     NOT NULL," +
-                    " Username           TEXT    NOT NULL, " +
-                    " Password            INT     NOT NULL)";
-            //stmt.executeUpdate(sql);
+            String sql = "CREATE TABLE FINANZEN " +
+                    "(Username          TEXT     NOT NULL," +
+                    " Password           TEXT     NOT NULL)";
+            stmt.executeUpdate(sql);
 
+/*
             sql = "INSERT INTO Finanzen (ID,Username,Password) "
                     + "VALUES (1, 'Paul', '54665423' );";
-            //stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
 
             sql = "INSERT INTO Finanzen (ID,Username,Password) "
                     + "VALUES (2, 'Max', '123654' );";
-            //stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
+*/
 
             ResultSet rs = stmt.executeQuery("SELECT * FROM Finanzen;");
             while (rs.next()) {

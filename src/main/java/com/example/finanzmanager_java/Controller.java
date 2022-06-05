@@ -33,7 +33,7 @@ public class Controller {
     public void getData(ActionEvent actionEvent){
         System.out.println(loginname.getText());
         System.out.println(password.getText());
-       // JavaPostgreSQL.writeToDatabase(loginname.getText(), password.getText());
+        // JavaPostgreSQL.writeToDatabase(loginname.getText(), password.getText());
     }
 
 }

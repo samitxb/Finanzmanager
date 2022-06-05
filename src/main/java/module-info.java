@@ -9,6 +9,8 @@ module com.example.finanzmanager_java {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires java.sql;
+    requires org.postgresql.jdbc;
 
     opens com.example.finanzmanager_java to javafx.fxml;
     exports com.example.finanzmanager_java;

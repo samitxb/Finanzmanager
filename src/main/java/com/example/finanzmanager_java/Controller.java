@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 
 public class Controller {
@@ -29,6 +30,19 @@ public class Controller {
     private Button loginokbtn;
 
     @FXML
+    private Button quitbtn;
+
+    @FXML
+    private TextField regname;
+
+    @FXML
+    private TextField regusername;
+
+    @FXML
+    private TextField reqpassword;
+
+    //Next Window
+    @FXML
     void btnGOClicked(ActionEvent event) throws IOException {
         errortext.setText("Please type in your Username and Password");
         Stage stage = (Stage) loginokbtn.getScene().getWindow();
@@ -45,7 +59,11 @@ public class Controller {
         Platform.exit();
         System.exit(0);
     }
-
+    @FXML
+    void quitApp(ActionEvent event) {
+        Platform.exit();
+        System.exit(0);
+    }
     public void getData(ActionEvent actionEvent) {
         System.out.println(loginname.getText());
         System.out.println(password.getText());

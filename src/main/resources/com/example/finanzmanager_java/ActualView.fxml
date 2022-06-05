@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="726.0" prefWidth="1082.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finanzmanager_java.Controller">
    <children>
@@ -11,7 +12,36 @@
         <tabs>
           <Tab text="Übersicht">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane layoutX="14.0" layoutY="21.0" prefHeight="655.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
+                           <children>
+                              <Label contentDisplay="TOP" layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Einnahmen" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="369.0" layoutY="21.0" prefHeight="655.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
+                           <children>
+                              <Label layoutX="35.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Ausgaben" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="724.0" layoutY="21.0" prefHeight="655.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
+                           <children>
+                              <Label layoutX="18.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Gesamt Übersicht" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Ausgaben">

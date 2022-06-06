@@ -75,6 +75,45 @@ public class Controller {
 
     //----------------------------------------------------------------
 
+
+    @FXML
+    private MenuButton menubar_zeitspanne_dauerauftrag;
+
+    @FXML
+    private Button quitBtn1;
+
+    @FXML
+    private Button quitBtn11;
+
+    @FXML
+    private Button quitBtn111;
+
+    @FXML
+    private Button quitBtn1111;
+
+    @FXML
+    private Button quitBtn11111;
+
+    @FXML
+    private MenuButton menubar_kategorie_dauerauftrag;
+
+    @FXML
+    private CheckBox dauerauftrag_ausgabe;
+
+    @FXML
+    private TextField dauerauftrag_betrag;
+
+    @FXML
+    private CheckBox dauerauftrag_einnahme;
+
+    @FXML
+    private TextField dauerauftrag_kategorie_text;
+
+    @FXML
+    private TextField dauerauftrag_zeitspanne_text;
+
+    //----------------------------------------------------------------
+
     //Next Window
     @FXML
     void btnGOClicked(ActionEvent event) throws IOException {
@@ -190,5 +229,57 @@ public class Controller {
         einnahmen_kategorie_text.setText("Sonstiges");
     }
 
+    public void kultur_einnahmen(ActionEvent actionEvent) {
+        einnahmen_kategorie_text.setText("Kultur");
+    }
+
     //----------------------------------------------------------------
+    public void essen_dauerauftrag(ActionEvent actionEvent) {
+        dauerauftrag_kategorie_text.setText("Essen");
+    }
+
+    public void auto_dauerauftrag(ActionEvent actionEvent) {
+        dauerauftrag_kategorie_text.setText("Auto");
+    }
+
+    public void bekleidung_dauerauftrag(ActionEvent actionEvent) {
+        dauerauftrag_kategorie_text.setText("Bekleidung");
+    }
+
+    public void beauty_dauerauftrag(ActionEvent actionEvent) {
+        dauerauftrag_kategorie_text.setText("Beauty");
+    }
+
+    public void kultur_dauerauftrag(ActionEvent actionEvent) {
+        dauerauftrag_kategorie_text.setText("Kultur");
+    }
+
+    public void sozialleben_dauerauftrag(ActionEvent actionEvent) {
+        dauerauftrag_kategorie_text.setText("Sozialleben");
+    }
+
+    public void sonstiges_dauerauftrag(ActionEvent actionEvent) {
+        dauerauftrag_kategorie_text.setText("Sonstiges");
+    }
+
+
+    //----------------------------------------------------------------
+    public void taeglich(ActionEvent actionEvent) {
+        dauerauftrag_zeitspanne_text.setText("Täglich");
+    }
+
+    public void woechentlich(ActionEvent actionEvent) {
+        dauerauftrag_zeitspanne_text.setText("Wöchentlich");
+    }
+
+    public void monatlich(ActionEvent actionEvent) {
+        dauerauftrag_zeitspanne_text.setText("Monatlich");
+    }
+
+    public void jaehrlich(ActionEvent actionEvent) {
+        dauerauftrag_zeitspanne_text.setText("Jährlich");
+    }
+    //----------------------------------------------------------------
+
+
 }

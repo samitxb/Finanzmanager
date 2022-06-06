@@ -135,7 +135,7 @@
                               <MenuItem mnemonicParsing="false" onAction="#auto_einnahmen" text="Auto" />
                               <MenuItem mnemonicParsing="false" onAction="#bekleidung_einnahmen" text="Bekleidung" />
                               <MenuItem mnemonicParsing="false" onAction="#beauty_einnahmen" text="Beauty" />
-                              <MenuItem mnemonicParsing="false" onAction="#kultur_ausgaben" text="Kultur" />
+                              <MenuItem mnemonicParsing="false" onAction="#kultur_einnahmen" text="Kultur" />
                               <MenuItem mnemonicParsing="false" onAction="#sozialleben_einnahmen" text="Sozialleben" />
                               <MenuItem mnemonicParsing="false" onAction="#sonstiges_einnahmen" text="Sonstiges" />
                            </items>
@@ -173,13 +173,13 @@
                         <Button layoutX="14.0" layoutY="522.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
                         <MenuButton fx:id="menubar_kategorie_dauerauftrag" layoutX="14.0" layoutY="220.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Kategorie:">
                            <items>
-                              <MenuItem mnemonicParsing="false" onAction="#essen_einnahmen" text="Essen" />
-                              <MenuItem mnemonicParsing="false" onAction="#auto_einnahmen" text="Auto" />
-                              <MenuItem mnemonicParsing="false" onAction="#bekleidung_einnahmen" text="Bekleidung" />
-                              <MenuItem mnemonicParsing="false" onAction="#beauty_einnahmen" text="Beauty" />
-                              <MenuItem mnemonicParsing="false" onAction="#kultur_ausgaben" text="Kultur" />
-                              <MenuItem mnemonicParsing="false" onAction="#sozialleben_einnahmen" text="Sozialleben" />
-                              <MenuItem mnemonicParsing="false" onAction="#sonstiges_einnahmen" text="Sonstiges" />
+                              <MenuItem mnemonicParsing="false" onAction="#essen_dauerauftrag" text="Essen" />
+                              <MenuItem mnemonicParsing="false" onAction="#auto_dauerauftrag" text="Auto" />
+                              <MenuItem mnemonicParsing="false" onAction="#bekleidung_dauerauftrag" text="Bekleidung" />
+                              <MenuItem mnemonicParsing="false" onAction="#beauty_dauerauftrag" text="Beauty" />
+                              <MenuItem mnemonicParsing="false" onAction="#kultur_dauerauftrag" text="Kultur" />
+                              <MenuItem mnemonicParsing="false" onAction="#sozialleben_dauerauftrag" text="Sozialleben" />
+                              <MenuItem mnemonicParsing="false" onAction="#sonstiges_dauerauftrag" text="Sonstiges" />
                            </items>
                         </MenuButton>
                         <TextField fx:id="dauerauftrag_kategorie_text" editable="false" layoutX="15.0" layoutY="257.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
@@ -214,10 +214,10 @@
                         </Label>
                         <MenuButton fx:id="menubar_zeitspanne_dauerauftrag" layoutX="14.0" layoutY="420.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Zeitspanne:">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Täglich" />
-                              <MenuItem mnemonicParsing="false" text="Wöchentlich" />
-                              <MenuItem mnemonicParsing="false" text="Monatlich" />
-                              <MenuItem mnemonicParsing="false" text="Jährlich" />
+                              <MenuItem mnemonicParsing="false" onAction="#taeglich" text="Täglich" />
+                              <MenuItem mnemonicParsing="false" onAction="#woechentlich" text="Wöchentlich" />
+                              <MenuItem mnemonicParsing="false" onAction="#monatlich" text="Monatlich" />
+                              <MenuItem mnemonicParsing="false" onAction="#jaehrlich" text="Jährlich" />
                            </items>
                         </MenuButton>
                         <TextField fx:id="dauerauftrag_zeitspanne_text" editable="false" layoutX="15.0" layoutY="457.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
+
 public class Controller {
 
     //--------------Login Register----------------------------------
@@ -162,10 +163,13 @@ public class Controller {
 
     }
 
+
     public void getUserCredentials(ActionEvent actionEvent)
     {
-        JavaPostgres.readUserCredentials();
+        JavaPostgres.readUserCredentials(loginName.getText(), loginPassword.getText());
     }
+
+
 
 
     //Zeigt die Ausgewählte Kategorie in dem Textfeld darunter an

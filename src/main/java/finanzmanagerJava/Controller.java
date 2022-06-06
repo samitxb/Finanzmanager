@@ -136,9 +136,15 @@ public class Controller {
     }
 
     @FXML
-    void quitApp(ActionEvent event) {
-        Platform.exit();
-        System.exit(0);
+    void quitApp(ActionEvent event) throws IOException {
+        Stage stage = (Stage) quitBtn1.getScene().getWindow();
+        stage.close();
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+        primaryStage.setTitle("User Login");
+        primaryStage.setScene(new Scene(root, 657, 532));
+        primaryStage.show();
+        getUserCredentials(new ActionEvent());
     }
 
     public void setRegistrationData(ActionEvent actionEvent) {

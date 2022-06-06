@@ -80,7 +80,7 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="ausgaben_date" layoutX="14.0" layoutY="297.0" prefHeight="25.0" prefWidth="186.0" />
+                        <DatePicker fx:id="ausgaben_date" layoutX="14.0" layoutY="297.0" prefHeight="25.0" prefWidth="177.0" />
                         <TextField fx:id="ausgaben_kategorie_text" editable="false" layoutX="14.0" layoutY="216.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
                            <font>
                               <Font size="15.0" />
@@ -101,6 +101,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
+                        <Button layoutX="14.0" layoutY="356.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -144,13 +145,14 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="einnahmen_date" layoutX="14.0" layoutY="297.0" prefHeight="25.0" prefWidth="186.0" />
+                        <DatePicker fx:id="einnahmen_date" layoutX="14.0" layoutY="297.0" prefHeight="25.0" prefWidth="177.0" />
                         <TextField fx:id="einnahmen_kategorie_text" editable="false" layoutX="14.0" layoutY="216.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
                         <Button fx:id="quitBtn111" layoutX="998.0" layoutY="658.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
+                        <Button layoutX="14.0" layoutY="356.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
                      </children>
                   </AnchorPane>
                </content>
@@ -159,6 +161,16 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <AnchorPane layoutX="634.0" layoutY="26.0" prefHeight="640.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
+                           <children>
+                              <Label contentDisplay="TOP" layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Daueraufträge" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Button layoutX="14.0" layoutY="522.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
                         <MenuButton fx:id="menubar_kategorie_dauerauftrag" layoutX="14.0" layoutY="220.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Kategorie:">
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#essen_einnahmen" text="Essen" />
@@ -182,13 +194,37 @@
                         </Label>
                         <TextField fx:id="dauerauftrag_betrag" layoutX="14.0" layoutY="128.0" prefHeight="37.0" prefWidth="177.0" />
                         <Button fx:id="quitBtn1111" layoutX="998.0" layoutY="658.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="436.0" text="Neuen Dauerauftrag anlegen:" underline="true">
+                        <Label layoutX="16.0" layoutY="14.0" prefHeight="71.0" prefWidth="436.0" text="Neuen Dauerauftrag anlegen:" underline="true">
                            <font>
                               <Font size="33.0" />
                            </font>
                         </Label>
                         <CheckBox fx:id="dauerauftrag_einnahme" layoutX="14.0" layoutY="183.0" mnemonicParsing="false" text="Einnahme" />
                         <CheckBox fx:id="dauerauftrag_ausgabe" layoutX="103.0" layoutY="183.0" mnemonicParsing="false" text="Ausgabe" />
+                        <Label layoutX="14.0" layoutY="318.0" prefHeight="31.0" prefWidth="63.0" text="Wann?">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <DatePicker layoutX="16.0" layoutY="349.0" />
+                        <Label layoutX="14.0" layoutY="389.0" prefHeight="31.0" prefWidth="79.0" text="Wie oft?">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <MenuButton fx:id="menubar_zeitspanne_dauerauftrag" layoutX="14.0" layoutY="420.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Zeitspanne:">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Täglich" />
+                              <MenuItem mnemonicParsing="false" text="Wöchentlich" />
+                              <MenuItem mnemonicParsing="false" text="Monatlich" />
+                              <MenuItem mnemonicParsing="false" text="Jährlich" />
+                           </items>
+                        </MenuButton>
+                        <TextField fx:id="dauerauftrag_zeitspanne_text" editable="false" layoutX="15.0" layoutY="457.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
                      </children></AnchorPane>
               </content>
             </Tab>

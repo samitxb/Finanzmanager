@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -20,13 +21,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1081.0">
                      <children>
-                        <AnchorPane layoutX="14.0" layoutY="21.0" prefHeight="645.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
+                        <AnchorPane layoutX="14.0" layoutY="21.0" prefHeight="640.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
                            <children>
                               <Label contentDisplay="TOP" layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Einnahmen" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
                               </Label>
+                              <PieChart layoutX="36.0" layoutY="66.0" prefHeight="215.0" prefWidth="265.0" title="Einnahmen" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="369.0" layoutY="21.0" prefHeight="640.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
@@ -36,6 +38,7 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
+                              <PieChart layoutX="40.0" layoutY="66.0" prefHeight="215.0" prefWidth="265.0" title="Ausgaben" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="724.0" layoutY="21.0" prefHeight="638.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
@@ -47,11 +50,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <ButtonBar layoutX="868.0" layoutY="659.0" prefHeight="40.0" prefWidth="200.0">
-                          <buttons>
-                            <Button fx:id="quitBtn" mnemonicParsing="false" onAction="#quitApp" style="-fx-background-color: #D2B4DE;" text="Quit" />
-                          </buttons>
-                        </ButtonBar>
+                        <Button fx:id="quitBtn1" layoutX="997.0" layoutY="661.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -59,13 +58,13 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="59.0" text="Betrag:">
+                        <Label layoutX="14.0" layoutY="97.0" prefHeight="31.0" prefWidth="59.0" text="Betrag:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="ausgaben_betrag" layoutX="14.0" layoutY="45.0" prefHeight="37.0" prefWidth="177.0" />
-                        <MenuButton fx:id="menubar_kategorie_ausgaben" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Kategorie:">
+                        <TextField fx:id="ausgaben_betrag" layoutX="14.0" layoutY="128.0" prefHeight="37.0" prefWidth="177.0" />
+                        <MenuButton fx:id="menubar_kategorie_ausgaben" layoutX="14.0" layoutY="179.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Kategorie:">
                           <items>
                             <MenuItem mnemonicParsing="false" onAction="#essen" text="Essen" />
                             <MenuItem mnemonicParsing="false" onAction="#auto" text="Auto" />
@@ -76,17 +75,32 @@
                               <MenuItem mnemonicParsing="false" onAction="#sonstiges" text="Sonstiges" />
                           </items>
                         </MenuButton>
-                        <Label layoutX="14.0" layoutY="183.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
+                        <Label layoutX="14.0" layoutY="266.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="ausgaben_date" layoutX="14.0" layoutY="214.0" prefHeight="25.0" prefWidth="186.0" />
-                        <TextField fx:id="ausgaben_kategorie_text" editable="false" layoutX="14.0" layoutY="133.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
+                        <DatePicker fx:id="ausgaben_date" layoutX="14.0" layoutY="297.0" prefHeight="25.0" prefWidth="186.0" />
+                        <TextField fx:id="ausgaben_kategorie_text" editable="false" layoutX="14.0" layoutY="216.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
+                        <Button fx:id="quitBtn11" layoutX="998.0" layoutY="658.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="276.0" text="Meine Ausgaben" underline="true">
+                           <font>
+                              <Font size="33.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane layoutX="634.0" layoutY="26.0" prefHeight="640.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Ausgaben" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -94,13 +108,27 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="59.0" text="Betrag:">
+                        <AnchorPane layoutX="634.0" layoutY="26.0" prefHeight="640.0" prefWidth="344.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;">
+                           <children>
+                              <Label contentDisplay="TOP" layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Einnahmen" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="276.0" text="Meine Einnahmen" underline="true">
+                           <font>
+                              <Font size="33.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="97.0" prefHeight="31.0" prefWidth="59.0" text="Betrag:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="einnahmen_betrag" layoutX="14.0" layoutY="45.0" prefHeight="37.0" prefWidth="177.0" />
-                        <MenuButton fx:id="menubar_kategorie_einnahmen" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Kategorie:">
+                        <TextField fx:id="einnahmen_betrag" layoutX="14.0" layoutY="128.0" prefHeight="37.0" prefWidth="177.0" />
+                        <MenuButton fx:id="menubar_kategorie_einnahmen" layoutX="14.0" layoutY="179.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Kategorie:">
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#essen_einnahmen" text="Essen" />
                               <MenuItem mnemonicParsing="false" onAction="#auto_einnahmen" text="Auto" />
@@ -111,29 +139,65 @@
                               <MenuItem mnemonicParsing="false" onAction="#sonstiges_einnahmen" text="Sonstiges" />
                            </items>
                         </MenuButton>
-                        <Label layoutX="14.0" layoutY="183.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
+                        <Label layoutX="14.0" layoutY="266.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="einnahmen_date" layoutX="14.0" layoutY="214.0" prefHeight="25.0" prefWidth="186.0" />
-                        <TextField fx:id="einnahmen_kategorie_text" editable="false" layoutX="14.0" layoutY="133.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
+                        <DatePicker fx:id="einnahmen_date" layoutX="14.0" layoutY="297.0" prefHeight="25.0" prefWidth="186.0" />
+                        <TextField fx:id="einnahmen_kategorie_text" editable="false" layoutX="14.0" layoutY="216.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
+                        <Button fx:id="quitBtn111" layoutX="998.0" layoutY="658.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
             <Tab text="Daueraufträge">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <MenuButton fx:id="menubar_kategorie_dauerauftrag" layoutX="14.0" layoutY="220.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Kategorie:">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#essen_einnahmen" text="Essen" />
+                              <MenuItem mnemonicParsing="false" onAction="#auto_einnahmen" text="Auto" />
+                              <MenuItem mnemonicParsing="false" onAction="#bekleidung_einnahmen" text="Bekleidung" />
+                              <MenuItem mnemonicParsing="false" onAction="#beauty_einnahmen" text="Beauty" />
+                              <MenuItem mnemonicParsing="false" onAction="#kultur_ausgaben" text="Kultur" />
+                              <MenuItem mnemonicParsing="false" onAction="#sozialleben_einnahmen" text="Sozialleben" />
+                              <MenuItem mnemonicParsing="false" onAction="#sonstiges_einnahmen" text="Sonstiges" />
+                           </items>
+                        </MenuButton>
+                        <TextField fx:id="dauerauftrag_kategorie_text" editable="false" layoutX="15.0" layoutY="257.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="14.0" layoutY="97.0" prefHeight="31.0" prefWidth="59.0" text="Betrag:">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="dauerauftrag_betrag" layoutX="14.0" layoutY="128.0" prefHeight="37.0" prefWidth="177.0" />
+                        <Button fx:id="quitBtn1111" layoutX="998.0" layoutY="658.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="436.0" text="Neuen Dauerauftrag anlegen:" underline="true">
+                           <font>
+                              <Font size="33.0" />
+                           </font>
+                        </Label>
+                        <CheckBox fx:id="dauerauftrag_einnahme" layoutX="14.0" layoutY="183.0" mnemonicParsing="false" text="Einnahme" />
+                        <CheckBox fx:id="dauerauftrag_ausgabe" layoutX="103.0" layoutY="183.0" mnemonicParsing="false" text="Ausgabe" />
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab text="Export">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="quitBtn11111" layoutX="998.0" layoutY="658.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>

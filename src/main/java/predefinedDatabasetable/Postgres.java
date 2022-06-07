@@ -20,7 +20,8 @@ class PostgreSQLJDBC {
             statementDb = connectionDb.createStatement();
 
             String sql = "CREATE TABLE USERINFO " +
-                    "(Fullname           TEXT     NOT NULL," +
+                    "(UserID             INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY ,"+
+                    " Fullname           TEXT     NOT NULL," +
                     " Username           TEXT     NOT NULL," +
                     " Password           TEXT     NOT NULL)";
             statementDb.executeUpdate(sql);

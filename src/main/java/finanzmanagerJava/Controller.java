@@ -8,11 +8,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import modelClasses.UserInfo;
+import org.postgresql.jdbc.PgDatabaseMetaData;
 
 
 import java.io.IOException;
+import java.net.ConnectException;
+import java.sql.*;
 import java.util.Objects;
 
+import static finanzmanagerJava.JavaPostgres.*;
 
 
 public class Controller {
@@ -117,7 +122,7 @@ public class Controller {
 
     //Next Window
     @FXML
-    void btnGOClicked(ActionEvent event) throws IOException {
+    void btnGOClicked(ActionEvent event) throws IOException{
         errorText.setText("Please type in your Username and Password");
         Stage stage = (Stage) loginOkBtn.getScene().getWindow();
         stage.close();
@@ -126,8 +131,9 @@ public class Controller {
         primaryStage.setTitle("FINANZMANAGER");
         primaryStage.setScene(new Scene(root, 1082, 726));
         primaryStage.show();
-        getUserCredentials(new ActionEvent());
+        loginOnAction(new ActionEvent());
     }
+
 
 
     @FXML
@@ -145,7 +151,6 @@ public class Controller {
         primaryStage.setTitle("User Login");
         primaryStage.setScene(new Scene(root, 657, 532));
         primaryStage.show();
-        getUserCredentials(new ActionEvent());
     }
 
     public void setRegistrationData(ActionEvent actionEvent) {
@@ -160,13 +165,72 @@ public class Controller {
         } else regsuccsessfulllabel.setText("Registered Successfully!!");
 
         JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
+    }
+
+
+
+    public void loginOnAction(ActionEvent e){
+
+
+        if(!loginName.getText().isBlank() && !loginPassword.getText().isBlank())
+        {
+            System.out.println("Login...");
+            validateUserLogin();
+        }
+        else
+        {
+            System.out.println("Enter login data");
+        }
+
 
     }
 
 
-    public void getUserCredentials(ActionEvent actionEvent)
+
+    public void validateUserLogin()
     {
-        JavaPostgres.readUserCredentials(loginName.getText(), loginPassword.getText());
+
+
+        PreparedStatement preparedStatement;
+        ResultSet rs;
+
+        try
+        {
+            JavaPostgres connectNow = new JavaPostgres();
+            Connection conDb = connectNow.getConnection();
+            preparedStatement = conDb.prepareStatement("SELECT password FROM Userinfo WHERE username = ?");
+            preparedStatement.setString(1, loginName.getText());
+            rs = preparedStatement.executeQuery();
+
+
+
+            Statement statement = conDb.createStatement();
+            System.out.println("TEST!°°°°°°°°°°");
+
+            while (rs.next())
+            {
+
+
+                String fetchPassword = rs.getString("password");
+
+                System.out.println(fetchPassword);
+
+                if(fetchPassword.equals(loginPassword.getText()) )
+                {
+                    System.out.println("Login success");
+                }
+                else
+                {
+                    System.out.println("Login failed");
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 

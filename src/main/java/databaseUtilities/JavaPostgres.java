@@ -1,21 +1,15 @@
-package finanzmanagerJava;
+package databaseUtilities;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import org.postgresql.plugin.AuthenticationPlugin;
-import org.postgresql.plugin.AuthenticationRequestType;
-
-import javax.security.auth.AuthPermission;
-import javax.security.auth.spi.LoginModule;
-import java.net.Authenticator;
-import finanzmanagerJava.Controller;
-import modelClasses.UserInfo;
 
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JavaPostgres {
+
+
+
 
     public Connection databaseConnectionLink;
 
@@ -39,8 +33,14 @@ public class JavaPostgres {
     }
 
 
-    public static void writeToDatabase(String fullName, String userName, String userPassword) {
 
+
+
+
+
+
+    public static void writeToDatabase(String fullName, String userName, String userPassword)
+    {
         String url = "jdbc:postgresql://localhost:5432/FinanzmanagerDb";
         String userDatabase = "postgres";
         String passwordDatabase = "root";
@@ -48,7 +48,8 @@ public class JavaPostgres {
         PreparedStatement psCheckUser;
 
         // query
-        String query = "INSERT INTO USERINFO(Fullname ,Username, Password) VALUES(?, ?, ?)";
+        String query = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt) VALUES(?, ?, ?, ?)";
+
 
         try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
              PreparedStatement pst = con.prepareStatement(query))
@@ -66,9 +67,20 @@ public class JavaPostgres {
             }
             else
             {
+
+                // Generate Salt. The generated value can be stored in DB.
+                String salt = passwordEncryption.getSalt(30);
+
+                // Protect user's password. The generated value can be stored in DB.
+                userPassword = passwordEncryption.generateSecurePassword(userPassword, salt);
+
+                System.out.println("My secure password = " + userPassword);
+                System.out.println("Salt value = " + salt);
+
                 pst.setString(1, fullName);
                 pst.setString(2, userName);
                 pst.setString(3, userPassword);
+                pst.setString(4, salt);
                 pst.executeUpdate();
                 System.out.println("Sucessfully created.");
             }

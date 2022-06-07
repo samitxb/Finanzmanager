@@ -1,5 +1,7 @@
 package finanzmanagerJava;
 
+import databaseUtilities.JavaPostgres;
+import databaseUtilities.passwordEncryption;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,16 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import modelClasses.UserInfo;
-import org.postgresql.jdbc.PgDatabaseMetaData;
-
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.sql.*;
 import java.util.Objects;
-
-import static finanzmanagerJava.JavaPostgres.*;
 
 
 public class Controller {
@@ -153,7 +149,7 @@ public class Controller {
         primaryStage.show();
     }
 
-    public void setRegistrationData(ActionEvent actionEvent) {
+    public void setRegistrationData(ActionEvent actionEvent){
         System.out.println(registrationUserName.getText());
         System.out.println(registrationUserPassword.getText());
 
@@ -198,24 +194,30 @@ public class Controller {
         {
             JavaPostgres connectNow = new JavaPostgres();
             Connection conDb = connectNow.getConnection();
-            preparedStatement = conDb.prepareStatement("SELECT password FROM Userinfo WHERE username = ?");
+            preparedStatement = conDb.prepareStatement("SELECT password, passwordsalt FROM Userinfo WHERE username = ?");
             preparedStatement.setString(1, loginName.getText());
             rs = preparedStatement.executeQuery();
 
 
 
             Statement statement = conDb.createStatement();
-            System.out.println("TEST!°°°°°°°°°°");
 
             while (rs.next())
             {
+                // User provided password to validate
+                String providedPassword =  loginPassword.getText();
+
+                // Encrypted and Base64 encoded password read from database
+                String securePassword = rs.getString("password");
+
+                // Salt value stored in database
+                String salt = rs.getString("passwordsalt");
+
+                boolean passwordMatch = passwordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
 
 
-                String fetchPassword = rs.getString("password");
 
-                System.out.println(fetchPassword);
-
-                if(fetchPassword.equals(loginPassword.getText()) )
+                if(passwordMatch)
                 {
                     System.out.println("Login success");
                 }

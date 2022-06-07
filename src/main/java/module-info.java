@@ -14,4 +14,6 @@ module com.example.finanzmanager_java {
 
     opens finanzmanagerJava to javafx.fxml;
     exports finanzmanagerJava;
+    exports databaseUtilities;
+    opens databaseUtilities to javafx.fxml;
 }

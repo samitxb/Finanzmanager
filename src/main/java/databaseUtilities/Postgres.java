@@ -1,4 +1,4 @@
-package predefinedDatabasetable;
+package databaseUtilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,7 +23,8 @@ class PostgreSQLJDBC {
                     "(UserID             INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY ,"+
                     " Fullname           TEXT     NOT NULL," +
                     " Username           TEXT     NOT NULL," +
-                    " Password           TEXT     NOT NULL)";
+                    " Password           TEXT     NOT NULL," +
+                    " PasswordSalt       TEXT     NOT NULL)";
             statementDb.executeUpdate(sql);
 
 /*

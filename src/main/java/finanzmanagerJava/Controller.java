@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.*;
 import java.util.Objects;
@@ -150,6 +149,7 @@ public class Controller {
     }
 
     public void setRegistrationData(ActionEvent actionEvent){
+
         System.out.println(registrationUserName.getText());
         System.out.println(registrationUserPassword.getText());
 

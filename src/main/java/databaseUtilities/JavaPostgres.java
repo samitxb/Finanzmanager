@@ -6,23 +6,51 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/**
+ * JavaPostgres-Klasse zur Anbindung an die Datenbank FinanzmanagerDb.
+ * Enthält die Klasse getConnection() zum Verbindungsaufbau mit der Datenbank,
+ * sowie die Klasse writetoDatabase() die für die Übergabe von Eingabedaten des
+ * Nutzers zuständig ist. Umfasst die Logindaten der Nutzer
+ * @author Michael
+ * @version 1.0.0
+ *
+ */
+
+
+
 public class JavaPostgres {
 
 
+    /** Datenbankverbindungsklasse getConnection()
+     *  Nutzt globale Variablen als Referenz für eine Datenbank in PostgreSQL
+     *  Die Datenbank verbindet sich per PostgreSQL-driver mit lokalhost.
+     *
+     *
+     *
+     */
 
 
+    // Url der Datenbank FinanzmanagerDb
+    static String url = "jdbc:postgresql://localhost:5432/FinanzmanagerDb";
+
+    // Name für Admin der Datenbank
+    static String userDatabase = "postgres";
+
+    // Passwort für Zugriff der Datenbank
+    static String passwordDatabase = "root";
+
+    // Globale Variable databaseConnectionLink stellt Verbindungsinformationen bereit
     public Connection databaseConnectionLink;
+
+
 
     public Connection getConnection() {
 
-        String databaseName = "FinanzmanagerDb";
-        String url = "jdbc:postgresql://localhost:5432/" + databaseName;
-        String databaseUserName = "postgres";
-        String databasePassword = "root";
 
         try {
             Class.forName("org.postgresql.Driver");
-            databaseConnectionLink = DriverManager.getConnection(url, databaseUserName, databasePassword);
+            databaseConnectionLink = DriverManager.getConnection(url, userDatabase, passwordDatabase);
             System.out.println("Successfully Connected.");
 
         } catch (Exception e) {
@@ -36,18 +64,24 @@ public class JavaPostgres {
 
 
 
-
+    /** Datenbankeinträge speichern writeToDatabase()
+     *
+     *  Baut eine Verbindung zur Datenbank auf
+     *  Speichert mit lokalem String query die Daten zur Nutzerregistrierung in die Tabelle userinfo
+     *  Stellt die Daten als Login bereit
+     *
+     *
+     */
 
 
     public static void writeToDatabase(String fullName, String userName, String userPassword)
     {
-        String url = "jdbc:postgresql://localhost:5432/FinanzmanagerDb";
-        String userDatabase = "postgres";
-        String passwordDatabase = "root";
+
+
         ResultSet resultSet;
         PreparedStatement psCheckUser;
 
-        // query
+
         String query = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt) VALUES(?, ?, ?, ?)";
 
 
@@ -58,33 +92,37 @@ public class JavaPostgres {
             psCheckUser.setString(1, userName);
             resultSet = psCheckUser.executeQuery();
 
+
+            // Checkt, ob die eingegebenen Registrierungsdaten in der Datenbank vorhanden sind
             if(resultSet.isBeforeFirst())
             {
                 System.out.println("Nutzername vergeben");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Nutzername vergeben! Bitte anderen Nutzernamen wählen.");
+
+                // Wirft Fenster mit Fehlermeldung aus
                 alert.show();
             }
+
+
             else
             {
-
-                // Generate Salt. The generated value can be stored in DB.
+                // Generiert mit dem String salt ein Sicherheitspasswort
                 String salt = passwordEncryption.getSalt(30);
 
-                // Protect user's password. The generated value can be stored in DB.
                 userPassword = passwordEncryption.generateSecurePassword(userPassword, salt);
 
-                System.out.println("My secure password = " + userPassword);
-                System.out.println("Salt value = " + salt);
 
+
+                // Aktualisiert in der Tabelle userinfo die Einträge fullName, userName, userPassword und salt
                 pst.setString(1, fullName);
                 pst.setString(2, userName);
                 pst.setString(3, userPassword);
                 pst.setString(4, salt);
                 pst.executeUpdate();
-                System.out.println("Sucessfully created.");
             }
 
+            // Wirft Fehlermeldung bei fehlgeschlagener Datenbankverbindung aus
         } catch (SQLException ex) {
 
             Logger lgr = Logger.getLogger(JavaPostgres.class.getName());

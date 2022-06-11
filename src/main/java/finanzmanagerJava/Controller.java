@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.Objects;
@@ -118,6 +120,7 @@ public class Controller {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
         primaryStage.setTitle("FINANZMANAGER");
         primaryStage.setScene(new Scene(root, 1082, 726));
+        //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
         loginOnAction(new ActionEvent());
     }

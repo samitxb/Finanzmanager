@@ -30,8 +30,7 @@ public class Controller {
 
     @FXML
     private Button loginOkBtn;
-    @FXML
-    private Button quitBtn;
+
     //---------------------------------------------------------------
 
 
@@ -49,69 +48,63 @@ public class Controller {
 
     //-----------------Ausgaben Reiter--------------------------------
     @FXML
-    private TextField ausgaben_betrag;
+    private TextField ausgabenBetrag;
 
     @FXML
-    private DatePicker ausgaben_date;
+    private DatePicker ausgabenDate;
 
     @FXML
-    private TextField ausgaben_kategorie_text;
+    private TextField ausgabenKategorieText;
 
     @FXML
-    private MenuButton menubar_kategorie_ausgaben;
+    private MenuButton menubarKategorieAusgaben;
 
     //----------------------------------------------------------------
 
 
     //-----------------Einnahmen Reiter--------------------------------
     @FXML
-    private TextField einnahmen_betrag;
+    private TextField einnahmenBetrag;
 
     @FXML
-    private DatePicker einnahmen_date;
+    private DatePicker einnahmenDate;
     @FXML
-    private TextField einnahmen_kategorie_text;
+    private TextField einnahmenKategorieText;
     @FXML
-    private MenuButton menubar_kategorie_einnahmen;
+    private MenuButton menubarKategorieEinnahmen;
 
     //----------------------------------------------------------------
 
+    //--------------------Daueraufträge ------------------------------
+    @FXML
+    private MenuButton menubarZeitspanneDauerauftrag;
 
     @FXML
-    private MenuButton menubar_zeitspanne_dauerauftrag;
+    private MenuButton menubarKategorieDauerauftrag;
 
     @FXML
-    private Button quitBtn1;
+    private CheckBox dauerauftragAusgabe;
 
     @FXML
-    private Button quitBtn11;
+    private TextField dauerauftragBetrag;
 
     @FXML
-    private Button quitBtn111;
+    private CheckBox dauerauftragEinnahme;
 
     @FXML
-    private Button quitBtn1111;
+    private TextField dauerauftragKategorieText;
 
     @FXML
-    private Button quitBtn11111;
+    private TextField dauerauftragZeitspanneText;
 
     @FXML
-    private MenuButton menubar_kategorie_dauerauftrag;
+    private DatePicker dauerauftragDate;
+
+    //----------------------------------------------------------------
 
     @FXML
-    private CheckBox dauerauftrag_ausgabe;
+    private Button quitBtn;
 
-    @FXML
-    private TextField dauerauftrag_betrag;
-
-    @FXML
-    private CheckBox dauerauftrag_einnahme;
-
-    @FXML
-    private TextField dauerauftrag_kategorie_text;
-
-    @FXML
-    private TextField dauerauftrag_zeitspanne_text;
 
     //----------------------------------------------------------------
 
@@ -139,7 +132,7 @@ public class Controller {
 
     @FXML
     void quitApp(ActionEvent event) throws IOException {
-        Stage stage = (Stage) quitBtn1.getScene().getWindow();
+        Stage stage = (Stage) quitBtn.getScene().getWindow();
         stage.close();
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
@@ -241,121 +234,125 @@ public class Controller {
     //Zeigt die Ausgewählte Kategorie in dem Textfeld darunter an
     @FXML
     public void sonstiges(ActionEvent actionEvent) {
-        ausgaben_kategorie_text.setText("Sonstiges");
+        ausgabenKategorieText.setText("Sonstiges");
     }
 
     @FXML
     public void sozialleben(ActionEvent actionEvent) {
-        ausgaben_kategorie_text.setText("Sozialleben");
+        ausgabenKategorieText.setText("Sozialleben");
     }
 
     @FXML
     public void kultur(ActionEvent actionEvent) {
-        ausgaben_kategorie_text.setText("Kultur");
+        ausgabenKategorieText.setText("Kultur");
     }
 
     @FXML
     public void beauty(ActionEvent actionEvent) {
-        ausgaben_kategorie_text.setText("Beauty");
+        ausgabenKategorieText.setText("Beauty");
     }
 
     @FXML
     public void bekleidung(ActionEvent actionEvent) {
-        ausgaben_kategorie_text.setText("Bekleidung");
+        ausgabenKategorieText.setText("Bekleidung");
     }
 
     @FXML
     public void auto(ActionEvent actionEvent) {
-        ausgaben_kategorie_text.setText("Auto");
+        ausgabenKategorieText.setText("Auto");
     }
 
     @FXML
     public void essen(ActionEvent actionEvent) {
-        ausgaben_kategorie_text.setText("Essen");
+        ausgabenKategorieText.setText("Essen");
     }
     //----------------------------------------------------------------
 
 
     //Zeigt die Ausgewählte Kategorie in dem Textfeld der Einnahmen darunter an
     public void essen_einnahmen(ActionEvent actionEvent) {
-        einnahmen_kategorie_text.setText("Essen");
+        einnahmenKategorieText.setText("Essen");
     }
 
     public void auto_einnahmen(ActionEvent actionEvent) {
-        einnahmen_kategorie_text.setText("Auto");
+        einnahmenKategorieText.setText("Auto");
     }
 
     public void bekleidung_einnahmen(ActionEvent actionEvent) {
-        einnahmen_kategorie_text.setText("Bekleidung");
+        einnahmenKategorieText.setText("Bekleidung");
     }
 
     public void beauty_einnahmen(ActionEvent actionEvent) {
-        einnahmen_kategorie_text.setText("Beauty");
+        einnahmenKategorieText.setText("Beauty");
     }
 
     public void kultur_ausgaben(ActionEvent actionEvent) {
-        einnahmen_kategorie_text.setText("Kultur");
+        einnahmenKategorieText.setText("Kultur");
     }
 
     public void sozialleben_einnahmen(ActionEvent actionEvent) {
-        einnahmen_kategorie_text.setText("Sozialleben");
+        einnahmenKategorieText.setText("Sozialleben");
     }
 
     public void sonstiges_einnahmen(ActionEvent actionEvent) {
-        einnahmen_kategorie_text.setText("Sonstiges");
+        einnahmenKategorieText.setText("Sonstiges");
     }
 
     public void kultur_einnahmen(ActionEvent actionEvent) {
-        einnahmen_kategorie_text.setText("Kultur");
+        einnahmenKategorieText.setText("Kultur");
     }
 
     //----------------------------------------------------------------
     public void essen_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftrag_kategorie_text.setText("Essen");
+        dauerauftragKategorieText.setText("Essen");
     }
 
     public void auto_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftrag_kategorie_text.setText("Auto");
+        dauerauftragKategorieText.setText("Auto");
     }
 
     public void bekleidung_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftrag_kategorie_text.setText("Bekleidung");
+        dauerauftragKategorieText.setText("Bekleidung");
     }
 
     public void beauty_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftrag_kategorie_text.setText("Beauty");
+        dauerauftragKategorieText.setText("Beauty");
     }
 
     public void kultur_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftrag_kategorie_text.setText("Kultur");
+        dauerauftragKategorieText.setText("Kultur");
     }
 
     public void sozialleben_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftrag_kategorie_text.setText("Sozialleben");
+        dauerauftragKategorieText.setText("Sozialleben");
     }
 
     public void sonstiges_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftrag_kategorie_text.setText("Sonstiges");
+        dauerauftragKategorieText.setText("Sonstiges");
     }
+
+
 
 
     //----------------------------------------------------------------
     public void taeglich(ActionEvent actionEvent) {
-        dauerauftrag_zeitspanne_text.setText("Täglich");
+        dauerauftragZeitspanneText.setText("Täglich");
     }
 
     public void woechentlich(ActionEvent actionEvent) {
-        dauerauftrag_zeitspanne_text.setText("Wöchentlich");
+        dauerauftragZeitspanneText.setText("Wöchentlich");
     }
 
     public void monatlich(ActionEvent actionEvent) {
-        dauerauftrag_zeitspanne_text.setText("Monatlich");
+        dauerauftragZeitspanneText.setText("Monatlich");
     }
 
     public void jaehrlich(ActionEvent actionEvent) {
-        dauerauftrag_zeitspanne_text.setText("Jährlich");
+        dauerauftragZeitspanneText.setText("Jährlich");
     }
     //----------------------------------------------------------------
+
+
 
 
 }

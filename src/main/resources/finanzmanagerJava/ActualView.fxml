@@ -51,7 +51,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <Button fx:id="quitBtn" layoutX="999.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
+                        <Button fx:id="quitBtn" layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -76,19 +76,19 @@
                               <MenuItem mnemonicParsing="false" onAction="#sonstiges" text="Sonstiges" />
                           </items>
                         </MenuButton>
-                        <Label layoutX="14.0" layoutY="266.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
+                        <Label layoutX="14.0" layoutY="325.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="ausgabenDate" layoutX="14.0" layoutY="297.0" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #383838;" />
+                        <DatePicker fx:id="ausgabenDate" layoutX="14.0" layoutY="356.0" prefHeight="25.0" prefWidth="177.0" />
                         <TextField fx:id="ausgabenKategorieText" editable="false" layoutX="14.0" layoutY="216.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Button layoutX="998.0" layoutY="629.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="276.0" text="Meine Ausgaben" underline="true">
+                        <Button layoutX="998.0" layoutY="629.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="276.0" styleClass="label-header" text="Meine Ausgaben" underline="true">
                            <font>
                               <Font size="33.0" />
                            </font>
@@ -102,7 +102,13 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <Button layoutX="14.0" layoutY="356.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
+                        <Button layoutX="14.0" layoutY="415.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
+                        <Label layoutX="14.0" layoutY="255.0" prefHeight="31.0" prefWidth="100.0" text="Bezeichnung:">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="ausgabenBezeichnung" layoutX="14.0" layoutY="286.0" prefHeight="37.0" prefWidth="177.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -119,7 +125,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="276.0" text="Meine Einnahmen" underline="true">
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="276.0" styleClass="label-header" text="Meine Einnahmen" underline="true">
                            <font>
                               <Font size="33.0" />
                            </font>
@@ -141,19 +147,25 @@
                               <MenuItem mnemonicParsing="false" onAction="#sonstiges_einnahmen" text="Sonstiges" />
                            </items>
                         </MenuButton>
-                        <Label layoutX="14.0" layoutY="266.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
+                        <Label layoutX="14.0" layoutY="325.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="einnahmenDate" layoutX="14.0" layoutY="297.0" prefHeight="25.0" prefWidth="177.0" />
+                        <DatePicker fx:id="einnahmenDate" layoutX="14.0" layoutY="356.0" prefHeight="25.0" prefWidth="177.0" />
                         <TextField fx:id="einnahmenKategorieText" editable="false" layoutX="14.0" layoutY="216.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
-                        <Button layoutX="14.0" layoutY="356.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
+                        <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
+                        <Button layoutX="14.0" layoutY="415.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
+                        <Label layoutX="14.0" layoutY="255.0" prefHeight="31.0" prefWidth="97.0" text="Bezeichnung:">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="einnahmenBezeichnung" layoutX="14.0" layoutY="286.0" prefHeight="37.0" prefWidth="177.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -162,7 +174,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane layoutX="634.0" layoutY="12.0" prefHeight="607.0" prefWidth="344.0" style="-fx-background-color: #383838; -fx-background-radius: 10;">
+                        <AnchorPane layoutX="643.0" layoutY="11.0" prefHeight="607.0" prefWidth="344.0" style="-fx-background-color: #383838; -fx-background-radius: 10;">
                            <children>
                               <Label contentDisplay="TOP" layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Daueraufträge" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
                                  <font>
@@ -171,49 +183,34 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <Button layoutX="14.0" layoutY="522.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
-                        <MenuButton fx:id="menubarKategorieDauerauftrag" layoutX="14.0" layoutY="220.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Kategorie:">
-                           <items>
-                              <MenuItem mnemonicParsing="false" onAction="#essen_dauerauftrag" text="Essen" />
-                              <MenuItem mnemonicParsing="false" onAction="#auto_dauerauftrag" text="Auto" />
-                              <MenuItem mnemonicParsing="false" onAction="#bekleidung_dauerauftrag" text="Bekleidung" />
-                              <MenuItem mnemonicParsing="false" onAction="#beauty_dauerauftrag" text="Beauty" />
-                              <MenuItem mnemonicParsing="false" onAction="#kultur_dauerauftrag" text="Kultur" />
-                              <MenuItem mnemonicParsing="false" onAction="#sozialleben_dauerauftrag" text="Sozialleben" />
-                              <MenuItem mnemonicParsing="false" onAction="#sonstiges_dauerauftrag" text="Sonstiges" />
-                           </items>
-                        </MenuButton>
-                        <TextField fx:id="dauerauftragKategorieText" editable="false" layoutX="15.0" layoutY="257.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </TextField>
+                        <Button layoutX="14.0" layoutY="475.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
+                        <TextField fx:id="dauerauftragBezeichnung" layoutX="14.0" layoutY="237.0" prefHeight="37.0" prefWidth="177.0" />
                         <Label layoutX="14.0" layoutY="97.0" prefHeight="31.0" prefWidth="59.0" text="Betrag:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
                         <TextField fx:id="dauerauftragBetrag" layoutX="14.0" layoutY="128.0" prefHeight="37.0" prefWidth="177.0" />
-                        <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
-                        <Label layoutX="16.0" layoutY="14.0" prefHeight="71.0" prefWidth="436.0" text="Neuen Dauerauftrag anlegen:" underline="true">
+                        <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
+                        <Label layoutX="16.0" layoutY="14.0" prefHeight="71.0" prefWidth="436.0" styleClass="label-header" text="Neuen Dauerauftrag anlegen:" underline="true">
                            <font>
                               <Font size="33.0" />
                            </font>
                         </Label>
                         <CheckBox fx:id="dauerauftragEinnahme" layoutX="14.0" layoutY="183.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="94.0" text="Einnahme" />
-                        <CheckBox fx:id="dauerauftragAusgabe" layoutX="118.0" layoutY="183.0" mnemonicParsing="false" text="Ausgabe" />
-                        <Label layoutX="14.0" layoutY="318.0" prefHeight="31.0" prefWidth="63.0" text="Wann?">
+                        <CheckBox fx:id="dauerauftragAusgabe" layoutX="111.0" layoutY="183.0" mnemonicParsing="false" text="Ausgabe" />
+                        <Label layoutX="13.0" layoutY="276.0" prefHeight="31.0" prefWidth="63.0" text="Wann?">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dauerauftragDate" layoutX="16.0" layoutY="349.0" prefHeight="35.0" prefWidth="177.0" />
-                        <Label layoutX="14.0" layoutY="389.0" prefHeight="31.0" prefWidth="79.0" text="Wie oft?">
+                        <DatePicker fx:id="dauerauftragDate" layoutX="15.0" layoutY="307.0" prefHeight="35.0" prefWidth="177.0" />
+                        <Label layoutX="15.0" layoutY="344.0" prefHeight="31.0" prefWidth="79.0" text="Wie oft?">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <MenuButton fx:id="menubarZeitspanneDauerauftrag" layoutX="14.0" layoutY="420.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Zeitspanne:">
+                        <MenuButton fx:id="menubarZeitspanneDauerauftrag" layoutX="15.0" layoutY="375.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="177.0" text="Zeitspanne:">
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#taeglich" text="Täglich" />
                               <MenuItem mnemonicParsing="false" onAction="#woechentlich" text="Wöchentlich" />
@@ -221,11 +218,16 @@
                               <MenuItem mnemonicParsing="false" onAction="#jaehrlich" text="Jährlich" />
                            </items>
                         </MenuButton>
-                        <TextField fx:id="dauerauftragZeitspanneText" editable="false" layoutX="15.0" layoutY="457.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
+                        <TextField fx:id="dauerauftragZeitspanneText" editable="false" layoutX="16.0" layoutY="412.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
+                        <Label layoutX="15.0" layoutY="206.0" prefHeight="31.0" prefWidth="96.0" text="Bezeichnung:">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -239,8 +241,8 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" style="-fx-background-color: #D2B4DE;" text="Quit" />
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="110.0" text="Export" underline="true">
+                        <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="110.0" styleClass="label-header" text="Export" underline="true">
                            <font>
                               <Font size="33.0" />
                            </font>

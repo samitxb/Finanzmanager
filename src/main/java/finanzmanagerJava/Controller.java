@@ -61,6 +61,9 @@ public class Controller {
     @FXML
     private MenuButton menubarKategorieAusgaben;
 
+    @FXML
+    private TextField ausgabenBezeichnung;
+
     //----------------------------------------------------------------
 
 
@@ -75,6 +78,9 @@ public class Controller {
     @FXML
     private MenuButton menubarKategorieEinnahmen;
 
+    @FXML
+    private TextField einnahmenBezeichnung;
+
     //----------------------------------------------------------------
 
     //--------------------Daueraufträge ------------------------------
@@ -82,8 +88,7 @@ public class Controller {
     private MenuButton menubarZeitspanneDauerauftrag;
 
     @FXML
-    private MenuButton menubarKategorieDauerauftrag;
-
+    private TextField dauerauftragBezeichnung;
     @FXML
     private CheckBox dauerauftragAusgabe;
 
@@ -93,8 +98,6 @@ public class Controller {
     @FXML
     private CheckBox dauerauftragEinnahme;
 
-    @FXML
-    private TextField dauerauftragKategorieText;
 
     @FXML
     private TextField dauerauftragZeitspanneText;
@@ -303,35 +306,6 @@ public class Controller {
 
     public void kultur_einnahmen(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Kultur");
-    }
-
-    //----------------------------------------------------------------
-    public void essen_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftragKategorieText.setText("Essen");
-    }
-
-    public void auto_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftragKategorieText.setText("Auto");
-    }
-
-    public void bekleidung_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftragKategorieText.setText("Bekleidung");
-    }
-
-    public void beauty_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftragKategorieText.setText("Beauty");
-    }
-
-    public void kultur_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftragKategorieText.setText("Kultur");
-    }
-
-    public void sozialleben_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftragKategorieText.setText("Sozialleben");
-    }
-
-    public void sonstiges_dauerauftrag(ActionEvent actionEvent) {
-        dauerauftragKategorieText.setText("Sonstiges");
     }
 
 

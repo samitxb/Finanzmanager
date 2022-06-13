@@ -18,7 +18,7 @@
 
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 26pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 1;
@@ -102,7 +102,7 @@
 }
 
 .check-box{
-    -fx-font-size: 11pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
     -fx-opacity: 1.0;
@@ -142,6 +142,11 @@
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button-quit {
+    -fx-background-color: #383838;
+    -fx-border-color: #1d1d1d;
 }
 
 .button:hover {
@@ -224,7 +229,7 @@
 }
 
 .menu-item:focused {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #383838;
 }
 
 .menu-item:focused .label {
@@ -232,11 +237,9 @@
 }
 
 .context-menu {
-    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #383838;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
-    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
     -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
 }
 

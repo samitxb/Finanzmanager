@@ -6,7 +6,7 @@
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
-    -fx-opacity: 0.6;
+    -fx-opacity: 1.0;
 }
 
 .label-bright {
@@ -105,7 +105,7 @@
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
-    -fx-opacity: 0.6;
+    -fx-opacity: 1.0;
 }
 
 .choice-box {
@@ -213,18 +213,18 @@
 /* Test for MenuButton */
 
 .menu-button {
-    -fx-background-color:#1d1d1d;
+    -fx-background-color: #383838;
 }
 
 .menu-button .label {
-    -fx-background-color:#1d1d1d; }
+    -fx-background-color: #383838; }
 
 .menu-item .label {
     -fx-text-fill: white;
 }
 
 .menu-item:focused {
-    -fx-background-color: darkgray;
+    -fx-background-color: #1d1d1d;
 }
 
 .menu-item:focused .label {

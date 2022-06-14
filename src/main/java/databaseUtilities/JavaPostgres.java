@@ -6,14 +6,17 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static databaseUtilities.Postgres.*;
+
 
 /**
  * JavaPostgres-Klasse zur Anbindung an die Datenbank FinanzmanagerDb.
  * Enthält die Klasse getConnection() zum Verbindungsaufbau mit der Datenbank,
  * sowie die Klasse writetoDatabase() die für die Übergabe von Eingabedaten des
  * Nutzers zuständig ist. Umfasst die Logindaten der Nutzer
+ *
  * @author Michael
- * @version 1.0.0
+ * @version 1.0.1
  *
  */
 
@@ -24,25 +27,14 @@ public class JavaPostgres {
 
     /** Datenbankverbindungsklasse getConnection()
      *  Nutzt globale Variablen als Referenz für eine Datenbank in PostgreSQL
-     *  Die Datenbank verbindet sich per PostgreSQL-driver mit lokalhost.
-     *
-     *
-     *
+     *  Die Datenbank verbindet sich per PostgreSQL-driver mit localhost.
      */
 
 
-    // Url der Datenbank FinanzmanagerDb
-    static String url = "jdbc:postgresql://localhost:5432/FinanzmanagerDb";
 
-    // Name für Admin der Datenbank
-    static String userDatabase = "postgres";
 
-    // Passwort für Zugriff der Datenbank
-    static String passwordDatabase = "root";
-
-    // Globale Variable databaseConnectionLink stellt Verbindungsinformationen bereit
+    // Variable databaseConnectionLink stellt Verbindungsinformationen bereit
     public Connection databaseConnectionLink;
-
 
 
     public Connection getConnection() {

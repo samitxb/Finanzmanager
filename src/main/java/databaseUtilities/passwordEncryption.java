@@ -9,12 +9,30 @@ import java.util.Random;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+
+
+
+
 public class passwordEncryption {
 
+    //Generiert zufälligen Wert für salt
     private static final Random RANDOM = new SecureRandom();
+
+    //Nutzt den Zahlenbereich und Alphabet als Vorlage für das zufällig-generierte salt
     private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+    //Legt die Anzahl der hashing-Vorgänge fest, bis das gesicherte Passwort in die Datenbank gespeichert wird
     private static final int ITERATIONS = 10000;
+
+    //Beschreibt die Hashlänge in Bits
     private static final int KEY_LENGTH = 256;
+
+
+    /**
+     * Funktion getSalt(int length) zur Erstellung des salt, basierend auf die final-Variablen RANDOM und ALPHABET
+     *
+     * @return  returnValue
+     */
 
     public static String getSalt(int length) {
         StringBuilder returnValue = new StringBuilder(length);
@@ -23,6 +41,12 @@ public class passwordEncryption {
         }
         return new String(returnValue);
     }
+
+
+    /**
+     * Funktion hash(char[] password, byte[] salt) greift auf die final-Variablen ITERATIONS und KEY_LENGTH zu
+     * Mittels des PBE-Schlüsselgenerator wird das Passwort mit PBKDF2-generierten hashes kodiert
+     */
 
     public static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
@@ -37,6 +61,17 @@ public class passwordEncryption {
         }
     }
 
+    /**
+     * generateSecurePassword(String password, String salt) generiert in Kombination mit dem kodierten Passwort
+     * und salt das verschlüsselte Passwort
+     * Es wird dabei erst mit der hash-Funktion erfasst und per Base64 verschlüsselt
+     *
+     * @param password -    Erster Wert für Userpasswort
+     * @param salt -    Zweiter Wert zur Verschlüsselung des Userpasswort
+     *
+     *
+     */
+
     public static String generateSecurePassword(String password, String salt) {
         String returnValue;
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
@@ -50,10 +85,10 @@ public class passwordEncryption {
                                              String securedPassword, String salt) {
         boolean returnValue;
 
-        // Generate New secure password with the same salt
+        // Generiert neues Sicherheitspasswort mit zugeteilten salt
         String newSecurePassword = generateSecurePassword(providedPassword, salt);
 
-        // Check if two passwords are equal
+        // Vergleicht die Passwörter zur Validierung der Logindaten
         returnValue = newSecurePassword.equalsIgnoreCase(securedPassword);
 
         return returnValue;

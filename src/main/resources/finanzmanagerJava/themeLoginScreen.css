@@ -2,6 +2,14 @@
     -fx-background-color: #1d1d1d;
 }
 
+{
+    -fx-primary-color: #383838;
+    -fx-secondary-color: #2095F3;
+    -fx-light-grey-color: #d1d1d1;
+
+    -fx-focus-color: -fx-secondary-color;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -101,6 +109,7 @@
     -fx-opacity: 0.6;
 }
 
+/*
 .check-box{
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -131,7 +140,8 @@
     -fx-text-fill: white;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
-
+ */
+/* Button */
 .button {
     -fx-padding: 5 22 5 22;
     -fx-border-color: #e2e2e2;
@@ -145,7 +155,9 @@
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    /*-fx-background-color: #3a3a3a;*/
+    -fx-background-color: -fx-secondary-color;
+    -fx-text-fill: white;
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -176,6 +188,8 @@
     -fx-background-color: derive(-fx-focus-color,30%);
 }
 
+
+/* Tab Pane */
 .tab-pane > .tab-header-area {
     -fx-padding: 0;
 }

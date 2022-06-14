@@ -17,12 +17,12 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="456.0" prefWidth="672.0">
                      <children>
-                        <Label layoutX="243.0" layoutY="97.0" prefHeight="45.0" prefWidth="177.0" text="Login Name:">
+                        <Label layoutX="243.0" layoutY="97.0" prefHeight="45.0" prefWidth="177.0" styleClass="label-bright" text="Login Name:">
                            <font>
                               <Font size="22.0" />
                            </font></Label>
                         <TextField fx:id="loginName" layoutX="243.0" layoutY="142.0" prefHeight="45.0" prefWidth="172.0" />
-                        <Label layoutX="243.0" layoutY="199.0" prefHeight="43.0" prefWidth="177.0" text="Passwort:">
+                        <Label layoutX="243.0" layoutY="199.0" prefHeight="43.0" prefWidth="177.0" styleClass="label-bright" text="Passwort:">
                            <font>
                               <Font size="22.0" />
                            </font></Label>
@@ -37,13 +37,13 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="230.0" layoutY="96.0" text="Name:" />
+                        <Label layoutX="230.0" layoutY="96.0" styleClass="label-bright" text="Name:" />
                         <TextField fx:id="registrationName" layoutX="230.0" layoutY="117.0" />
-                        <Label layoutX="230.0" layoutY="159.0" text="Username:" />
+                        <Label layoutX="230.0" layoutY="159.0" styleClass="label-bright" text="Username:" />
                         <TextField fx:id="registrationUserName" layoutX="230.0" layoutY="180.0" />
-                        <Label layoutX="230.0" layoutY="225.0" text="Password:" />
+                        <Label layoutX="230.0" layoutY="225.0" styleClass="label-bright" text="Password:" />
                         <TextField fx:id="registrationUserPassword" layoutX="230.0" layoutY="246.0" />
-                        <Button layoutX="281.0" layoutY="293.0" mnemonicParsing="false" onAction="#setRegistrationData" text="Register" />
+                        <Button layoutX="281.0" layoutY="296.0" mnemonicParsing="false" onAction="#setRegistrationData" text="Register" />
                         <Label fx:id="regsuccsessfulllabel" layoutX="257.0" layoutY="335.0" prefHeight="17.0" prefWidth="150.0" textFill="RED" />
                      </children>
                   </AnchorPane>

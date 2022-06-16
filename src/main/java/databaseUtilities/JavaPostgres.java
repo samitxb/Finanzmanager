@@ -112,6 +112,11 @@ public class JavaPostgres {
                 pst.setString(3, userPassword);
                 pst.setString(4, salt);
                 pst.executeUpdate();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Erfolgreich Registriert!");
+
+                // Wirft Fenster mit Fehlermeldung aus
+                alert.show();
             }
 
             // Wirft Fehlermeldung bei fehlgeschlagener Datenbankverbindung aus

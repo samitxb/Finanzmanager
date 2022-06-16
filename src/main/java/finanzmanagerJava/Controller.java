@@ -25,7 +25,6 @@ public class Controller {
     @FXML
     private PasswordField loginPassword;
 
-
     @FXML
     private Label errorText;
 
@@ -116,19 +115,18 @@ public class Controller {
     //Next Window
     @FXML
     void btnOKClicked(ActionEvent event) throws IOException{
-        errorText.setText("Please type in your Username and Password");
-        Stage stage = (Stage) loginOkBtn.getScene().getWindow();
-        stage.close();
-        Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
-        primaryStage.setTitle("FINANZMANAGER");
-        primaryStage.setScene(new Scene(root, 1082, 726));
-        //primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.show();
-        loginOnAction(new ActionEvent());
+
+        if(!loginName.getText().isBlank() && !loginPassword.getText().isBlank())
+        {
+            System.out.println("Login...");
+            validateUserLogin();
+        }
+        else
+        {
+            System.out.println("Enter login data");
+            errorText.setText("Please type in your Username and Password");
+        }
     }
-
-
 
     @FXML
     void closeApp(ActionEvent event) {
@@ -152,40 +150,22 @@ public class Controller {
         System.out.println(registrationUserName.getText());
         System.out.println(registrationUserPassword.getText());
 
-
         if (Objects.equals(registrationUserName.getText(), "")) {
             regsuccsessfulllabel.setText("No Login Name!");
         } else if (Objects.equals(registrationUserPassword.getText(), "")) {
             regsuccsessfulllabel.setText("No Password!");
-        } else regsuccsessfulllabel.setText("Registered Successfully!!");
-
-        JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
-    }
-
-
-
-    public void loginOnAction(ActionEvent e){
-
-
-        if(!loginName.getText().isBlank() && !loginPassword.getText().isBlank())
-        {
-            System.out.println("Login...");
-            validateUserLogin();
-        }
-        else
-        {
-            System.out.println("Enter login data");
+        } else {
+            JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
+            registrationName.clear();
+            registrationUserName.clear();
+            registrationUserPassword.clear();
         }
 
 
     }
-
-
 
     public void validateUserLogin()
     {
-
-
         PreparedStatement preparedStatement;
         ResultSet rs;
 
@@ -196,8 +176,6 @@ public class Controller {
             preparedStatement = conDb.prepareStatement("SELECT password, passwordsalt FROM Userinfo WHERE username = ?");
             preparedStatement.setString(1, loginName.getText());
             rs = preparedStatement.executeQuery();
-
-
 
             Statement statement = conDb.createStatement();
 
@@ -214,28 +192,33 @@ public class Controller {
 
                 boolean passwordMatch = passwordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
 
-
-
                 if(passwordMatch)
                 {
                     System.out.println("Login success");
+
+                    errorText.setText("Success");
+                    Stage stage = (Stage) loginOkBtn.getScene().getWindow();
+                    stage.close();
+                    Stage primaryStage = new Stage();
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
+                    primaryStage.setTitle("FINANZMANAGER - " + loginName.getText());
+                    primaryStage.setScene(new Scene(root, 1082, 726));
+                    //primaryStage.initStyle(StageStyle.TRANSPARENT);
+                    primaryStage.show();
+
                 }
                 else
                 {
                     System.out.println("Login failed");
+                    errorText.setText("Please type in right Password");
+                    loginPassword.clear();
                 }
-
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
-
-
-
 
     //Zeigt die Ausgewählte Kategorie in dem Textfeld darunter an
     @FXML
@@ -308,9 +291,6 @@ public class Controller {
         einnahmenKategorieText.setText("Kultur");
     }
 
-
-
-
     //----------------------------------------------------------------
     public void taeglich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Täglich");
@@ -328,8 +308,5 @@ public class Controller {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
     //----------------------------------------------------------------
-
-
-
 
 }

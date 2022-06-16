@@ -115,7 +115,7 @@ public class Controller {
 
     //Next Window
     @FXML
-    void btnGOClicked(ActionEvent event) throws IOException{
+    void btnOKClicked(ActionEvent event) throws IOException{
         errorText.setText("Please type in your Username and Password");
         Stage stage = (Stage) loginOkBtn.getScene().getWindow();
         stage.close();

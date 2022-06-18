@@ -9,6 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
+
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,22 +23,33 @@ public class Controller {
 
 
 
-
     //-----------------Ausgaben Reiter--------------------------------
     @FXML
     private TextField ausgabenBetrag;
 
     @FXML
+    /**
+     * Textfeld zur Eingabe vom Datum der Ausgabe
+     */
     private DatePicker ausgabenDate;
 
     @FXML
+    /**
+     * Textfeld zur Darstellung der Kategorie einer Ausgabe
+     */
     private TextField ausgabenKategorieText;
 
     @FXML
+    /**
+     * Menübutton zur Auswahl der Kategorien
+     */
     private MenuButton menubarKategorieAusgaben;
 
     @FXML
     private TextField ausgabenBezeichnung;
+
+    @FXML
+    private ListView ausgabenUerbsichtListView;
 
     //----------------------------------------------------------------
 
@@ -90,6 +104,9 @@ public class Controller {
 
 
     @FXML
+    /**
+     * Bei betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
+     */
     void quitApp(ActionEvent event) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
         stage.close();
@@ -101,7 +118,10 @@ public class Controller {
         primaryStage.show();
     }
 
+    @FXML
+    void ausgabeHinzufuegenBtn(ActionEvent event) {
 
+    }
 
 
     //Zeigt die Ausgewählte Kategorie in dem Textfeld darunter an

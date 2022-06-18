@@ -1,4 +1,4 @@
-package databaseUtilities;
+package database;
 
 import javafx.scene.control.Alert;
 
@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static databaseUtilities.Postgres.*;
+import static database.Postgres.*;
 
 
 /**
@@ -100,9 +100,9 @@ public class JavaPostgres {
             else
             {
                 // Generiert mit dem String salt ein Sicherheitspasswort
-                String salt = passwordEncryption.getSalt(30);
+                String salt = PasswordEncryption.getSalt(30);
 
-                userPassword = passwordEncryption.generateSecurePassword(userPassword, salt);
+                userPassword = PasswordEncryption.generateSecurePassword(userPassword, salt);
 
 
 

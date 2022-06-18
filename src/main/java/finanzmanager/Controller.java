@@ -1,7 +1,7 @@
-package finanzmanagerJava;
+package finanzmanager;
 
-import databaseUtilities.JavaPostgres;
-import databaseUtilities.passwordEncryption;
+import database.JavaPostgres;
+import database.PasswordEncryption;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.*;
@@ -150,9 +149,14 @@ public class Controller {
         System.out.println(registrationUserName.getText());
         System.out.println(registrationUserPassword.getText());
 
-        if (Objects.equals(registrationUserName.getText(), "")) {
+        if (Objects.equals(registrationName.getText(), ""))
+        {
+            regsuccsessfulllabel.setText("No Name!");
+        }
+        else if(Objects.equals(registrationUserName.getText(), "")) {
             regsuccsessfulllabel.setText("No Login Name!");
-        } else if (Objects.equals(registrationUserPassword.getText(), "")) {
+        }
+        else if (Objects.equals(registrationUserPassword.getText(), "")) {
             regsuccsessfulllabel.setText("No Password!");
         } else {
             JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
@@ -190,7 +194,7 @@ public class Controller {
                 // Salt value stored in database
                 String salt = rs.getString("passwordsalt");
 
-                boolean passwordMatch = passwordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
+                boolean passwordMatch = PasswordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
 
                 if(passwordMatch)
                 {
@@ -259,35 +263,35 @@ public class Controller {
 
 
     //Zeigt die Ausgewählte Kategorie in dem Textfeld der Einnahmen darunter an
-    public void essen_einnahmen(ActionEvent actionEvent) {
+    public void essenEinnahmen(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Essen");
     }
 
-    public void auto_einnahmen(ActionEvent actionEvent) {
+    public void autoEinnahmen(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Auto");
     }
 
-    public void bekleidung_einnahmen(ActionEvent actionEvent) {
+    public void bekleidungEinnahmen(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Bekleidung");
     }
 
-    public void beauty_einnahmen(ActionEvent actionEvent) {
+    public void beautyEinnahmen(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Beauty");
     }
 
-    public void kultur_ausgaben(ActionEvent actionEvent) {
+    public void kulturAusgaben(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Kultur");
     }
 
-    public void sozialleben_einnahmen(ActionEvent actionEvent) {
+    public void soziallebenEinnahmen(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Sozialleben");
     }
 
-    public void sonstiges_einnahmen(ActionEvent actionEvent) {
+    public void sonstigesEinnahmen(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Sonstiges");
     }
 
-    public void kultur_einnahmen(ActionEvent actionEvent) {
+    public void kulturEinnahmen(ActionEvent actionEvent) {
         einnahmenKategorieText.setText("Kultur");
     }
 

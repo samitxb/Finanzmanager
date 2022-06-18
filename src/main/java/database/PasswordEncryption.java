@@ -1,4 +1,4 @@
-package databaseUtilities;
+package database;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -13,7 +13,7 @@ import javax.crypto.spec.PBEKeySpec;
 
 
 
-public class passwordEncryption {
+public class PasswordEncryption {
 
     //Generiert zufälligen Wert für salt
     private static final Random RANDOM = new SecureRandom();

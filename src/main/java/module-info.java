@@ -12,8 +12,8 @@ module com.example.finanzmanager_java {
     requires java.sql;
     requires org.postgresql.jdbc;
 
-    opens finanzmanagerJava to javafx.fxml;
-    exports finanzmanagerJava;
-    exports databaseUtilities;
-    opens databaseUtilities to javafx.fxml;
+    opens finanzmanager to javafx.fxml;
+    exports finanzmanager;
+    exports database;
+    opens database to javafx.fxml;
 }

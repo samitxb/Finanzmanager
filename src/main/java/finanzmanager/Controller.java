@@ -141,6 +141,7 @@ public class Controller {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
         primaryStage.setTitle("User Login");
         primaryStage.setScene(new Scene(root, 657, 532));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -208,6 +209,7 @@ public class Controller {
                     primaryStage.setTitle("FINANZMANAGER - " + loginName.getText());
                     primaryStage.setScene(new Scene(root, 1082, 726));
                     //primaryStage.initStyle(StageStyle.TRANSPARENT);
+                    primaryStage.setResizable(false);
                     primaryStage.show();
 
                 }

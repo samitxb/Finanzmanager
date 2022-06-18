@@ -15,6 +15,7 @@ public class Programm extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("User Login");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

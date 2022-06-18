@@ -88,49 +88,54 @@ public class LoginController {
         {
             JavaPostgres connectNow = new JavaPostgres();
             Connection conDb = connectNow.getConnection();
-            preparedStatement = conDb.prepareStatement("SELECT password, passwordsalt FROM Userinfo WHERE username = ?");
+            preparedStatement = conDb.prepareStatement("SELECT username, password, passwordsalt FROM Userinfo WHERE username = ?");
             preparedStatement.setString(1, loginName.getText());
             rs = preparedStatement.executeQuery();
 
-            while (rs.next())
-            {
-                // User provided password to validate
-                String providedPassword =  loginPassword.getText();
+            boolean hasResults = rs.next();
 
-                // Encrypted and Base64 encoded password read from database
-                String securePassword = rs.getString("password");
+            if(hasResults) {
 
-                // Salt value stored in database
-                String salt = rs.getString("passwordsalt");
+                do {
+                    // User provided password to validate
+                    String providedPassword = loginPassword.getText();
 
-                boolean passwordMatch = PasswordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
+                    // Encrypted and Base64 encoded password read from database
+                    String securePassword = rs.getString("password");
 
-                if(passwordMatch)
-                {
-                    System.out.println("Login success");
+                    // Salt value stored in database
+                    String salt = rs.getString("passwordsalt");
 
-                    errorText.setText("Success");
-                    Stage stage = (Stage) loginOkBtn.getScene().getWindow();
-                    stage.close();
-                    Stage primaryStage = new Stage();
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
-                    primaryStage.setTitle("FINANZMANAGER - " + loginName.getText());
-                    primaryStage.setScene(new Scene(root, 1082, 726));
-                    //primaryStage.initStyle(StageStyle.TRANSPARENT);
-                    primaryStage.setResizable(false);
-                    primaryStage.show();
+                    boolean passwordMatch = PasswordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
 
-                }
-                else
-                {
-                    System.out.println("Login failed");
-                    errorText.setText("Please type in right Password");
-                    loginPassword.clear();
-                }
+                    if (passwordMatch) {
+                        System.out.println("Login success");
+
+                        errorText.setText("Success");
+                        Stage stage = (Stage) loginOkBtn.getScene().getWindow();
+                        stage.close();
+                        Stage primaryStage = new Stage();
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
+                        primaryStage.setTitle("FINANZMANAGER - " + loginName.getText());
+                        primaryStage.setScene(new Scene(root, 1082, 726));
+                        //primaryStage.initStyle(StageStyle.TRANSPARENT);
+                        primaryStage.setResizable(false);
+                        primaryStage.show();
+
+                    } else {
+                        System.out.println("Login failed");
+                        errorText.setText("Please type in right Password");
+                        loginPassword.clear();
+                    }
+                }while (rs.next());
+            }
+            else {
+                System.out.println("No Match found");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+            }
     }
-}
+

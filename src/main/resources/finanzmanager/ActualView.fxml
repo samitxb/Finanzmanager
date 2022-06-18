@@ -5,7 +5,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
@@ -101,7 +100,6 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <ListView fx:id="ausgabenUerbsichtListView" layoutX="14.0" layoutY="66.0" prefHeight="527.0" prefWidth="314.0" />
                            </children>
                         </AnchorPane>
                         <Button layoutX="14.0" layoutY="415.0" mnemonicParsing="false" onAction="#ausgabeHinzufuegenBtn" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />

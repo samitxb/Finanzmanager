@@ -48,8 +48,7 @@ public class Controller {
     @FXML
     private TextField ausgabenBezeichnung;
 
-    @FXML
-    private ListView ausgabenUerbsichtListView;
+  
 
     //----------------------------------------------------------------
 
@@ -118,10 +117,7 @@ public class Controller {
         primaryStage.show();
     }
 
-    @FXML
-    void ausgabeHinzufuegenBtn(ActionEvent event) {
 
-    }
 
 
     //Zeigt die Ausgewählte Kategorie in dem Textfeld darunter an
@@ -210,6 +206,9 @@ public class Controller {
 
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
+    }
+
+    public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) {
     }
     //----------------------------------------------------------------
 

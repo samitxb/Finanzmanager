@@ -51,7 +51,7 @@ public class LoginController {
         else
         {
             System.out.println("Enter login data");
-            errorText.setText("Please type in your Username and Password");
+            errorText.setText("Bitte geben sie ihren Benutzernamen und Passwort ein!");
         }
     }
 
@@ -64,13 +64,13 @@ public class LoginController {
 
         if (Objects.equals(registrationName.getText(), ""))
         {
-            regsuccsessfulllabel.setText("No Name!");
+            regsuccsessfulllabel.setText("Kein Name!");
         }
         else if(Objects.equals(registrationUserName.getText(), "")) {
-            regsuccsessfulllabel.setText("No Login Name!");
+            regsuccsessfulllabel.setText("Kein Benutzername!");
         }
         else if (Objects.equals(registrationUserPassword.getText(), "")) {
-            regsuccsessfulllabel.setText("No Password!");
+            regsuccsessfulllabel.setText("Kein Passwort!");
         } else {
             JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
             registrationName.clear();
@@ -111,7 +111,7 @@ public class LoginController {
                     if (passwordMatch) {
                         System.out.println("Login success");
 
-                        errorText.setText("Success");
+                        errorText.setText("Erfolgreich eingeloggt!");
                         Stage stage = (Stage) loginOkBtn.getScene().getWindow();
                         stage.close();
                         Stage primaryStage = new Stage();
@@ -124,13 +124,14 @@ public class LoginController {
 
                     } else {
                         System.out.println("Login failed");
-                        errorText.setText("Please type in right Password");
+                        errorText.setText("Falsches Password!");
                         loginPassword.clear();
                     }
                 }while (rs.next());
             }
             else {
                 System.out.println("No Match found");
+                errorText.setText("Benutzername nicht vorhanden!");
             }
 
         } catch (Exception e) {

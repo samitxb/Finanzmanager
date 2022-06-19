@@ -1,9 +1,6 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 
 /**
@@ -47,39 +44,114 @@ class Postgres {
                     .getConnection(url, userDatabase, passwordDatabase);
             System.out.println("Opened database successfully");
 
+
                 statementDb = connectionDb.createStatement();
 
-                String sql = "CREATE TABLE USERINFO " +
-                        "(UserID             INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY ," +
-                        " Fullname           TEXT     NOT NULL," +
-                        " Username           TEXT     NOT NULL," +
-                        " Password           TEXT     NOT NULL," +
-                        " PasswordSalt       TEXT     NOT NULL)";
-                statementDb.executeUpdate(sql);
+
+                String sqlUser = "CREATE TABLE USERINFO " +
+                        "(userID             INT      GENERATED ALWAYS AS IDENTITY NOT NULL," +
+                        " fullname           TEXT     NOT NULL," +
+                        " username           TEXT     NOT NULL," +
+                        " password           TEXT     NOT NULL," +
+                        " passwordSalt       TEXT     NOT NULL," +
+                        " PRIMARY KEY (userID))";
 
 
-                ResultSet rs = statementDb.executeQuery("SELECT * FROM USERINFO;");
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String name = rs.getString("username");
-                    int age = rs.getInt("password");
+                String sqlEinnahmen = "CREATE TABLE EINNAHMEN"+
+                        "(einnahmenID           INT     GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
+                        " userID                INT  NOT NULL ," +
+                        " einnahmen_betrag      TEXT," +
+                        " einnahmen_bezeichnung TEXT, " +
+                        " einnahmen_datum       TEXT, " +
+                        " CONSTRAINT FK_einnahmen_user FOREIGN KEY (userID)" +
+                        " REFERENCES userinfo(userID))";
 
-                    System.out.println("ID = " + id);
-                    System.out.println("Username = " + name);
-                    System.out.println("Password= " + age);
 
-                    System.out.println();
+                String sqlAusgaben = "CREATE TABLE AUSGABEN"+
+                        "(ausgabenID            INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY REFERENCES userinfo(userid)," +
+                        " userID                INT NOT NULL ," +
+                        " ausgaben_betrag       FLOAT," +
+                        " ausgaben_bezeichnung  VARCHAR(255), " +
+                        " ausgaben_datum        DATE," +
+                        " CONSTRAINT FK_ausgaben_user FOREIGN KEY (userID)" +
+                        " REFERENCES userinfo(userID))";
+
+
+            String sqlDauerauftrag = "CREATE TABLE DAUERAUFTRAG "+
+                    "(dauerauftragID            INT  GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY REFERENCES userinfo(userid)," +
+                    " userID        INT NOT NULL ," +
+                    " dauerauftrag_betrag       FLOAT," +
+                    " dauerauftrag_bezeichnung  VARCHAR(255), " +
+                    " dauerauftrag_datum        DATE, " +
+                    " dauerauftrag_zeitraum     DATE," +
+                    " CONSTRAINT FK_dauerauftrag_user FOREIGN KEY (userID)" +
+                    " REFERENCES userinfo(userID))";
+
+
+
+
+                statementDb.executeUpdate(sqlUser);
+                statementDb.executeUpdate(sqlEinnahmen);
+                statementDb.executeUpdate(sqlAusgaben);
+                statementDb.executeUpdate(sqlDauerauftrag);
+
+
+
+                ResultSet rsUserinfo = statementDb.executeQuery("SELECT * FROM USERINFO;");
+                while (rsUserinfo.next())
+                {
+                   rsUserinfo.getInt("id");
+                   rsUserinfo.getString("username");
+                   rsUserinfo.getInt("password");
                 }
 
-                rs.close();
+
+                ResultSet rsEinnahmen = statementDb.executeQuery("SELECT * FROM EINNAHMEN;");
+
+                while(rsEinnahmen.next())
+                {
+                    rsEinnahmen.getInt("id");
+                    rsEinnahmen.getFloat("betrag");
+                    rsEinnahmen.getString("bezeichnung");
+                    rsEinnahmen.getDate("datum");
+                }
+
+
+                ResultSet rsAusgaben = statementDb.executeQuery("SELECT * FROM AUSGABEN;");
+
+                while(rsAusgaben.next())
+                {
+                    rsAusgaben.getInt("id");
+                    rsAusgaben.getFloat("betrag");
+                    rsAusgaben.getString("bezeichnung");
+                    rsAusgaben.getDate("datum");
+                }
+
+
+                ResultSet rsDauerauftrag = statementDb.executeQuery("SELECT * FROM DAUERAUFTRAG;");
+
+                while(rsDauerauftrag.next())
+                {
+                    rsDauerauftrag.getInt("id");
+                    rsDauerauftrag.getFloat("betrag");
+                    rsDauerauftrag.getString("bezeichnung");
+                    rsDauerauftrag.getDate("datum");
+                    rsDauerauftrag.getDate("zeitraum");
+                }
+
+
+                rsUserinfo.close();
+                rsEinnahmen.close();
+                rsAusgaben.close();
                 statementDb.close();
                 connectionDb.close();
+
 
             } catch(Exception e){
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 System.exit(0);
             }
-            System.out.println("Tabelle userinfo wurde erstellt");
+            System.out.println("Tabellen wurde erstellt");
 
     }
 }

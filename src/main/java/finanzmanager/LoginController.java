@@ -2,7 +2,6 @@ package finanzmanager;
 
 import database.JavaPostgres;
 import database.PasswordEncryption;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,7 +71,7 @@ public class LoginController {
         else if (Objects.equals(registrationUserPassword.getText(), "")) {
             regsuccsessfulllabel.setText("Kein Passwort!");
         } else {
-            JavaPostgres.writeToDatabase(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
+            JavaPostgres.writeToDatabaseUser(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
             registrationName.clear();
             registrationUserName.clear();
             registrationUserPassword.clear();

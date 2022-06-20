@@ -66,19 +66,18 @@ public class JavaPostgres {
      */
 
 
-    public static void writeToDatabase(String fullName, String userName, String userPassword)
+    public static void writeToDatabaseUser(String fullName, String userName, String userPassword)
     {
-
 
         ResultSet resultSet;
         PreparedStatement psCheckUser;
 
 
-        String query = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt) VALUES(?, ?, ?, ?)";
+        String queryUser = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt) VALUES(?, ?, ?, ?)";
 
 
         try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
-             PreparedStatement pst = con.prepareStatement(query))
+             PreparedStatement pst = con.prepareStatement(queryUser))
         {
             psCheckUser = con.prepareStatement("SELECT * FROM userinfo WHERE username=?");
             psCheckUser.setString(1, userName);
@@ -128,4 +127,35 @@ public class JavaPostgres {
     }
 
 
+    public static void writeToDatabaseEinnahmen(Float einnahmenBeitrag, String einnahmenBezeichnung, Date einnahmenDatum)
+    {
+
+
+
+
+            String queryEinnahmen = "INSERT INTO EINNAHMEN(einnahmen_betrag  ,einnahmen_bezeichnung, einnahmen_datum) VALUES(?, ?, ?)";
+
+
+            try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
+                 PreparedStatement pst = con.prepareStatement(queryEinnahmen))
+            {
+
+                    // Aktualisiert in der Tabelle userinfo die Einträge fullName, userName, userPassword und salt
+                    pst.setFloat(1, einnahmenBeitrag);
+                    pst.setString(2, einnahmenBezeichnung);
+                    pst.setDate(3, einnahmenDatum);
+                    pst.executeUpdate();
+
+            }
+
+            catch (SQLException ex)
+
+            {
+                Logger lgr = Logger.getLogger(JavaPostgres.class.getName());
+                lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+
+
 }
+

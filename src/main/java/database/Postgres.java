@@ -44,8 +44,14 @@ class Postgres {
                     .getConnection(url, userDatabase, passwordDatabase);
             System.out.println("Opened database successfully");
 
+            statementDb = connectionDb.createStatement();
 
-                statementDb = connectionDb.createStatement();
+            statementDb.execute("DROP TABLE IF EXISTS dauerauftrag");
+            statementDb.execute("DROP TABLE IF EXISTS ausgaben ");
+            statementDb.execute("DROP TABLE IF EXISTS einnahmen ");
+            statementDb.execute("DROP TABLE IF EXISTS userinfo ");
+
+
 
 
                 String sqlUser = "CREATE TABLE USERINFO " +
@@ -59,32 +65,32 @@ class Postgres {
 
                 String sqlEinnahmen = "CREATE TABLE EINNAHMEN"+
                         "(einnahmenID           INT     GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
-                        " userID                INT     GENERATED ALWAYS AS IDENTITY NOT NULL ," +
+                        " user_einnahmenID      INT     NOT NULL ," +
                         " einnahmen_betrag      TEXT," +
                         " einnahmen_bezeichnung TEXT, " +
                         " einnahmen_datum       TEXT, " +
-                        " CONSTRAINT FK_einnahmen_user FOREIGN KEY (userID)" +
+                        " FOREIGN KEY (user_einnahmenID)" +
                         " REFERENCES userinfo(userID))";
 
 
                 String sqlAusgaben = "CREATE TABLE AUSGABEN"+
                         "(ausgabenID            INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY REFERENCES userinfo(userid)," +
-                        " userID                INT   GENERATED ALWAYS AS IDENTITY NOT NULL ," +
+                        " user_ausgabenID                INT   NOT NULL ," +
                         " ausgaben_betrag       FLOAT," +
                         " ausgaben_bezeichnung  VARCHAR(255), " +
                         " ausgaben_datum        DATE," +
-                        " CONSTRAINT FK_ausgaben_user FOREIGN KEY (userID)" +
+                        " FOREIGN KEY (user_ausgabenID  )" +
                         " REFERENCES userinfo(userID))";
 
 
             String sqlDauerauftrag = "CREATE TABLE DAUERAUFTRAG "+
                     "(dauerauftragID            INT  GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY REFERENCES userinfo(userid)," +
-                    " userID                    INT  GENERATED ALWAYS AS IDENTITY NOT NULL ," +
+                    " user_dauerauftragID                    INT  NOT NULL ," +
                     " dauerauftrag_betrag       FLOAT," +
                     " dauerauftrag_bezeichnung  VARCHAR(255), " +
                     " dauerauftrag_datum        DATE, " +
                     " dauerauftrag_zeitraum     DATE," +
-                    " CONSTRAINT FK_dauerauftrag_user FOREIGN KEY (userID)" +
+                    " FOREIGN KEY (user_dauerauftragID)" +
                     " REFERENCES userinfo(userID))";
 
 
@@ -106,7 +112,7 @@ class Postgres {
                 }
 
 
-                ResultSet rsEinnahmen = statementDb.executeQuery("SELECT * FROM EINNAHMEN;");
+                ResultSet rsEinnahmen = statementDb.executeQuery("SELECT userid FROM userinfo UNION Select user_einnahmenid from einnahmen;");
 
                 while(rsEinnahmen.next())
                 {

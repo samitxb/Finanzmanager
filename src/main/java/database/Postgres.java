@@ -143,6 +143,7 @@ class Postgres {
                 rsUserinfo.close();
                 rsEinnahmen.close();
                 rsAusgaben.close();
+                rsDauerauftrag.close();
                 statementDb.close();
                 connectionDb.close();
 

@@ -185,7 +185,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <Button layoutX="14.0" layoutY="475.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
+                        <Button layoutX="14.0" layoutY="475.0" mnemonicParsing="false" onAction="#dauerauftragHinzufuegenBtn" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
                         <TextField fx:id="dauerauftragBezeichnung" layoutX="14.0" layoutY="237.0" prefHeight="37.0" prefWidth="177.0" />
                         <Label layoutX="14.0" layoutY="97.0" prefHeight="31.0" prefWidth="59.0" text="Betrag:">
                            <font>

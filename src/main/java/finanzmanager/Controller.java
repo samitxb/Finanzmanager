@@ -127,12 +127,35 @@ public class Controller {
     }
 
 
-    public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) {
+    public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
+        System.out.println(ausgabenBetrag.getText());
+        System.out.println(ausgabenBezeichnung.getText());
+        System.out.println(ausgabenDate.getDayCellFactory());
+        System.out.println(menubarKategorieAusgaben.getText());
+
+        if (Objects.equals(ausgabenBetrag.getText(), ""))
+        {
+            labelAusgaben.setText("Kein Betrag!");
+        }
+        else if(Objects.equals(ausgabenBezeichnung.getText(), "")) {
+            labelAusgaben.setText("Keine Bezeichnung !");
+        }
+        else if (Objects.equals(ausgabenDate.getDayCellFactory(), "")) {
+            labelAusgaben.setText("Kein Datum!");
+        } else {
+            JavaPostgres.writeToDatabaseAusgaben(ausgabenBetrag.getText(), ausgabenBezeichnung.getText(), ausgabenDate.getDayCellFactory());
+
+            ausgabenBetrag.clear();
+            ausgabenBezeichnung.clear();
+            ausgabenDate = new DatePicker();
+
+
+        }
     }
 
     /* Für Einnahmen alles */
     @FXML
-    void einnahmeHinzufuegenBtn(ActionEvent event) {
+    void einnahmeHinzufuegenBtn(ActionEvent event) throws SQLException {
         System.out.println(einnahmenBetrag.getText());
         System.out.println(einnahmenBezeichnung.getText());
         System.out.println(einnahmenDate.getDayCellFactory());
@@ -140,13 +163,13 @@ public class Controller {
 
         if (Objects.equals(einnahmenBetrag.getText(), ""))
         {
-            labelEinnahmen.setText("Kein Name!");
+            labelEinnahmen.setText("Kein Betrag!");
         }
         else if(Objects.equals(einnahmenBezeichnung.getText(), "")) {
-            labelEinnahmen.setText("Kein Benutzername!");
+            labelEinnahmen.setText("Keine Bezeichnung!");
         }
         else if (Objects.equals(einnahmenDate.getDayCellFactory(), "")) {
-            labelEinnahmen.setText("Kein Passwort!");
+            labelEinnahmen.setText("Kein Datum!");
         } else {
             JavaPostgres.writeToDatabaseEinnahmen(einnahmenBetrag.getText(), einnahmenBezeichnung.getText(), einnahmenDate.getDayCellFactory());
 
@@ -157,8 +180,35 @@ public class Controller {
 
         }
     }
+    @FXML
+    public void dauerauftragHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
+        System.out.println(dauerauftragBetrag.getText());
+        System.out.println(dauerauftragBezeichnung.getText());
+        System.out.println(dauerauftragDate.getDayCellFactory());
+        System.out.println(menubarZeitspanneDauerauftrag.getText());
+
+        if (Objects.equals(dauerauftragBetrag.getText(), ""))
+        {
+            labelDauerauftraege.setText("Kein Betrag!");
+        }
+        else if(Objects.equals(dauerauftragBezeichnung.getText(), "")) {
+            labelDauerauftraege.setText("Keine Bezeichnung!");
+        }
+        else if (Objects.equals(dauerauftragDate.getDayCellFactory(), "")) {
+            labelDauerauftraege.setText("Kein Datum!");
+        }
+        else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
+            labelDauerauftraege.setText("Keine Zeitspanne!");
+        }else {
+            JavaPostgres.writeToDatabaseDauerauftrag(dauerauftragBetrag.getText(), dauerauftragBezeichnung.getText(), dauerauftragDate.getDayCellFactory(), Date.valueOf(menubarZeitspanneDauerauftrag.getText()));
+
+            einnahmenBetrag.clear();
+            einnahmenBezeichnung.clear();
+            einnahmenDate = new DatePicker();
 
 
+        }
+    }
 
     //Zeigt die Ausgewählte Kategorie in dem Textfeld darunter an
     @FXML
@@ -247,6 +297,8 @@ public class Controller {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
+
+
 
 
     //----------------------------------------------------------------

@@ -215,7 +215,7 @@ public class JavaPostgres {
                 pst.setString(2, dauerauftragBezeichnung);
                 pst.setDate(3, (Date) dauerauftragDatum);
                 pst.setInt(4, rs.getInt(1));
-                pst.setDate(5,  dauerauftragZeitraum);
+                pst.setString(5, String.valueOf(dauerauftragZeitraum));
                 pst.executeUpdate();
             }
         }

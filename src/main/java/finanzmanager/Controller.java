@@ -48,6 +48,9 @@ public class Controller {
     @FXML
     private TextField ausgabenBezeichnung;
 
+    @FXML
+    private Label labelAusgaben;
+
   
 
     //----------------------------------------------------------------
@@ -66,6 +69,9 @@ public class Controller {
 
     @FXML
     private TextField einnahmenBezeichnung;
+
+    @FXML
+    private Label labelEinnahmen;
 
     //----------------------------------------------------------------
 
@@ -90,6 +96,9 @@ public class Controller {
 
     @FXML
     private DatePicker dauerauftragDate;
+
+    @FXML
+    private Label labelDauerauftraege;
 
     //----------------------------------------------------------------
 
@@ -117,6 +126,37 @@ public class Controller {
         primaryStage.show();
     }
 
+
+    public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) {
+    }
+
+    /* Für Einnahmen alles */
+    @FXML
+    void einnahmeHinzufuegenBtn(ActionEvent event) {
+        System.out.println(einnahmenBetrag.getText());
+        System.out.println(einnahmenBezeichnung.getText());
+        System.out.println(einnahmenDate.getDayCellFactory());
+        System.out.println(menubarKategorieEinnahmen.getText());
+
+        if (Objects.equals(einnahmenBetrag.getText(), ""))
+        {
+            labelEinnahmen.setText("Kein Name!");
+        }
+        else if(Objects.equals(einnahmenBezeichnung.getText(), "")) {
+            labelEinnahmen.setText("Kein Benutzername!");
+        }
+        else if (Objects.equals(einnahmenDate.getDayCellFactory(), "")) {
+            labelEinnahmen.setText("Kein Passwort!");
+        } else {
+            JavaPostgres.writeToDatabaseEinnahmen(einnahmenBetrag.getText(), einnahmenBezeichnung.getText(), einnahmenDate.getDayCellFactory());
+
+            einnahmenBetrag.clear();
+            einnahmenBezeichnung.clear();
+            einnahmenDate = new DatePicker();
+
+
+        }
+    }
 
 
 
@@ -208,8 +248,7 @@ public class Controller {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
 
-    public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) {
-    }
+
     //----------------------------------------------------------------
 
 }

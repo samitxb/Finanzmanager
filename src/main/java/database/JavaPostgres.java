@@ -1,6 +1,9 @@
 package database;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import javafx.util.Callback;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -127,7 +130,7 @@ public class JavaPostgres {
     }
 
 
-    public static void writeToDatabaseEinnahmen(Float einnahmenBeitrag, String einnahmenBezeichnung, Date einnahmenDatum)
+    public static void writeToDatabaseEinnahmen(String einnahmenBeitrag, String einnahmenBezeichnung, Callback<DatePicker, DateCell> einnahmenDatum)
     {
 
 
@@ -141,9 +144,9 @@ public class JavaPostgres {
             {
 
                     // Aktualisiert in der Tabelle userinfo die Einträge fullName, userName, userPassword und salt
-                    pst.setFloat(1, einnahmenBeitrag);
+                    pst.setString(1, einnahmenBeitrag);
                     pst.setString(2, einnahmenBezeichnung);
-                    pst.setDate(3, einnahmenDatum);
+                    pst.setDate(3, (Date) einnahmenDatum);
                     pst.executeUpdate();
 
             }

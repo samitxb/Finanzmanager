@@ -162,6 +162,71 @@ public class JavaPostgres {
             }
         }
 
+    public static void writeToDatabaseAusgaben( String ausgabenBeitrag, String ausgabenBezeichnung, Callback<DatePicker, DateCell> ausgabenDatum) throws SQLException
+    {
+        PreparedStatement ps;
+        Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
+        String SQL = ("SELECT * FROM userinfo LIMIT 1");
+
+        try
+        {
+
+            ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+
+
+            String queryAusgaben = "INSERT INTO AUSGABEN(ausgaben_betrag  ,ausgaben_bezeichnung, ausgaben_datum, user_ausgabenid) VALUES(?, ?, ?, ?)";
+            PreparedStatement pst = con.prepareStatement(queryAusgaben);
+
+            while (rs.next()) {
+                pst.setString(1, ausgabenBeitrag);
+                pst.setString(2, ausgabenBezeichnung);
+                pst.setDate(3, (Date) ausgabenDatum);
+                pst.setInt(4, rs.getInt(1));
+                pst.executeUpdate();
+            }
+        }
+        catch (SQLException ex)
+
+        {
+            Logger lgr = Logger.getLogger(JavaPostgres.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+    }
+
+    public static void writeToDatabaseDauerauftrag( String dauerauftragBeitrag, String dauerauftragBezeichnung, Callback<DatePicker, DateCell> dauerauftragDatum, Date dauerauftragZeitraum) throws SQLException
+    {
+        PreparedStatement ps;
+        Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
+        String SQL = ("SELECT * FROM userinfo LIMIT 1");
+
+        try
+        {
+
+            ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+
+
+            String queryDauerauftrag = "INSERT INTO DAUERAUFTRAG(dauerauftrag_betrag  ,dauerauftrag_bezeichnung, dauerauftrag_datum, user_dauerauftragid, dauerauftrag_zeitraum) VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement pst = con.prepareStatement(queryDauerauftrag);
+
+            while (rs.next()) {
+                pst.setString(1, dauerauftragBeitrag);
+                pst.setString(2, dauerauftragBezeichnung);
+                pst.setDate(3, (Date) dauerauftragDatum);
+                pst.setInt(4, rs.getInt(1));
+                pst.setDate(5,  dauerauftragZeitraum);
+                pst.executeUpdate();
+            }
+        }
+        catch (SQLException ex)
+
+        {
+            Logger lgr = Logger.getLogger(JavaPostgres.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+    }
+
 
 }
 

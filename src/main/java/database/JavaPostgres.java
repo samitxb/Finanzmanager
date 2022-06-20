@@ -130,27 +130,30 @@ public class JavaPostgres {
     }
 
 
-    public static void writeToDatabaseEinnahmen(String einnahmenBeitrag, String einnahmenBezeichnung, Callback<DatePicker, DateCell> einnahmenDatum)
+    public static void writeToDatabaseEinnahmen( String einnahmenBeitrag, String einnahmenBezeichnung, Callback<DatePicker, DateCell> einnahmenDatum) throws SQLException
     {
+            PreparedStatement ps;
+            Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
+            String SQL = ("SELECT * FROM userinfo LIMIT 1");
 
-
-
-
-            String queryEinnahmen = "INSERT INTO EINNAHMEN(einnahmen_betrag  ,einnahmen_bezeichnung, einnahmen_datum) VALUES(?, ?, ?)";
-
-
-            try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
-                 PreparedStatement pst = con.prepareStatement(queryEinnahmen))
+            try
             {
 
-                    // Aktualisiert in der Tabelle userinfo die Einträge fullName, userName, userPassword und salt
+                ps = con.prepareStatement(SQL);
+                ResultSet rs = ps.executeQuery();
+
+
+                String queryEinnahmen = "INSERT INTO EINNAHMEN(einnahmen_betrag  ,einnahmen_bezeichnung, einnahmen_datum, user_einnahmenid) VALUES(?, ?, ?, ?)";
+                PreparedStatement pst = con.prepareStatement(queryEinnahmen);
+
+                while (rs.next()) {
                     pst.setString(1, einnahmenBeitrag);
                     pst.setString(2, einnahmenBezeichnung);
                     pst.setDate(3, (Date) einnahmenDatum);
+                    pst.setInt(4, rs.getInt(1));
                     pst.executeUpdate();
-
+                }
             }
-
             catch (SQLException ex)
 
             {

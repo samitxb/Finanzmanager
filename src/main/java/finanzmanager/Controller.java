@@ -1,16 +1,12 @@
 package finanzmanager;
 
 import database.JavaPostgres;
-import database.PasswordEncryption;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
 
 import javafx.stage.Stage;
 
@@ -143,7 +139,7 @@ public class Controller {
         else if (Objects.equals(ausgabenDate.getDayCellFactory(), "")) {
             labelAusgaben.setText("Kein Datum!");
         } else {
-            JavaPostgres.writeToDatabaseAusgaben(ausgabenBetrag.getText(), ausgabenBezeichnung.getText(), ausgabenDate.getDayCellFactory());
+            JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), ausgabenDate.getDayCellFactory());
 
             ausgabenBetrag.clear();
             ausgabenBezeichnung.clear();
@@ -171,7 +167,7 @@ public class Controller {
         else if (Objects.equals(einnahmenDate.getDayCellFactory(), "")) {
             labelEinnahmen.setText("Kein Datum!");
         } else {
-            JavaPostgres.writeToDatabaseEinnahmen(einnahmenBetrag.getText(), einnahmenBezeichnung.getText(), einnahmenDate.getDayCellFactory());
+            JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), einnahmenDate.getDayCellFactory());
 
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
@@ -200,7 +196,7 @@ public class Controller {
         else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
         }else {
-            JavaPostgres.writeToDatabaseDauerauftrag(dauerauftragBetrag.getText(), dauerauftragBezeichnung.getText(), dauerauftragDate.getDayCellFactory(), Date.valueOf(menubarZeitspanneDauerauftrag.getText()));
+            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), dauerauftragDate.getDayCellFactory(), Date.valueOf(menubarZeitspanneDauerauftrag.getText()));
 
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();

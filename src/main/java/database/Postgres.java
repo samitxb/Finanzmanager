@@ -66,7 +66,7 @@ class Postgres {
                 String sqlEinnahmen = "CREATE TABLE EINNAHMEN"+
                         "(einnahmenID           INT     GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                         " user_einnahmenID      INT     NOT NULL ," +
-                        " einnahmen_betrag      TEXT," +
+                        " einnahmen_betrag      FLOAT," +
                         " einnahmen_bezeichnung TEXT, " +
                         " einnahmen_datum       TEXT, " +
                         " FOREIGN KEY (user_einnahmenID)" +

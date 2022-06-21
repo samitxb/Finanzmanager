@@ -99,6 +99,7 @@ public class JavaPostgres {
             }
 
 
+
             else
             {
                 // Generiert mit dem String salt ein Sicherheitspasswort
@@ -145,14 +146,14 @@ public class JavaPostgres {
 
 
             String queryEinnahmen = "INSERT INTO EINNAHMEN(einnahmen_betrag  ,einnahmen_bezeichnung, einnahmen_datum, user_einnahmenid) VALUES(?, ?, ?, ?)";
-            PreparedStatement pst = con.prepareStatement(queryEinnahmen);
+            PreparedStatement pstEinnahmen = con.prepareStatement(queryEinnahmen);
 
             while (rs.next()) {
-                pst.setFloat(1, einnahmenBetrag);
-                pst.setString(2, einnahmenBezeichnung);
-                pst.setDate(3, (Date) einnahmenDatum);
-                pst.setInt(4, rs.getInt(1));
-                pst.executeUpdate();
+                pstEinnahmen.setFloat(1, einnahmenBetrag);
+                pstEinnahmen.setString(2, einnahmenBezeichnung);
+                pstEinnahmen.setDate(3, (Date) einnahmenDatum);
+                pstEinnahmen.setInt(4, rs.getInt(1));
+                pstEinnahmen.executeUpdate();
             }
         }
         catch (SQLException ex)
@@ -177,14 +178,14 @@ public class JavaPostgres {
 
 
             String queryAusgaben = "INSERT INTO AUSGABEN(ausgaben_betrag  ,ausgaben_bezeichnung, ausgaben_datum, user_ausgabenid) VALUES(?, ?, ?, ?)";
-            PreparedStatement pst = con.prepareStatement(queryAusgaben);
+            PreparedStatement pstAusgaben = con.prepareStatement(queryAusgaben);
 
             while (rs.next()) {
-                pst.setFloat(1, ausgabenBetrag);
-                pst.setString(2, ausgabenBezeichnung);
-                pst.setDate(3, (Date) ausgabenDatum);
-                pst.setInt(4, rs.getInt(1));
-                pst.executeUpdate();
+                pstAusgaben.setFloat(1, ausgabenBetrag);
+                pstAusgaben.setString(2, ausgabenBezeichnung);
+                pstAusgaben.setDate(3, (Date) ausgabenDatum);
+                pstAusgaben.setInt(4, rs.getInt(1));
+                pstAusgaben.executeUpdate();
             }
         }
         catch (SQLException ex)
@@ -209,15 +210,15 @@ public class JavaPostgres {
 
 
             String queryDauerauftrag = "INSERT INTO DAUERAUFTRAG(dauerauftrag_betrag  ,dauerauftrag_bezeichnung, dauerauftrag_datum, user_dauerauftragid, dauerauftrag_zeitraum) VALUES(?, ?, ?, ?, ?)";
-            PreparedStatement pst = con.prepareStatement(queryDauerauftrag);
+            PreparedStatement pstDauerauftrag = con.prepareStatement(queryDauerauftrag);
 
             while (rs.next()) {
-                pst.setFloat(1, dauerauftragBetrag);
-                pst.setString(2, dauerauftragBezeichnung);
-                pst.setDate(3, (Date) dauerauftragDatum);
-                pst.setInt(4, rs.getInt(1));
-                pst.setString(5, String.valueOf(dauerauftragZeitraum));
-                pst.executeUpdate();
+                pstDauerauftrag.setFloat(1, dauerauftragBetrag);
+                pstDauerauftrag.setString(2, dauerauftragBezeichnung);
+                pstDauerauftrag.setDate(3, (Date) dauerauftragDatum);
+                pstDauerauftrag.setInt(4, rs.getInt(1));
+                pstDauerauftrag.setString(5, String.valueOf(dauerauftragZeitraum));
+                pstDauerauftrag.executeUpdate();
             }
         }
         catch (SQLException ex)

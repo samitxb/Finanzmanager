@@ -89,7 +89,7 @@ class Postgres {
                     " dauerauftrag_betrag       FLOAT," +
                     " dauerauftrag_bezeichnung  TEXT, " +
                     " dauerauftrag_datum        DATE, " +
-                    " dauerauftrag_zeitraum     DATE," +
+                    " dauerauftrag_zeitraum     TEXT," +
                     " FOREIGN KEY (user_dauerauftragID)" +
                     " REFERENCES userinfo(userID))";
 

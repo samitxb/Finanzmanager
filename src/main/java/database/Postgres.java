@@ -68,7 +68,7 @@ class Postgres {
                         " user_einnahmenID      INT     NOT NULL ," +
                         " einnahmen_betrag      FLOAT," +
                         " einnahmen_bezeichnung TEXT, " +
-                        " einnahmen_datum       TEXT, " +
+                        " einnahmen_datum       DATE, " +
                         " FOREIGN KEY (user_einnahmenID)" +
                         " REFERENCES userinfo(userID))";
 
@@ -77,7 +77,7 @@ class Postgres {
                         "(ausgabenID            INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY REFERENCES userinfo(userid)," +
                         " user_ausgabenID                INT   NOT NULL ," +
                         " ausgaben_betrag       FLOAT," +
-                        " ausgaben_bezeichnung  VARCHAR(255), " +
+                        " ausgaben_bezeichnung  TEXT, " +
                         " ausgaben_datum        DATE," +
                         " FOREIGN KEY (user_ausgabenID  )" +
                         " REFERENCES userinfo(userID))";
@@ -87,7 +87,7 @@ class Postgres {
                     "(dauerauftragID            INT  GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY REFERENCES userinfo(userid)," +
                     " user_dauerauftragID                    INT  NOT NULL ," +
                     " dauerauftrag_betrag       FLOAT," +
-                    " dauerauftrag_bezeichnung  VARCHAR(255), " +
+                    " dauerauftrag_bezeichnung  TEXT, " +
                     " dauerauftrag_datum        DATE, " +
                     " dauerauftrag_zeitraum     DATE," +
                     " FOREIGN KEY (user_dauerauftragID)" +

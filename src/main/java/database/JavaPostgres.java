@@ -1,8 +1,11 @@
 package database;
 
+import finanzmanager.LoginController;
 import javafx.scene.control.Alert;
-
-import java.time.LocalDate;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import javafx.util.Callback;
+import modelclasses.UserInfo;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -133,28 +136,39 @@ public class JavaPostgres {
     public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Date einnahmenDatum) throws SQLException
     {
 
-        PreparedStatement ps;
-        Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
-        String SQL = ("SELECT * FROM userinfo LIMIT 1");
+        int id = LoginController.id;
 
-        try
-        {
 
-            ps = con.prepareStatement(SQL);
+
+        try {
+
+            PreparedStatement ps;
+            Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
+
+            ps = con.prepareStatement("SELECT userid FROM Userinfo WHERE userid = ? ", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
 
             String queryEinnahmen = "INSERT INTO EINNAHMEN(einnahmen_betrag  ,einnahmen_bezeichnung, einnahmen_datum, user_einnahmenid) VALUES(?, ?, ?, ?)";
             PreparedStatement pstEinnahmen = con.prepareStatement(queryEinnahmen);
 
-            while (rs.next()) {
-                pstEinnahmen.setFloat(1, einnahmenBetrag);
-                pstEinnahmen.setString(2, einnahmenBezeichnung);
-                pstEinnahmen.setDate(3, einnahmenDatum);
-                pstEinnahmen.setInt(4, rs.getInt(1));
-                pstEinnahmen.executeUpdate();
+            boolean hasResults = rs.next();
+
+            if (hasResults) {
+                do {
+                    System.out.println("USERID:  " + id);
+                    pstEinnahmen.setFloat(1, einnahmenBetrag);
+                    pstEinnahmen.setString(2, einnahmenBezeichnung);
+                    pstEinnahmen.setDate(3, einnahmenDatum);
+                    pstEinnahmen.setInt(4, id);
+                    pstEinnahmen.executeUpdate();
+                    pstEinnahmen.close();
+                } while (rs.next());
+                rs.close();
             }
         }
+
         catch (SQLException ex)
 
         {
@@ -165,6 +179,7 @@ public class JavaPostgres {
 
     public static void writeToDatabaseAusgaben(Float ausgabenBetrag, String ausgabenBezeichnung,  Date ausgabenDatum) throws SQLException
     {
+
         PreparedStatement ps;
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
         String SQL = ("SELECT * FROM userinfo LIMIT 1");

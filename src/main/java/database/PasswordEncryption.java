@@ -69,7 +69,7 @@ public class PasswordEncryption {
      * @param password -    Erster Wert für Userpasswort
      * @param salt -    Zweiter Wert zur Verschlüsselung des Userpasswort
      *
-     *
+     * @return returnValue
      */
 
     public static String generateSecurePassword(String password, String salt) {

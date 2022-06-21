@@ -17,6 +17,8 @@ import java.sql.*;
 import java.util.Objects;
 
 public class LoginController {
+
+    public static int id;
     //--------------Login Register----------------------------------
     @FXML
     private TextField loginName;
@@ -108,6 +110,9 @@ public class LoginController {
                         //primaryStage.initStyle(StageStyle.TRANSPARENT);
                         primaryStage.setResizable(false);
                         primaryStage.show();
+
+                        id = rs.getInt(1);
+
 
                     } else {
                         System.out.println("Login failed");

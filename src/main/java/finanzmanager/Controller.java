@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Objects;
 
 
@@ -129,6 +132,13 @@ public class Controller {
         System.out.println(ausgabenDate.getDayCellFactory());
         System.out.println(ausgabenKategorieText.getText());
 
+        LocalDate localDate = ausgabenDate.getValue();
+        System.out.println(localDate);
+
+
+
+
+
         if (Objects.equals(ausgabenBetrag.getText(), ""))
         {
             labelAusgaben.setText("Kein Betrag!");
@@ -139,7 +149,7 @@ public class Controller {
         else if (Objects.equals(ausgabenDate.getDayCellFactory(), "")) {
             labelAusgaben.setText("Kein Datum!");
         } else {
-            JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), ausgabenDate.getDayCellFactory());
+            JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
 
             ausgabenBetrag.clear();
             ausgabenBezeichnung.clear();
@@ -158,6 +168,9 @@ public class Controller {
         System.out.println(einnahmenDate.getDayCellFactory());
         System.out.println(einnahmenKategorieText.getText());
 
+        LocalDate localDate = einnahmenDate.getValue();
+        System.out.println(localDate);
+
         if (Objects.equals(einnahmenBetrag.getText(), ""))
         {
             labelEinnahmen.setText("Kein Betrag!");
@@ -168,7 +181,7 @@ public class Controller {
         else if (Objects.equals(einnahmenDate.getDayCellFactory(), "")) {
             labelEinnahmen.setText("Kein Datum!");
         } else {
-            JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), einnahmenDate.getDayCellFactory());
+            JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
 
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
@@ -185,6 +198,9 @@ public class Controller {
         System.out.println(dauerauftragDate.getDayCellFactory());
         System.out.println(dauerauftragZeitspanneText.getText());
 
+        LocalDate localDate = dauerauftragDate.getValue();
+        System.out.println(localDate);
+
         if (Objects.equals(dauerauftragBetrag.getText(), ""))
         {
             labelDauerauftraege.setText("Kein Betrag!");
@@ -198,10 +214,10 @@ public class Controller {
         else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
         }else {
-            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), dauerauftragDate.getDayCellFactory(), dauerauftragZeitspanneText.getText());
+            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
 
-            einnahmenBetrag.clear();
-            einnahmenBezeichnung.clear();
+            dauerauftragBetrag.clear();
+            dauerauftragBezeichnung.clear();
             einnahmenDate = new DatePicker();
             dauerauftragZeitspanneText.clear();
 

@@ -131,7 +131,7 @@ public class JavaPostgres {
     }
 
 
-    public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Callback<DatePicker, DateCell> einnahmenDatum) throws SQLException
+    public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Date einnahmenDatum) throws SQLException
     {
 
         PreparedStatement ps;
@@ -151,7 +151,7 @@ public class JavaPostgres {
             while (rs.next()) {
                 pstEinnahmen.setFloat(1, einnahmenBetrag);
                 pstEinnahmen.setString(2, einnahmenBezeichnung);
-                pstEinnahmen.setDate(3, (Date) einnahmenDatum);
+                pstEinnahmen.setDate(3, einnahmenDatum);
                 pstEinnahmen.setInt(4, rs.getInt(1));
                 pstEinnahmen.executeUpdate();
             }
@@ -164,7 +164,7 @@ public class JavaPostgres {
         }
     }
 
-    public static void writeToDatabaseAusgaben(Float ausgabenBetrag, String ausgabenBezeichnung, Callback<DatePicker, DateCell> ausgabenDatum) throws SQLException
+    public static void writeToDatabaseAusgaben(Float ausgabenBetrag, String ausgabenBezeichnung,  Date ausgabenDatum) throws SQLException
     {
         PreparedStatement ps;
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
@@ -183,7 +183,7 @@ public class JavaPostgres {
             while (rs.next()) {
                 pstAusgaben.setFloat(1, ausgabenBetrag);
                 pstAusgaben.setString(2, ausgabenBezeichnung);
-                pstAusgaben.setDate(3, (Date) ausgabenDatum);
+                pstAusgaben.setDate(3, ausgabenDatum);
                 pstAusgaben.setInt(4, rs.getInt(1));
                 pstAusgaben.executeUpdate();
             }
@@ -196,7 +196,7 @@ public class JavaPostgres {
         }
     }
 
-    public static void writeToDatabaseDauerauftrag( Float dauerauftragBetrag, String dauerauftragBezeichnung, Callback<DatePicker, DateCell> dauerauftragDatum, String dauerauftragZeitraum) throws SQLException
+    public static void writeToDatabaseDauerauftrag( Float dauerauftragBetrag, String dauerauftragBezeichnung, Date dauerauftragDatum, String dauerauftragZeitraum) throws SQLException
     {
         PreparedStatement ps;
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
@@ -215,7 +215,7 @@ public class JavaPostgres {
             while (rs.next()) {
                 pstDauerauftrag.setFloat(1, dauerauftragBetrag);
                 pstDauerauftrag.setString(2, dauerauftragBezeichnung);
-                pstDauerauftrag.setDate(3, (Date) dauerauftragDatum);
+                pstDauerauftrag.setDate(3, dauerauftragDatum);
                 pstDauerauftrag.setInt(4, rs.getInt(1));
                 pstDauerauftrag.setString(5, dauerauftragZeitraum);
                 pstDauerauftrag.executeUpdate();

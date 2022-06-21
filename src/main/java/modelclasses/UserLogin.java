@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.util.Objects;
 
 public class UserLogin {
-
+/*
     public static void validateUserLogin(TextField loginName, PasswordField loginPassword){
         PreparedStatement preparedStatement;
         ResultSet rs;
@@ -73,6 +73,6 @@ public class UserLogin {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
     }
 

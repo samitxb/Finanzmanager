@@ -34,6 +34,14 @@
 
 }
 
+.label-header-small {
+    -fx-font-size: 17pt;
+    /*-fx-font-family: "Segoe UI Light";*/
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+
+}
 
 .table-view {
     -fx-base: #1d1d1d;

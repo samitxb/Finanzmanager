@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.*;
@@ -19,7 +20,6 @@ import java.util.Objects;
 
 
 public class Controller {
-
 
 
     //-----------------Ausgaben Reiter--------------------------------
@@ -50,7 +50,6 @@ public class Controller {
     @FXML
     private Label labelAusgaben;
 
-  
 
     //----------------------------------------------------------------
 
@@ -125,28 +124,33 @@ public class Controller {
         primaryStage.show();
     }
 
+    @FXML
+    public void enterSettings(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Settings.fxml")));
+        primaryStage.setTitle("Einstellungen");
+        primaryStage.setScene(new Scene(root, 400, 500));
+        primaryStage.setResizable(false);
+        //primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.show();
+    }
 
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
-        System.out.println(ausgabenDate.getDayCellFactory());
+        System.out.println(ausgabenDate.getValue());
         System.out.println(ausgabenKategorieText.getText());
+
 
         LocalDate localDate = ausgabenDate.getValue();
         System.out.println(localDate);
 
 
-
-
-
-        if (Objects.equals(ausgabenBetrag.getText(), ""))
-        {
+        if (Objects.equals(ausgabenBetrag.getText(), "")) {
             labelAusgaben.setText("Kein Betrag!");
-        }
-        else if(Objects.equals(ausgabenBezeichnung.getText(), "")) {
+        } else if (Objects.equals(ausgabenBezeichnung.getText(), "")) {
             labelAusgaben.setText("Keine Bezeichnung !");
-        }
-        else if (Objects.equals(ausgabenDate.getDayCellFactory(), "")) {
+        } else if (Objects.equals(localDate, "")) {
             labelAusgaben.setText("Kein Datum!");
         } else {
             JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
@@ -171,14 +175,11 @@ public class Controller {
         LocalDate localDate = einnahmenDate.getValue();
         System.out.println(localDate);
 
-        if (Objects.equals(einnahmenBetrag.getText(), ""))
-        {
+        if (Objects.equals(einnahmenBetrag.getText(), "")) {
             labelEinnahmen.setText("Kein Betrag!");
-        }
-        else if(Objects.equals(einnahmenBezeichnung.getText(), "")) {
+        } else if (Objects.equals(einnahmenBezeichnung.getText(), "")) {
             labelEinnahmen.setText("Keine Bezeichnung!");
-        }
-        else if (Objects.equals(einnahmenDate.getDayCellFactory(), "")) {
+        } else if (Objects.equals(einnahmenDate.getValue(), "")) {
             labelEinnahmen.setText("Kein Datum!");
         } else {
             JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
@@ -191,29 +192,26 @@ public class Controller {
 
         }
     }
+
     @FXML
     public void dauerauftragHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
         System.out.println(dauerauftragBetrag.getText());
         System.out.println(dauerauftragBezeichnung.getText());
-        System.out.println(dauerauftragDate.getDayCellFactory());
+        System.out.println(dauerauftragDate.getValue());
         System.out.println(dauerauftragZeitspanneText.getText());
 
         LocalDate localDate = dauerauftragDate.getValue();
         System.out.println(localDate);
 
-        if (Objects.equals(dauerauftragBetrag.getText(), ""))
-        {
+        if (Objects.equals(dauerauftragBetrag.getText(), "")) {
             labelDauerauftraege.setText("Kein Betrag!");
-        }
-        else if(Objects.equals(dauerauftragBezeichnung.getText(), "")) {
+        } else if (Objects.equals(dauerauftragBezeichnung.getText(), "")) {
             labelDauerauftraege.setText("Keine Bezeichnung!");
-        }
-        else if (Objects.equals(dauerauftragDate.getDayCellFactory(), "")) {
+        } else if (Objects.equals(dauerauftragDate.getValue(), "")) {
             labelDauerauftraege.setText("Kein Datum!");
-        }
-        else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
+        } else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
-        }else {
+        } else {
             JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
 
             dauerauftragBetrag.clear();
@@ -312,8 +310,6 @@ public class Controller {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
-
-
 
 
     //----------------------------------------------------------------

@@ -52,6 +52,7 @@
                            </children>
                         </AnchorPane>
                         <Button fx:id="quitBtn" layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
+                        <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -110,6 +111,7 @@
                         </Label>
                         <TextField fx:id="ausgabenBezeichnung" layoutX="14.0" layoutY="286.0" prefHeight="37.0" prefWidth="177.0" />
                         <Label fx:id="labelAusgaben" layoutX="14.0" layoutY="472.0" prefHeight="37.0" prefWidth="293.0" />
+                        <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -168,6 +170,7 @@
                            </font>
                         </Label>
                         <TextField fx:id="einnahmenBezeichnung" layoutX="14.0" layoutY="286.0" prefHeight="37.0" prefWidth="177.0" />
+                        <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                      </children>
                   </AnchorPane>
                </content>
@@ -231,6 +234,7 @@
                            </font>
                         </Label>
                         <Label fx:id="labelDauerauftraege" layoutX="16.0" layoutY="536.0" prefHeight="37.0" prefWidth="293.0" />
+                        <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -264,6 +268,7 @@
                         </Label>
                         <CheckBox layoutX="14.0" layoutY="293.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="121.0" text="PDF" />
                         <CheckBox layoutX="14.0" layoutY="323.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="121.0" text="Excel" />
+                        <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                      </children></AnchorPane>
               </content>
             </Tab>

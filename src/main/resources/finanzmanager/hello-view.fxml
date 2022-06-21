@@ -15,11 +15,11 @@
       <VBox prefHeight="523.0" prefWidth="657.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <TabPane layoutX="-6.0" prefHeight="523.0" prefWidth="657.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Login">
+          <Tab text="Einloggen">
             <content>
               <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="456.0" prefWidth="672.0">
                      <children>
-                        <Label layoutX="243.0" layoutY="79.0" prefHeight="45.0" prefWidth="177.0" styleClass="label-bright" text="Login Name:">
+                        <Label layoutX="243.0" layoutY="79.0" prefHeight="45.0" prefWidth="177.0" styleClass="label-bright" text="Benutzername:">
                            <font>
                               <Font size="22.0" />
                            </font></Label>
@@ -35,17 +35,17 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Register">
+          <Tab text="Registrieren">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="230.0" layoutY="96.0" styleClass="label-bright" text="Name:" />
                         <TextField fx:id="registrationName" layoutX="230.0" layoutY="117.0" />
-                        <Label layoutX="230.0" layoutY="159.0" styleClass="label-bright" text="Username:" />
+                        <Label layoutX="230.0" layoutY="159.0" styleClass="label-bright" text="Benutzername:" />
                         <TextField fx:id="registrationUserName" layoutX="230.0" layoutY="180.0" />
-                        <Label layoutX="230.0" layoutY="225.0" styleClass="label-bright" text="Password:" />
+                        <Label layoutX="230.0" layoutY="225.0" styleClass="label-bright" text="Passwort:" />
                         <TextField fx:id="registrationUserPassword" layoutX="230.0" layoutY="246.0" />
-                        <Button layoutX="281.0" layoutY="296.0" mnemonicParsing="false" onAction="#setRegistrationData" text="Register" />
+                        <Button layoutX="269.0" layoutY="298.0" mnemonicParsing="false" onAction="#setRegistrationData" text="Registrieren" />
                         <Label fx:id="regsuccsessfulllabel" layoutX="83.0" layoutY="342.0" prefHeight="21.0" prefWidth="498.0" style="-fx-alignment: Center;" textAlignment="CENTER" textFill="RED" />
                      </children>
                   </AnchorPane>

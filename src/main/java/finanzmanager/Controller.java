@@ -127,7 +127,7 @@ public class Controller {
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
         System.out.println(ausgabenDate.getDayCellFactory());
-        System.out.println(menubarKategorieAusgaben.getText());
+        System.out.println(menubarKategorieAusgaben.getItems());
 
         if (Objects.equals(ausgabenBetrag.getText(), ""))
         {
@@ -181,7 +181,7 @@ public class Controller {
         System.out.println(dauerauftragBetrag.getText());
         System.out.println(dauerauftragBezeichnung.getText());
         System.out.println(dauerauftragDate.getDayCellFactory());
-        System.out.println(menubarZeitspanneDauerauftrag.getText());
+        System.out.println(menubarZeitspanneDauerauftrag.getItems());
 
         if (Objects.equals(dauerauftragBetrag.getText(), ""))
         {
@@ -196,7 +196,7 @@ public class Controller {
         else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
         }else {
-            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), dauerauftragDate.getDayCellFactory(), Date.valueOf(menubarZeitspanneDauerauftrag.getText()));
+            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), dauerauftragDate.getDayCellFactory(), String.valueOf(menubarZeitspanneDauerauftrag.getItems()));
 
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();

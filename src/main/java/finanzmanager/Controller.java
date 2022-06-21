@@ -127,7 +127,7 @@ public class Controller {
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
         System.out.println(ausgabenDate.getDayCellFactory());
-        System.out.println(menubarKategorieAusgaben.getItems());
+        System.out.println(ausgabenKategorieText.getText());
 
         if (Objects.equals(ausgabenBetrag.getText(), ""))
         {
@@ -144,6 +144,7 @@ public class Controller {
             ausgabenBetrag.clear();
             ausgabenBezeichnung.clear();
             ausgabenDate = new DatePicker();
+            ausgabenKategorieText.clear();
 
 
         }
@@ -155,7 +156,7 @@ public class Controller {
         System.out.println(einnahmenBetrag.getText());
         System.out.println(einnahmenBezeichnung.getText());
         System.out.println(einnahmenDate.getDayCellFactory());
-        System.out.println(menubarKategorieEinnahmen.getText());
+        System.out.println(einnahmenKategorieText.getText());
 
         if (Objects.equals(einnahmenBetrag.getText(), ""))
         {
@@ -172,6 +173,7 @@ public class Controller {
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
             einnahmenDate = new DatePicker();
+            einnahmenKategorieText.clear();
 
 
         }
@@ -181,7 +183,7 @@ public class Controller {
         System.out.println(dauerauftragBetrag.getText());
         System.out.println(dauerauftragBezeichnung.getText());
         System.out.println(dauerauftragDate.getDayCellFactory());
-        System.out.println(menubarZeitspanneDauerauftrag.getItems());
+        System.out.println(dauerauftragZeitspanneText.getText());
 
         if (Objects.equals(dauerauftragBetrag.getText(), ""))
         {
@@ -196,11 +198,12 @@ public class Controller {
         else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
         }else {
-            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), dauerauftragDate.getDayCellFactory(), String.valueOf(menubarZeitspanneDauerauftrag.getItems()));
+            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), dauerauftragDate.getDayCellFactory(), dauerauftragZeitspanneText.getText());
 
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
             einnahmenDate = new DatePicker();
+            dauerauftragZeitspanneText.clear();
 
 
         }

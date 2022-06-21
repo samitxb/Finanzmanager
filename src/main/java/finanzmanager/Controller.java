@@ -153,7 +153,7 @@ public class Controller {
 
             ausgabenBetrag.clear();
             ausgabenBezeichnung.clear();
-            ausgabenDate = new DatePicker();
+            //ausgabenDate = new DatePicker();
             ausgabenKategorieText.clear();
 
 
@@ -165,7 +165,7 @@ public class Controller {
     void einnahmeHinzufuegenBtn(ActionEvent event) throws SQLException {
         System.out.println(einnahmenBetrag.getText());
         System.out.println(einnahmenBezeichnung.getText());
-        System.out.println(einnahmenDate.getDayCellFactory());
+        System.out.println(einnahmenDate.getValue());
         System.out.println(einnahmenKategorieText.getText());
 
         LocalDate localDate = einnahmenDate.getValue();
@@ -185,7 +185,7 @@ public class Controller {
 
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
-            einnahmenDate = new DatePicker();
+            //einnahmenDate = new DatePicker();
             einnahmenKategorieText.clear();
 
 
@@ -218,7 +218,7 @@ public class Controller {
 
             dauerauftragBetrag.clear();
             dauerauftragBezeichnung.clear();
-            einnahmenDate = new DatePicker();
+            //einnahmenDate = new DatePicker();
             dauerauftragZeitspanneText.clear();
 
 

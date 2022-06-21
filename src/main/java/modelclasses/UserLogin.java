@@ -1,73 +1,22 @@
-package finanzmanager;
+package modelclasses;
 
 import database.JavaPostgres;
 import database.PasswordEncryption;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import modelclasses.UserLogin;
-import modelclasses.UserRegistration;
 
-import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Objects;
 
-public class LoginController {
-    //--------------Login Register----------------------------------
-    @FXML
-    private TextField loginName;
-    @FXML
-    private PasswordField loginPassword;
+public class UserLogin {
 
-    @FXML
-    private Label errorText;
-
-
-    @FXML
-    private Button loginOkBtn;
-
-    //---------------------------------------------------------------
-    //-------------Registration---------------------------------------
-    @FXML
-    private TextField registrationName;
-    @FXML
-    private TextField registrationUserName;
-    @FXML
-    private TextField registrationUserPassword;
-    @FXML
-    private Label regsuccsessfulllabel;
-    //----------------------------------------------------------------
-    @FXML
-    void btnOKClicked(ActionEvent event) throws IOException{
-
-        if(!loginName.getText().isBlank() && !loginPassword.getText().isBlank())
-        {
-            System.out.println("Login...");
-            validateUserLogin();
-        }
-        else
-        {
-            System.out.println("Enter login data");
-            errorText.setText("Bitte geben sie ihren Benutzernamen und Passwort ein!");
-        }
-    }
-
-
-
-    public void setRegistrationData(ActionEvent actionEvent){
-
-        UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword);
-
-    }
-
-    public void validateUserLogin()
-    {
-        //UserLogin.validateUserLogin(loginName, loginPassword);
-
+    public static void validateUserLogin(TextField loginName, PasswordField loginPassword){
         PreparedStatement preparedStatement;
         ResultSet rs;
 
@@ -98,11 +47,11 @@ public class LoginController {
                     if (passwordMatch) {
                         System.out.println("Login success");
 
-                        errorText.setText("Erfolgreich eingeloggt!");
-                        Stage stage = (Stage) loginOkBtn.getScene().getWindow();
-                        stage.close();
+                        //errorText.setText("Erfolgreich eingeloggt!");
+                        //Stage stage = (Stage); //loginOkBtn.getScene().getWindow();
+                        //stage.close();
                         Stage primaryStage = new Stage();
-                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(UserLogin.class.getResource("Actualview.fxml")));
                         primaryStage.setTitle("FINANZMANAGER - " + loginName.getText());
                         primaryStage.setScene(new Scene(root, 1082, 726));
                         //primaryStage.initStyle(StageStyle.TRANSPARENT);
@@ -111,19 +60,19 @@ public class LoginController {
 
                     } else {
                         System.out.println("Login failed");
-                        errorText.setText("Falsches Password!");
+                        //errorText.setText("Falsches Password!");
                         loginPassword.clear();
                     }
                 }while (rs.next());
             }
             else {
                 System.out.println("No Match found");
-                errorText.setText("Benutzername nicht vorhanden!");
+                //errorText.setText("Benutzername nicht vorhanden!");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-}
+    }
 

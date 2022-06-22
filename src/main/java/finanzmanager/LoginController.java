@@ -27,7 +27,6 @@ public class LoginController {
     @FXML
     private Label errorText;
 
-
     @FXML
     private Button loginOkBtn;
 
@@ -61,7 +60,7 @@ public class LoginController {
 
     public void setRegistrationData(ActionEvent actionEvent){
 
-        UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword);
+        UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword, regsuccsessfulllabel);
 
     }
 
@@ -114,12 +113,6 @@ public class LoginController {
                         //primaryStage.initStyle(StageStyle.TRANSPARENT);
                         primaryStage.setResizable(false);
                         primaryStage.show();
-
-
-
-
-
-
 
                     } else {
                         System.out.println("Login failed");

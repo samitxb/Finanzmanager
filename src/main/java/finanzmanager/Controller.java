@@ -34,23 +34,10 @@ public class Controller {
     private DatePicker ausgabenDate;
 
     @FXML
-    /**
-     * Textfeld zur Darstellung der Kategorie einer Ausgabe
-     */
-    private TextField ausgabenKategorieText;
-
-    @FXML
-    /**
-     * Menübutton zur Auswahl der Kategorien
-     */
-    private MenuButton menubarKategorieAusgaben;
-
-    @FXML
     private TextField ausgabenBezeichnung;
 
     @FXML
     private Label labelAusgaben;
-
 
     //----------------------------------------------------------------
 
@@ -61,10 +48,6 @@ public class Controller {
 
     @FXML
     private DatePicker einnahmenDate;
-    @FXML
-    private TextField einnahmenKategorieText;
-    @FXML
-    private MenuButton menubarKategorieEinnahmen;
 
     @FXML
     private TextField einnahmenBezeichnung;
@@ -80,6 +63,7 @@ public class Controller {
 
     @FXML
     private TextField dauerauftragBezeichnung;
+
     @FXML
     private CheckBox dauerauftragAusgabe;
 
@@ -88,7 +72,6 @@ public class Controller {
 
     @FXML
     private CheckBox dauerauftragEinnahme;
-
 
     @FXML
     private TextField dauerauftragZeitspanneText;
@@ -104,10 +87,7 @@ public class Controller {
     @FXML
     private Button quitBtn;
 
-
     //----------------------------------------------------------------
-
-    //Next Window
 
 
     @FXML
@@ -135,11 +115,10 @@ public class Controller {
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
     }
-
+    @FXML
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
-        System.out.println(ausgabenKategorieText.getText());
 
 
         LocalDate localDate = ausgabenDate.getValue();
@@ -162,7 +141,6 @@ public class Controller {
             ausgabenBetrag.clear();
             ausgabenBezeichnung.clear();
             ausgabenDate.setValue(null);
-            ausgabenKategorieText.clear();
 
 
         }
@@ -173,7 +151,6 @@ public class Controller {
     void einnahmeHinzufuegenBtn(ActionEvent event) throws SQLException {
         System.out.println(einnahmenBetrag.getText());
         System.out.println(einnahmenBezeichnung.getText());
-        System.out.println(einnahmenKategorieText.getText());
 
         LocalDate localDate = einnahmenDate.getValue();
         System.out.println(localDate);
@@ -190,7 +167,6 @@ public class Controller {
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
             einnahmenDate.setValue(null);
-            einnahmenKategorieText.clear();
 
 
         }
@@ -225,77 +201,6 @@ public class Controller {
         }
     }
 
-    //Zeigt die Ausgewählte Kategorie in dem Textfeld darunter an
-    @FXML
-    public void sonstiges(ActionEvent actionEvent) {
-        ausgabenKategorieText.setText("Sonstiges");
-    }
-
-    @FXML
-    public void sozialleben(ActionEvent actionEvent) {
-        ausgabenKategorieText.setText("Sozialleben");
-    }
-
-    @FXML
-    public void kultur(ActionEvent actionEvent) {
-        ausgabenKategorieText.setText("Kultur");
-    }
-
-    @FXML
-    public void beauty(ActionEvent actionEvent) {
-        ausgabenKategorieText.setText("Beauty");
-    }
-
-    @FXML
-    public void bekleidung(ActionEvent actionEvent) {
-        ausgabenKategorieText.setText("Bekleidung");
-    }
-
-    @FXML
-    public void auto(ActionEvent actionEvent) {
-        ausgabenKategorieText.setText("Auto");
-    }
-
-    @FXML
-    public void essen(ActionEvent actionEvent) {
-        ausgabenKategorieText.setText("Essen");
-    }
-    //----------------------------------------------------------------
-
-
-    //Zeigt die Ausgewählte Kategorie in dem Textfeld der Einnahmen darunter an
-    public void essenEinnahmen(ActionEvent actionEvent) {
-        einnahmenKategorieText.setText("Essen");
-    }
-
-    public void autoEinnahmen(ActionEvent actionEvent) {
-        einnahmenKategorieText.setText("Auto");
-    }
-
-    public void bekleidungEinnahmen(ActionEvent actionEvent) {
-        einnahmenKategorieText.setText("Bekleidung");
-    }
-
-    public void beautyEinnahmen(ActionEvent actionEvent) {
-        einnahmenKategorieText.setText("Beauty");
-    }
-
-    public void kulturAusgaben(ActionEvent actionEvent) {
-        einnahmenKategorieText.setText("Kultur");
-    }
-
-    public void soziallebenEinnahmen(ActionEvent actionEvent) {
-        einnahmenKategorieText.setText("Sozialleben");
-    }
-
-    public void sonstigesEinnahmen(ActionEvent actionEvent) {
-        einnahmenKategorieText.setText("Sonstiges");
-    }
-
-    public void kulturEinnahmen(ActionEvent actionEvent) {
-        einnahmenKategorieText.setText("Kultur");
-    }
-
     //----------------------------------------------------------------
     public void taeglich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Täglich");
@@ -312,8 +217,6 @@ public class Controller {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
-
-
     //----------------------------------------------------------------
 
 }

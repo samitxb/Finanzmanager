@@ -78,7 +78,7 @@ public class JavaPostgres {
         PreparedStatement psCheckUser;
 
 
-        String queryUser = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt) VALUES(?, ?, ?, ?)";
+        String queryUser = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt, Kontostand) VALUES(?, ?, ?, ?,?)";
 
 
         try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
@@ -109,13 +109,14 @@ public class JavaPostgres {
 
                 userPassword = PasswordEncryption.generateSecurePassword(userPassword, salt);
 
-
+                float kontostand = 0;
 
                 // Aktualisiert in der Tabelle userinfo die Einträge fullName, userName, userPassword und salt
                 pst.setString(1, fullName);
                 pst.setString(2, userName);
                 pst.setString(3, userPassword);
                 pst.setString(4, salt);
+                pst.setFloat(5, kontostand);
                 pst.executeUpdate();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Erfolgreich Registriert!");
@@ -180,6 +181,7 @@ public class JavaPostgres {
 
     public static void writeToDatabaseAusgaben(Float ausgabenBetrag, String ausgabenBezeichnung,  Date ausgabenDatum) throws SQLException
     {
+        int id = LoginController.id;
 
         PreparedStatement ps;
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
@@ -199,7 +201,7 @@ public class JavaPostgres {
                 pstAusgaben.setFloat(1, ausgabenBetrag);
                 pstAusgaben.setString(2, ausgabenBezeichnung);
                 pstAusgaben.setDate(3, ausgabenDatum);
-                pstAusgaben.setInt(4, rs.getInt(1));
+                pstAusgaben.setInt(4, id);
                 pstAusgaben.executeUpdate();
             }
         }
@@ -217,6 +219,8 @@ public class JavaPostgres {
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
         String SQL = ("SELECT * FROM userinfo LIMIT 1");
 
+        int id = LoginController.id;
+
         try
         {
 
@@ -231,7 +235,7 @@ public class JavaPostgres {
                 pstDauerauftrag.setFloat(1, dauerauftragBetrag);
                 pstDauerauftrag.setString(2, dauerauftragBezeichnung);
                 pstDauerauftrag.setDate(3, dauerauftragDatum);
-                pstDauerauftrag.setInt(4, rs.getInt(1));
+                pstDauerauftrag.setInt(4, id);
                 pstDauerauftrag.setString(5, dauerauftragZeitraum);
                 pstDauerauftrag.executeUpdate();
             }

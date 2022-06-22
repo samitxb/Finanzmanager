@@ -155,6 +155,7 @@ public class JavaPostgres {
 
             boolean hasResults = rs.next();
 
+
             if (hasResults) {
                 do {
                     System.out.println("USERID:  " + id);

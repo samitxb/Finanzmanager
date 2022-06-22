@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import modelclasses.UserLogin;
 import modelclasses.UserRegistration;
 
 import java.io.IOException;
@@ -77,8 +76,9 @@ public class LoginController {
         {
             JavaPostgres connectNow = new JavaPostgres();
             Connection conDb = connectNow.getConnection();
-            preparedStatement = conDb.prepareStatement("SELECT username, password, passwordsalt FROM Userinfo WHERE username = ?");
+            preparedStatement = conDb.prepareStatement("SELECT * FROM Userinfo WHERE username = ?");
             preparedStatement.setString(1, loginName.getText());
+
             rs = preparedStatement.executeQuery();
 
             boolean hasResults = rs.next();
@@ -98,6 +98,10 @@ public class LoginController {
                     boolean passwordMatch = PasswordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
 
                     if (passwordMatch) {
+                        id = (rs.getInt(1));
+                        System.out.println("ID: "+ id);
+
+
                         System.out.println("Login success");
 
                         errorText.setText("Erfolgreich eingeloggt!");
@@ -111,7 +115,10 @@ public class LoginController {
                         primaryStage.setResizable(false);
                         primaryStage.show();
 
-                        id = rs.getInt(1);
+
+
+
+
 
 
                     } else {
@@ -120,7 +127,10 @@ public class LoginController {
                         loginPassword.clear();
                     }
                 }while (rs.next());
+
             }
+
+
             else {
                 System.out.println("No Match found");
                 errorText.setText("Benutzername nicht vorhanden!");

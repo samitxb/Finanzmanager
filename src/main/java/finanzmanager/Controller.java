@@ -16,6 +16,7 @@ import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Objects;
 
 
@@ -138,26 +139,29 @@ public class Controller {
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
-        System.out.println(ausgabenDate.getValue());
         System.out.println(ausgabenKategorieText.getText());
 
 
         LocalDate localDate = ausgabenDate.getValue();
         System.out.println(localDate);
 
+        /*LocalDate isoDate = ausgabenDate.getValue();
+        ChronoLocalDate chronoDate = ((isoDate != null) ? ausgabenDate.getChronology().date(isoDate) : null);
+        System.err.println("Selected date: " + chronoDate);*/
+
 
         if (Objects.equals(ausgabenBetrag.getText(), "")) {
             labelAusgaben.setText("Kein Betrag!");
         } else if (Objects.equals(ausgabenBezeichnung.getText(), "")) {
             labelAusgaben.setText("Keine Bezeichnung !");
-        } else if (Objects.equals(localDate, "")) {
+        } else if (Objects.equals(localDate, null)) {
             labelAusgaben.setText("Kein Datum!");
         } else {
             JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
 
             ausgabenBetrag.clear();
             ausgabenBezeichnung.clear();
-            //ausgabenDate = new DatePicker();
+            ausgabenDate.setValue(null);
             ausgabenKategorieText.clear();
 
 
@@ -169,7 +173,6 @@ public class Controller {
     void einnahmeHinzufuegenBtn(ActionEvent event) throws SQLException {
         System.out.println(einnahmenBetrag.getText());
         System.out.println(einnahmenBezeichnung.getText());
-        System.out.println(einnahmenDate.getValue());
         System.out.println(einnahmenKategorieText.getText());
 
         LocalDate localDate = einnahmenDate.getValue();
@@ -179,14 +182,14 @@ public class Controller {
             labelEinnahmen.setText("Kein Betrag!");
         } else if (Objects.equals(einnahmenBezeichnung.getText(), "")) {
             labelEinnahmen.setText("Keine Bezeichnung!");
-        } else if (Objects.equals(einnahmenDate.getValue(), "")) {
+        } else if (Objects.equals(localDate, null)) {
             labelEinnahmen.setText("Kein Datum!");
         } else {
             JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
 
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
-            //einnahmenDate = new DatePicker();
+            einnahmenDate.setValue(null);
             einnahmenKategorieText.clear();
 
 
@@ -197,7 +200,6 @@ public class Controller {
     public void dauerauftragHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
         System.out.println(dauerauftragBetrag.getText());
         System.out.println(dauerauftragBezeichnung.getText());
-        System.out.println(dauerauftragDate.getValue());
         System.out.println(dauerauftragZeitspanneText.getText());
 
         LocalDate localDate = dauerauftragDate.getValue();
@@ -207,7 +209,7 @@ public class Controller {
             labelDauerauftraege.setText("Kein Betrag!");
         } else if (Objects.equals(dauerauftragBezeichnung.getText(), "")) {
             labelDauerauftraege.setText("Keine Bezeichnung!");
-        } else if (Objects.equals(dauerauftragDate.getValue(), "")) {
+        } else if (Objects.equals(localDate, null)) {
             labelDauerauftraege.setText("Kein Datum!");
         } else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
@@ -216,7 +218,7 @@ public class Controller {
 
             dauerauftragBetrag.clear();
             dauerauftragBezeichnung.clear();
-            //einnahmenDate = new DatePicker();
+            einnahmenDate.setValue(null);
             dauerauftragZeitspanneText.clear();
 
 

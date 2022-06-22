@@ -6,6 +6,7 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
 import modelclasses.UserInfo;
+import modelclasses.UserLogin;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -137,7 +138,7 @@ public class JavaPostgres {
     public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Date einnahmenDatum) throws SQLException
     {
 
-        int id = LoginController.id;
+        int id = UserLogin.id;
 
 
 
@@ -181,7 +182,7 @@ public class JavaPostgres {
 
     public static void writeToDatabaseAusgaben(Float ausgabenBetrag, String ausgabenBezeichnung,  Date ausgabenDatum) throws SQLException
     {
-        int id = LoginController.id;
+        int id = UserLogin.id;
 
         PreparedStatement ps;
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
@@ -219,7 +220,7 @@ public class JavaPostgres {
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
         String SQL = ("SELECT * FROM userinfo LIMIT 1");
 
-        int id = LoginController.id;
+        int id = UserLogin.id;
 
         try
         {

@@ -2,35 +2,32 @@ package modelclasses;
 
 import database.JavaPostgres;
 import database.PasswordEncryption;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Objects;
 
 public class UserLogin {
-/*
-    public static void validateUserLogin(TextField loginName, PasswordField loginPassword){
+    public static int id;
+    public static boolean validateUserLogin(TextField loginName, TextField loginPassword, Label errorText) {
+
         PreparedStatement preparedStatement;
         ResultSet rs;
 
-        try
-        {
+        try {
             JavaPostgres connectNow = new JavaPostgres();
             Connection conDb = connectNow.getConnection();
-            preparedStatement = conDb.prepareStatement("SELECT username, password, passwordsalt FROM Userinfo WHERE username = ?");
+            preparedStatement = conDb.prepareStatement("SELECT * FROM Userinfo WHERE username = ?");
             preparedStatement.setString(1, loginName.getText());
+
             rs = preparedStatement.executeQuery();
 
             boolean hasResults = rs.next();
 
-            if(hasResults) {
+            if (hasResults) {
 
                 do {
                     // User provided password to validate
@@ -45,34 +42,33 @@ public class UserLogin {
                     boolean passwordMatch = PasswordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
 
                     if (passwordMatch) {
+
+                        id = (rs.getInt(1));
+                        System.out.println("ID: " + id);
+
                         System.out.println("Login success");
 
-                        //errorText.setText("Erfolgreich eingeloggt!");
-                        //Stage stage = (Stage); //loginOkBtn.getScene().getWindow();
-                        //stage.close();
-                        Stage primaryStage = new Stage();
-                        Parent root = FXMLLoader.load(Objects.requireNonNull(UserLogin.class.getResource("Actualview.fxml")));
-                        primaryStage.setTitle("FINANZMANAGER - " + loginName.getText());
-                        primaryStage.setScene(new Scene(root, 1082, 726));
-                        //primaryStage.initStyle(StageStyle.TRANSPARENT);
-                        primaryStage.setResizable(false);
-                        primaryStage.show();
+                        return true;
 
                     } else {
                         System.out.println("Login failed");
-                        //errorText.setText("Falsches Password!");
+                        errorText.setText("Falsches Password!");
                         loginPassword.clear();
                     }
-                }while (rs.next());
-            }
-            else {
+                } while (rs.next());
+
+            } else {
                 System.out.println("No Match found");
-                //errorText.setText("Benutzername nicht vorhanden!");
+                errorText.setText("Benutzername nicht vorhanden!");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+
+        return false;
     }
+    }
+
+
 

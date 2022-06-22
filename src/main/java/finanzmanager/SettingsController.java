@@ -31,44 +31,52 @@ public class SettingsController {
     private TextField settingsPasswortNeu;
 
     public void einstellungenSpeichern(ActionEvent actionEvent) {
-        setKontostand(Float.valueOf(kontostand.getText()));
+
+        if (!Objects.equals(kontostand.getText(), "")){
+            System.out.println("Kontostand:" + kontostand.getText());
+            setKontostand(Float.valueOf(kontostand.getText()));
+        }
+
         Stage stage = (Stage) saveSettingsBtn.getScene().getWindow();
         stage.close();
     }
 
     public void setKontostand(Float eingabeKontostand)
     {
+        System.out.println(eingabeKontostand);
+        System.out.println("method: "+ kontostand.getText());
 
-        String queryKontostand;
-        PreparedStatement psKontostand;
-        ResultSet rsKontostand;
+
 
         try
         {
 
+            PreparedStatement psKontostand;
+
             JavaPostgres connectNow = new JavaPostgres();
             Connection conDb = connectNow.getConnection();
 
+            String queryKontostand = "INSERT INTO USERINFO(Kontostand)VALUES(?)";
 
-
-            queryKontostand = "INSERT INTO Userinfo(Kontostand)VALUES(?)";
             psKontostand = conDb.prepareStatement(queryKontostand);
-            rsKontostand = psKontostand.executeQuery();
+
+            ResultSet rsKontostand = psKontostand.executeQuery();
+
+
+
 
 
             while(rsKontostand.next())
             {
-                psKontostand.setFloat(1, eingabeKontostand);
+                psKontostand.setFloat(1, Float.parseFloat(kontostand.getText()));
+                System.out.println("While "+ kontostand.getText());
+                System.out.println("While "+ eingabeKontostand);
             }
 
             rsKontostand.close();
-
-
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

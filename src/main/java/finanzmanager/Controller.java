@@ -8,8 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import modelclasses.NurNummern;
 
 import java.io.IOException;
 import java.sql.*;
@@ -107,13 +109,13 @@ public class Controller {
 
     @FXML
     public void enterSettings(ActionEvent actionEvent) throws IOException {
-        Stage primaryStage = new Stage();
+        Stage secondaryStage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Settings.fxml")));
-        primaryStage.setTitle("Einstellungen");
-        primaryStage.setScene(new Scene(root, 400, 500));
-        primaryStage.setResizable(false);
-        //primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.show();
+        secondaryStage.setTitle("Einstellungen");
+        secondaryStage.setScene(new Scene(root, 400, 500));
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.show();
     }
     @FXML
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {

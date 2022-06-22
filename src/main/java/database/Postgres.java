@@ -60,7 +60,7 @@ class Postgres {
                         " username           TEXT     NOT NULL," +
                         " password           TEXT     NOT NULL," +
                         " passwordSalt       TEXT     NOT NULL," +
-                        " kontostand         INT      ," +
+                        " kontostand         FLOAT      ," +
                         " PRIMARY KEY (userID))";
 
 

@@ -1,5 +1,6 @@
 package finanzmanager;
 
+import database.GetPostgresData;
 import database.JavaPostgres;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +25,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import modelclasses.Ausgaben;
 
 
 public class Controller implements Initializable {
@@ -248,6 +248,8 @@ public class Controller implements Initializable {
                 labelAusgaben.setText("Gespeichert!");
 
                 JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
+                GetPostgresData.getAusgabenDatabase();
+
 
                 ausgabenBetrag.clear();
                 ausgabenBezeichnung.clear();
@@ -285,6 +287,7 @@ public class Controller implements Initializable {
                 labelEinnahmen.setText("Gespeichert!");
 
                 JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
+                GetPostgresData.getEinnahmenDatabase();
 
                 einnahmenBetrag.clear();
                 einnahmenBezeichnung.clear();
@@ -323,6 +326,8 @@ public class Controller implements Initializable {
                 labelDauerauftraege.setText("Gespeichert!");
 
                 JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
+                GetPostgresData.getDauerauftragDatabase();
+
 
                 dauerauftragBetrag.clear();
                 dauerauftragBezeichnung.clear();

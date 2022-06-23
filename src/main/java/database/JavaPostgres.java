@@ -40,7 +40,7 @@ public class JavaPostgres {
 
 
     // Variable databaseConnectionLink stellt Verbindungsinformationen bereit
-    public Connection databaseConnectionLink;
+    public static Connection databaseConnectionLink;
 
 
     public Connection getConnection() {
@@ -135,7 +135,7 @@ public class JavaPostgres {
     }
 
 
-    public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Date einnahmenDatum) throws SQLException
+    public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Date einnahmenDatum)
     {
 
         int id = UserLogin.id;

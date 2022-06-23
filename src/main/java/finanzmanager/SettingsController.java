@@ -7,10 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import modelclasses.NurNummern;
 import modelclasses.UserLogin;
 
 import java.sql.*;
@@ -29,11 +31,34 @@ public class SettingsController {
     @FXML
     private TextField settingsPasswortNeu;
 
+    @FXML
+    private Label kontostandLabel;
+
+    @FXML
+    private Button quitSettingsBtn;
+
+
+    @FXML
+    void quitSettings(ActionEvent event) {
+
+        Stage stage = (Stage) quitSettingsBtn.getScene().getWindow();
+        stage.close();
+    }
+
+
     public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
 
+        boolean numerisch;
+
+        kontostandLabel.setText(null);
+
         if (!Objects.equals(kontostand.getText(), "")){
-            System.out.println("Kontostand:" + kontostand.getText());
-            setKontostand(Float.valueOf(kontostand.getText()));
+            numerisch = NurNummern.isNumeric(kontostand.getText());
+            if (numerisch){
+                System.out.println("Kontostand:" + kontostand.getText());
+                setKontostand(Float.valueOf(kontostand.getText()));
+                kontostandLabel.setText("Gespeichert!");
+            }else kontostandLabel.setText("Keine Zahl!");
         }
 
         if(!settingsNutzernameNeu.getText().equals("")){
@@ -47,8 +72,6 @@ public class SettingsController {
         }
 
 
-        Stage stage = (Stage) saveSettingsBtn.getScene().getWindow();
-        stage.close();
     }
 
 

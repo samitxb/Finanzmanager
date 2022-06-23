@@ -117,8 +117,12 @@ public class Controller {
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
         secondaryStage.show();
     }
+
     @FXML
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
+
+        labelAusgaben.setText(null);
+
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
 
@@ -130,6 +134,7 @@ public class Controller {
         ChronoLocalDate chronoDate = ((isoDate != null) ? ausgabenDate.getChronology().date(isoDate) : null);
         System.err.println("Selected date: " + chronoDate);*/
 
+        boolean numerisch;
 
         if (Objects.equals(ausgabenBetrag.getText(), "")) {
             labelAusgaben.setText("Kein Betrag!");
@@ -138,24 +143,34 @@ public class Controller {
         } else if (Objects.equals(localDate, null)) {
             labelAusgaben.setText("Kein Datum!");
         } else {
-            JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
+            numerisch = NurNummern.isNumeric(ausgabenBetrag.getText());
+            if (numerisch) {
+                labelAusgaben.setText("Gespeichert!");
 
-            ausgabenBetrag.clear();
-            ausgabenBezeichnung.clear();
-            ausgabenDate.setValue(null);
+                JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
 
-
+                ausgabenBetrag.clear();
+                ausgabenBezeichnung.clear();
+                ausgabenDate.setValue(null);
+            } else labelAusgaben.setText("Keine Zahl!");
         }
+
     }
+
 
     /* Für Einnahmen alles */
     @FXML
     void einnahmeHinzufuegenBtn(ActionEvent event) throws SQLException {
+
+        labelEinnahmen.setText(null);
+
         System.out.println(einnahmenBetrag.getText());
         System.out.println(einnahmenBezeichnung.getText());
 
         LocalDate localDate = einnahmenDate.getValue();
         System.out.println(localDate);
+
+        boolean numerisch;
 
         if (Objects.equals(einnahmenBetrag.getText(), "")) {
             labelEinnahmen.setText("Kein Betrag!");
@@ -164,24 +179,34 @@ public class Controller {
         } else if (Objects.equals(localDate, null)) {
             labelEinnahmen.setText("Kein Datum!");
         } else {
-            JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
 
-            einnahmenBetrag.clear();
-            einnahmenBezeichnung.clear();
-            einnahmenDate.setValue(null);
+            numerisch = NurNummern.isNumeric(einnahmenBetrag.getText());
+            if (numerisch) {
+                labelEinnahmen.setText("Gespeichert!");
 
+                JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
+
+                einnahmenBetrag.clear();
+                einnahmenBezeichnung.clear();
+                einnahmenDate.setValue(null);
+            } else labelEinnahmen.setText("Keine Zahl!");
 
         }
     }
 
     @FXML
     public void dauerauftragHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
+
+        labelDauerauftraege.setText(null);
+
         System.out.println(dauerauftragBetrag.getText());
         System.out.println(dauerauftragBezeichnung.getText());
         System.out.println(dauerauftragZeitspanneText.getText());
 
         LocalDate localDate = dauerauftragDate.getValue();
         System.out.println(localDate);
+
+        boolean numerisch;
 
         if (Objects.equals(dauerauftragBetrag.getText(), "")) {
             labelDauerauftraege.setText("Kein Betrag!");
@@ -192,14 +217,19 @@ public class Controller {
         } else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
         } else {
-            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
 
-            dauerauftragBetrag.clear();
-            dauerauftragBezeichnung.clear();
-            einnahmenDate.setValue(null);
-            dauerauftragZeitspanneText.clear();
+            numerisch = NurNummern.isNumeric(dauerauftragBetrag.getText());
+            if (numerisch) {
+                labelDauerauftraege.setText("Gespeichert!");
 
+                JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
 
+                dauerauftragBetrag.clear();
+                dauerauftragBezeichnung.clear();
+                einnahmenDate.setValue(null);
+                dauerauftragZeitspanneText.clear();
+
+            } else labelDauerauftraege.setText("Keine Zahl!");
         }
     }
 

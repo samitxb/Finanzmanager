@@ -1,28 +1,40 @@
 package modelclasses;
 
-import database.JavaPostgres;
 import finanzmanager.Controller;
-import javafx.event.ActionEvent;
 
 import java.sql.Date;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Objects;
 
-public class Ausgaben extends Controller {
-   /* @Override
-    public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
-        super.ausgabeHinzufuegenBtn(actionEvent);
-        System.out.println(ausgabenBetrag.getText());
-    }*/
 
-    float ausgabenBetrag;
-    String ausgabenBezeichnung;
-    Date ausgabenDate;
-    String ausgabenKategorie;
-    static String ausgabeLabel;
+public class Ausgaben {
+    private static int  ausgabenListID;
+    private static String ausgabenListBezeichnung;
+    private static float ausgabenListBetrag;
 
-    public static void ausgabeHinzufuegen(String ausgabenBetrag, String ausgabenBezeichnung, LocalDate ausgabenDate, String ausgabenKategorie) throws SQLException {
+
+    private Date ausgabenDate;
+
+    private String ausgabeLabel;
+
+
+    public Ausgaben(int ausgabenListID, String ausgabenListBezeichnung, float ausgabenListBetrag) {
+        Ausgaben.ausgabenListID = ausgabenListID;
+        Ausgaben.ausgabenListBezeichnung = ausgabenListBezeichnung;
+        Ausgaben.ausgabenListBetrag = ausgabenListBetrag;
+    }
+
+    public int getAusgabenListID() {
+        return ausgabenListID;
+    }
+
+    public String getAusgabenListBezeichnung() {
+        return ausgabenListBezeichnung;
+    }
+
+    public float getAusgabenListBetrag() {
+        return ausgabenListBetrag;
+    }
+
+  /* public static void ausgabeHinzufuegen(String ausgabenBetrag, String ausgabenBezeichnung, LocalDate ausgabenDate, String ausgabenKategorie) throws SQLException {
 
      /*
         //super.ausgabeHinzufuegenBtn(new ActionEvent());
@@ -41,8 +53,8 @@ public class Ausgaben extends Controller {
 
         } else {
             JavaPostgres.writeToDatabaseAusgaben(ausgabenBetrag, ausgabenBezeichnung, ausgabenDate);
-    }*/
+    }
 
-}
+}*/
 
 }

@@ -1,28 +1,33 @@
 package finanzmanager;
 
 import database.JavaPostgres;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import modelclasses.Ausgaben;
 import modelclasses.NurNummern;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Objects;
+import java.util.ResourceBundle;
+
+import modelclasses.Ausgaben;
 
 
-public class Controller {
+public class Controller implements Initializable {
 
 
     //-----------------Ausgaben Reiter--------------------------------
@@ -41,7 +46,34 @@ public class Controller {
     @FXML
     private Label labelAusgaben;
 
+    //------------------------------------------------------------------
+
+    @FXML
+    private Pagination ausgabenPagination;
+
+   /* private final static int dataSize = 100;
+
+    private final TableView<Sample> table = createTable();
+
+    private final List<Sample> data = createData();
+
+    private final static int rowsPerPage = 10;
+*/
+
+    @FXML
+    private TableView<Ausgaben> ausgabenView;
+    @FXML
+    private TableColumn<Ausgaben, Float> ausgabenListBetrag;
+
+    @FXML
+    private TableColumn<Ausgaben, String> ausgabenListBezeichnung;
+
+    @FXML
+    private TableColumn<Ausgaben, Integer> ausgabenListID;
+
     //----------------------------------------------------------------
+
+
 
 
     //-----------------Einnahmen Reiter--------------------------------
@@ -90,8 +122,76 @@ public class Controller {
     private Button quitBtn;
 
     //----------------------------------------------------------------
+/*
+    private TableView<Sample> createTable() {
 
+        TableView<Sample> table = new TableView<>();
 
+        TableColumn<Sample, Integer> idColumn = new TableColumn<>("Id");
+        idColumn.setCellValueFactory(param -> param.getValue().id);
+        idColumn.setPrefWidth(100);
+
+        TableColumn<Sample, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(param -> param.getValue().foo);
+        nameColumn.setPrefWidth(70);
+
+        table.getColumns().addAll(idColumn, nameColumn);
+        return table;
+    }
+
+    //this method used to fill data in tableview
+    private List<Sample> createData() {
+
+        List<Sample> data = new ArrayList<>(dataSize);
+
+        for (int i = 1; i <= dataSize; i++) {
+            data.add(new Sample(i, "foo " + i, "bar " + i));
+        }
+
+        return data;
+    }
+    private Node createPage(int pageIndex) {
+        int fromIndex = pageIndex * rowsPerPage;
+        int toIndex = Math.min(fromIndex + rowsPerPage, data.size());
+        table.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
+        return table;
+    }
+
+    //@Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        ausgabenPagination.setPageFactory(this::createPage);
+
+    }
+
+    //static class for data model
+    public static class Sample {
+
+        private final ObservableValue<Integer> id;
+        private final SimpleStringProperty foo;
+        private final SimpleStringProperty bar;
+
+        private Sample(int id, String foo, String bar) {
+            this.id = new SimpleObjectProperty<>(id);
+            this.foo = new SimpleStringProperty(foo);
+            this.bar = new SimpleStringProperty(bar);
+        }
+    }
+*/
+    //--------------------------------------------------------------------------
+
+    ObservableList<Ausgaben> list = FXCollections.observableArrayList(
+            new Ausgaben(1, "Bier" , 5)
+    );
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ausgabenListID.setCellValueFactory(new PropertyValueFactory<Ausgaben, Integer>("ausgabenListID"));
+        ausgabenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
+        ausgabenListBetrag.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
+
+        ausgabenView.setItems(list);
+    }
     @FXML
     /**
      * Bei betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
@@ -249,6 +349,8 @@ public class Controller {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
+
+
     //----------------------------------------------------------------
 
 }

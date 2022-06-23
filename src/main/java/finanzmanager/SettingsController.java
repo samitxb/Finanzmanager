@@ -13,10 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import modelclasses.UserLogin;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Objects;
 
 public class SettingsController {
@@ -32,7 +29,7 @@ public class SettingsController {
     @FXML
     private TextField settingsPasswortNeu;
 
-    public void einstellungenSpeichern(ActionEvent actionEvent) {
+    public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
 
         if (!Objects.equals(kontostand.getText(), "")){
             System.out.println("Kontostand:" + kontostand.getText());
@@ -55,25 +52,45 @@ public class SettingsController {
     }
 
 
-    public void neuerUserName(String neuUserName)//, String neuUserPassword)
+    public void neuerUserName( String neuUserName) throws SQLException//, String neuUserPassword)
     {
         int id = UserLogin.id;
 
 
         PreparedStatement ps;
+        PreparedStatement psCheckUser;
+        ResultSet resultSet;
 
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
 
-        String sqlUpdate = "UPDATE userinfo SET username = ? WHERE userid = ?";
+
+        psCheckUser = conDb.prepareStatement("SELECT * FROM userinfo WHERE username=?");
+        psCheckUser.setString(1, neuUserName);
+        resultSet = psCheckUser.executeQuery();
+
 
         try
         {
-            ps = conDb.prepareStatement(sqlUpdate);
-            ps.setString(1, neuUserName);
-            ps.setInt(2,id);
 
-            ps.executeUpdate();
+            // Checkt, ob der neue Username in der Datenbank existiert
+            if(resultSet.isBeforeFirst())
+            {
+                System.out.println("Nutzername vergeben");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Nutzername vergeben! Bitte anderen Nutzernamen wählen.");
+
+                // Wirft Fenster mit Fehlermeldung aus
+                alert.show();
+            }
+
+            else
+            {
+                ps = conDb.prepareStatement("UPDATE userinfo SET username = ? WHERE userid = ?");
+                ps.setString(1, neuUserName);
+                ps.setInt(2, id);
+                ps.executeUpdate();
+            }
 
         }
 
@@ -81,6 +98,7 @@ public class SettingsController {
             e.printStackTrace();
         }
     }
+
 
 
     public void neuesUserPasswort(String neuUserPasswort)

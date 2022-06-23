@@ -38,14 +38,25 @@ public class SettingsController {
             setKontostand(Float.valueOf(kontostand.getText()));
         }
 
+        if(!settingsNutzernameNeu.getText().equals("")){
+            System.out.println("Neuer Username:" + settingsNutzernameNeu.getText());
+            neuerUserName(settingsNutzernameNeu.getText());
+        }
+/*
+        if(!settingsPasswortNeu.getText().equals("")){
+            System.out.println("Neues Passwort:" + settingsPasswortNeu.getText());
+            neuesUserPasswort(settingsPasswortNeu.getText());
+        }
+*/
+
         Stage stage = (Stage) saveSettingsBtn.getScene().getWindow();
         stage.close();
     }
 
-    public void neueUserDaten(String neuUserName, String neuUserPassword)
+
+    public void neuerUserName(String neuUserName)//, String neuUserPassword)
     {
         int id = UserLogin.id;
-
 
 
         PreparedStatement ps;
@@ -53,63 +64,53 @@ public class SettingsController {
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
 
-        String sqlUpdate = "UPDATE userinfo SET username = ? AND password = ? WHERE id = ?";
+        String sqlUpdate = "UPDATE userinfo SET username = ? WHERE userid = ?";
 
         try
         {
-                ps = conDb.prepareStatement(sqlUpdate);
-                ps.setString(1, neuUserName);
-                ps.setString(2, neuUserPassword);
-                ps.setInt(3,id);
+            ps = conDb.prepareStatement(sqlUpdate);
+            ps.setString(1, neuUserName);
+            ps.setInt(2,id);
 
-                ps.executeUpdate();
+            ps.executeUpdate();
 
         }
 
         catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
+        }
     }
 
 
-    }
+
 
     public void setKontostand(Float eingabeKontostand)
     {
+        int id = UserLogin.id;
 
 
         System.out.println(eingabeKontostand);
         System.out.println("method: "+ kontostand.getText());
 
-
+        JavaPostgres connectNow = new JavaPostgres();
+        Connection conDb = connectNow.getConnection();
 
         try
         {
 
             PreparedStatement psKontostand;
 
-            JavaPostgres connectNow = new JavaPostgres();
-            Connection conDb = connectNow.getConnection();
 
-            String queryKontostand = "INSERT INTO USERINFO(Kontostand)VALUES(?)";
+
+            String queryKontostand = "UPDATE Userinfo SET kontostand =? WHERE userid =? ";
 
             psKontostand = conDb.prepareStatement(queryKontostand);
+            psKontostand.setFloat(1, eingabeKontostand);
+            psKontostand.setInt(2,id);
+            psKontostand.executeUpdate();
 
-            ResultSet rsKontostand = psKontostand.executeQuery();
-
-
-
-
-
-            while(rsKontostand.next())
-            {
-                psKontostand.setFloat(1, Float.parseFloat(kontostand.getText()));
-                System.out.println("While "+ kontostand.getText());
-                System.out.println("While "+ eingabeKontostand);
-            }
-
-            rsKontostand.close();
-
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

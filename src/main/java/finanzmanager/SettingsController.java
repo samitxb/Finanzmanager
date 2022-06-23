@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -42,12 +43,12 @@ public class SettingsController {
             System.out.println("Neuer Username:" + settingsNutzernameNeu.getText());
             neuerUserName(settingsNutzernameNeu.getText());
         }
-/*
+
         if(!settingsPasswortNeu.getText().equals("")){
             System.out.println("Neues Passwort:" + settingsPasswortNeu.getText());
             neuesUserPasswort(settingsPasswortNeu.getText());
         }
-*/
+
 
         Stage stage = (Stage) saveSettingsBtn.getScene().getWindow();
         stage.close();
@@ -80,6 +81,39 @@ public class SettingsController {
             e.printStackTrace();
         }
     }
+
+
+    public void neuesUserPasswort(String neuUserPasswort)
+    {
+        int id = UserLogin.id;
+
+
+        PreparedStatement ps;
+
+        JavaPostgres connectNow = new JavaPostgres();
+        Connection conDb = connectNow.getConnection();
+
+        String sqlUpdate = "UPDATE userinfo SET password = ?, passwordsalt =? WHERE userid = ?";
+
+        try
+        {
+            String salt = PasswordEncryption.getSalt(30);
+            neuUserPasswort = PasswordEncryption.generateSecurePassword(neuUserPasswort, salt);
+            ps = conDb.prepareStatement(sqlUpdate);
+            ps.setString(1, neuUserPasswort);
+            ps.setString(2, salt);
+            ps.setInt(3,id);
+
+            ps.executeUpdate();
+
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 

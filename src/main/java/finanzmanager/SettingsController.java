@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import modelclasses.UserLogin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,8 +42,41 @@ public class SettingsController {
         stage.close();
     }
 
+    public void neueUserDaten(String neuUserName, String neuUserPassword)
+    {
+        int id = UserLogin.id;
+
+
+
+        PreparedStatement ps;
+
+        JavaPostgres connectNow = new JavaPostgres();
+        Connection conDb = connectNow.getConnection();
+
+        String sqlUpdate = "UPDATE userinfo SET username = ? AND password = ? WHERE id = ?";
+
+        try
+        {
+                ps = conDb.prepareStatement(sqlUpdate);
+                ps.setString(1, neuUserName);
+                ps.setString(2, neuUserPassword);
+                ps.setInt(3,id);
+
+                ps.executeUpdate();
+
+        }
+
+        catch (Exception e) {
+        e.printStackTrace();
+    }
+
+
+    }
+
     public void setKontostand(Float eingabeKontostand)
     {
+
+
         System.out.println(eingabeKontostand);
         System.out.println("method: "+ kontostand.getText());
 

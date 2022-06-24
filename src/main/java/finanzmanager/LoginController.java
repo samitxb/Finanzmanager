@@ -42,6 +42,10 @@ public class LoginController {
     private TextField registrationUserPassword;
     @FXML
     private Label regsuccsessfulllabel;
+
+    @FXML
+    private TextField registrationUserQuestion;
+
     //----------------------------------------------------------------
     @FXML
     void btnOKClicked(ActionEvent event) throws IOException{

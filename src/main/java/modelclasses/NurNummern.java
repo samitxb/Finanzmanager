@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 
 public class NurNummern {
 
-
+/*
         public static void numericOnly(final TextField field) {
             field.textProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -19,7 +19,7 @@ public class NurNummern {
                 }
             });
         }
-
+*/
         public static boolean isNumeric(String eingabe){
             String str = eingabe;
             //boolean isNumeric = true;

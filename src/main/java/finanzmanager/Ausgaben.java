@@ -1,7 +1,4 @@
-package modelclasses;
-
-import database.GetPostgresData;
-import finanzmanager.Controller;
+package finanzmanager;
 
 import java.sql.Date;
 
@@ -10,16 +7,16 @@ public class Ausgaben {
 
     private String ausgabenListBezeichnung;
     private float ausgabenListBetrag;
-    private Date ausgabenListDate;
+    private String ausgabenListDatum;
 
     private String ausgabeLabel;
 
 
-    public Ausgaben( float ausgabenListBetrag, String ausgabenListBezeichnung, Date ausgabenListDate)
+    public Ausgaben(float ausgabenListBetrag, String ausgabenListBezeichnung, String ausgabenListDatum)
     {
         this.ausgabenListBetrag = ausgabenListBetrag;
         this.ausgabenListBezeichnung = ausgabenListBezeichnung;
-        this.ausgabenListDate = ausgabenListDate;
+        this.ausgabenListDatum = ausgabenListDatum;
 
     }
 
@@ -30,7 +27,7 @@ public class Ausgaben {
     public String getAusgabenListBezeichnung() {
         return ausgabenListBezeichnung;
     }
-    public Date getAusgabenListDate() { return ausgabenListDate; }
+    public String getAusgabenListDatum() { return ausgabenListDatum; }
 
 
 

@@ -86,9 +86,9 @@
                               </Label>
                               <TableView fx:id="ausgabenView" layoutX="7.0" layoutY="61.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
                                 <columns>
-                                  <TableColumn fx:id="ausgabenListID" prefWidth="36.0" text="ID" />
-                                  <TableColumn fx:id="ausgabenListBezeichnung" prefWidth="116.0" text="Bezeichnung" />
-                                    <TableColumn fx:id="ausgabenListBetrag" prefWidth="97.0" text="Betrag" />
+                                  <TableColumn fx:id="ausgabenListDatum" prefWidth="70.0" text="Datum" />
+                                  <TableColumn fx:id="ausgabenListBezeichnung" prefWidth="118.0" text="Bezeichnung" />
+                                    <TableColumn fx:id="ausgabenListBetrag" prefWidth="61.0" text="Betrag" />
                                     <TableColumn prefWidth="51.0" text="Del" />
                                 </columns>
                               </TableView>
@@ -117,6 +117,14 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
+                              <TableView fx:id="einnahmenView" layoutX="8.0" layoutY="64.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                                 <columns>
+                                    <TableColumn fx:id="einnahmenListDatum" prefWidth="78.0" text="Datum" />
+                                    <TableColumn fx:id="einnahmenListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
+                                    <TableColumn fx:id="einnahmenListBetrag" prefWidth="64.0" text="Betrag" />
+                                    <TableColumn prefWidth="51.0" text="Del" />
+                                 </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                         <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="303.0" styleClass="label-header" text="Meine Einnahmen" underline="true">
@@ -161,6 +169,14 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
+                              <TableView fx:id="dauerauftraegeView" layoutX="7.0" layoutY="65.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                                 <columns>
+                                    <TableColumn fx:id="dauerauftraegeListDatum" prefWidth="78.0" text="Datum" />
+                                    <TableColumn fx:id="dauerauftraegeListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
+                                    <TableColumn fx:id="dauerauftraegeListBetrag" prefWidth="64.0" text="Betrag" />
+                                    <TableColumn fx:id="dauerauftraegeListDauer" prefWidth="51.0" text="Dauer" />
+                                 </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                         <Button layoutX="14.0" layoutY="475.0" mnemonicParsing="false" onAction="#dauerauftragHinzufuegenBtn" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />

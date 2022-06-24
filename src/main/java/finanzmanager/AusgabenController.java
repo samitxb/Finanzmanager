@@ -1,6 +1,5 @@
 package finanzmanager;
 
-import database.GetPostgresData;
 import database.JavaPostgres;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import modelclasses.Ausgaben;
+import modelclasses.AusgabenTest;
 import modelclasses.UserLogin;
 
 import java.net.URL;
@@ -29,19 +28,19 @@ public class AusgabenController implements Initializable
     int id = UserLogin.id;
 
     @FXML
-    private TableView<Ausgaben> ausgabenControllerTable;
+    private TableView<AusgabenTest> ausgabenControllerTable;
 
     @FXML
-    private TableColumn<Ausgaben, Float> ausgabenControllerBetrag;
+    private TableColumn<AusgabenTest, Float> ausgabenControllerBetrag;
 
     @FXML
-    private TableColumn<Ausgaben, String> ausgabenControllerBezeichnung;
+    private TableColumn<AusgabenTest, String> ausgabenControllerBezeichnung;
 
     @FXML
-    private TableColumn<Ausgaben, Date> ausgabenControllerDatum;
+    private TableColumn<AusgabenTest, Date> ausgabenControllerDatum;
 
 
-    ObservableList<Ausgaben> observableList = FXCollections.observableArrayList();
+    ObservableList<AusgabenTest> observableList = FXCollections.observableArrayList();
 
 
 
@@ -57,14 +56,14 @@ public class AusgabenController implements Initializable
         Connection con = databaseConnectionLink;
         PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
         pstAusgaben.setInt(1, id);
-        ResultSet rs = pstAusgaben.executeQuery("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
+        ResultSet rs = pstAusgaben.executeQuery("SELECT * FROM ausgaben ");
 
         while (rs.next()) {
             observableList.add(
-                    new Ausgaben(
+                    new AusgabenTest(
                     rs.getFloat("ausgaben_betrag"),
-                    rs.getString("usgaben_bezeichnung"),
-                    rs.getDate("ausgaben_datum")
+                    rs.getString("ausgaben_bezeichnung"),
+                    rs.getString("ausgaben_datum")
                     )
             );
         }

@@ -1,5 +1,6 @@
 package finanzmanager;
 
+import database.GetPostgresData;
 import database.JavaPostgres;
 import database.PasswordEncryption;
 import javafx.event.ActionEvent;
@@ -77,6 +78,8 @@ public class LoginController {
                 errorText.setText("Erfolgreich eingeloggt!");
                 Stage stage = (Stage) loginOkBtn.getScene().getWindow();
                 stage.close();
+                GetPostgresData.getEinnahmenDatabase();
+                GetPostgresData.getDauerauftragDatabase();
                 Stage primaryStage = new Stage();
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
                 primaryStage.setTitle("FINANZMANAGER - " + loginName.getText());

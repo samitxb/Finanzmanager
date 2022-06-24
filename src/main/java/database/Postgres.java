@@ -84,15 +84,15 @@ class Postgres {
                         " REFERENCES userinfo(userID))";
 
 
-            String sqlDauerauftrag = "CREATE TABLE DAUERAUFTRAG "+
-                    "(dauerauftragID            INT  GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
-                    " user_dauerauftragID       INT  NOT NULL ," +
-                    " dauerauftrag_betrag       DOUBLE PRECISION," +
-                    " dauerauftrag_bezeichnung  TEXT, " +
-                    " dauerauftrag_datum        DATE, " +
-                    " dauerauftrag_zeitraum     TEXT," +
-                    " FOREIGN KEY (user_dauerauftragID)" +
-                    " REFERENCES userinfo(userID))";
+                String sqlDauerauftrag = "CREATE TABLE DAUERAUFTRAG "+
+                        "(dauerauftragID            INT  GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
+                        " user_dauerauftragID       INT  NOT NULL ," +
+                        " dauerauftrag_betrag       DOUBLE PRECISION," +
+                        " dauerauftrag_bezeichnung  TEXT, " +
+                        " dauerauftrag_datum        DATE, " +
+                        " dauerauftrag_zeitraum     TEXT," +
+                        " FOREIGN KEY (user_dauerauftragID)" +
+                        " REFERENCES userinfo(userID))";
 
 
 

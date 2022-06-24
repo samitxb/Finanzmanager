@@ -180,17 +180,12 @@ public class Controller implements Initializable {
 */
     //--------------------------------------------------------------------------
 
-    ObservableList<Ausgaben> list = FXCollections.observableArrayList(
-            new Ausgaben(1, "Bier" , 5)
-    );
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ausgabenListID.setCellValueFactory(new PropertyValueFactory<Ausgaben, Integer>("ausgabenListID"));
         ausgabenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
         ausgabenListBetrag.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
 
-        ausgabenView.setItems(list);
     }
     @FXML
     /**
@@ -249,7 +244,6 @@ public class Controller implements Initializable {
 
                 JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
                 GetPostgresData.getAusgabenDatabase();
-
 
                 ausgabenBetrag.clear();
                 ausgabenBezeichnung.clear();

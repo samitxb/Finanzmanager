@@ -11,7 +11,7 @@ import java.util.Objects;
 public class UserRegistration {
 
 
-    public static void setRegistrationData(TextField registrationName, TextField registrationUserName, TextField registrationUserPassword, Label regsuccsessfulllabel){
+    public static void setRegistrationData(TextField registrationName, TextField registrationUserName, TextField registrationUserPassword, TextField registrationUserQuestion ,Label regsuccsessfulllabel){
 
         System.out.println(registrationUserName.getText());
         System.out.println(registrationUserPassword.getText());
@@ -29,7 +29,7 @@ public class UserRegistration {
             System.out.println("Kein Passwort!");
             regsuccsessfulllabel.setText("Kein Passwort!");
         } else {
-            JavaPostgres.writeToDatabaseUser(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText());
+            JavaPostgres.writeToDatabaseUser(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText(), registrationUserQuestion.getText());
             registrationName.clear();
             registrationUserName.clear();
             registrationUserPassword.clear();

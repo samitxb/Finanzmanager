@@ -55,19 +55,21 @@ class Postgres {
 
 
                 String sqlUser = "CREATE TABLE USERINFO " +
-                        "(userID             INT      GENERATED ALWAYS AS IDENTITY NOT NULL," +
-                        " fullname           TEXT     NOT NULL," +
-                        " username           TEXT     NOT NULL," +
-                        " password           TEXT     NOT NULL," +
-                        " passwordSalt       TEXT     NOT NULL," +
-                        " kontostand         DOUBLE PRECISION      ," +
+                        "(userID                  INT      GENERATED ALWAYS AS IDENTITY NOT NULL," +
+                        " fullname                TEXT     NOT NULL," +
+                        " username                TEXT     NOT NULL," +
+                        " password                TEXT     NOT NULL," +
+                        " passwordSalt            TEXT     NOT NULL," +
+                        " kontostand              FLOAT     ," +
+                        " sicherheitsantwort      TEXT      NOT NULL, " +
+                        " sicherheitsantwort_salt TEXT      NOT NULL," +
                         " PRIMARY KEY (userID))";
 
 
                 String sqlEinnahmen = "CREATE TABLE EINNAHMEN"+
                         "(einnahmenID           INT     GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                         " user_einnahmenID      INT     NOT NULL ," +
-                        " einnahmen_betrag      DOUBLE PRECISION," +
+                        " einnahmen_betrag      FLOAT," +
                         " einnahmen_bezeichnung TEXT, " +
                         " einnahmen_datum       DATE, " +
                         " FOREIGN KEY (user_einnahmenID)" +
@@ -77,7 +79,7 @@ class Postgres {
                 String sqlAusgaben = "CREATE TABLE AUSGABEN"+
                         "(ausgabenID            INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                         " user_ausgabenID       INT   NOT NULL ," +
-                        " ausgaben_betrag       DOUBLE PRECISION," +
+                        " ausgaben_betrag       FLOAT," +
                         " ausgaben_bezeichnung  TEXT, " +
                         " ausgaben_datum        DATE," +
                         " FOREIGN KEY (user_ausgabenID  )" +
@@ -87,7 +89,7 @@ class Postgres {
                 String sqlDauerauftrag = "CREATE TABLE DAUERAUFTRAG "+
                         "(dauerauftragID            INT  GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                         " user_dauerauftragID       INT  NOT NULL ," +
-                        " dauerauftrag_betrag       DOUBLE PRECISION," +
+                        " dauerauftrag_betrag       FLOAT," +
                         " dauerauftrag_bezeichnung  TEXT, " +
                         " dauerauftrag_datum        DATE, " +
                         " dauerauftrag_zeitraum     TEXT," +

@@ -72,14 +72,14 @@ public class JavaPostgres {
      */
 
 
-    public static void writeToDatabaseUser(String fullName, String userName, String userPassword)
+    public static void writeToDatabaseUser(String fullName, String userName, String userPassword, String sicherheitsantwort)
     {
 
         ResultSet resultSet;
         PreparedStatement psCheckUser;
 
 
-        String queryUser = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt, Kontostand) VALUES(?, ?, ?, ?,?)";
+        String queryUser = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt, Kontostand, Sicherheitsantwort, Sicherheitsantwort_salt) VALUES(?, ?, ?, ?,?, ?,?)";
 
 
         try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
@@ -107,8 +107,10 @@ public class JavaPostgres {
             {
                 // Generiert mit dem String salt ein Sicherheitspasswort
                 String salt = PasswordEncryption.getSalt(30);
+                String sicherheitsantwortSalt = PasswordEncryption.getSalt(30);
 
                 userPassword = PasswordEncryption.generateSecurePassword(userPassword, salt);
+                sicherheitsantwort = PasswordEncryption.generateSecurePassword(sicherheitsantwort, sicherheitsantwortSalt);
 
                 float kontostand = 0;
 
@@ -118,6 +120,8 @@ public class JavaPostgres {
                 pst.setString(3, userPassword);
                 pst.setString(4, salt);
                 pst.setFloat(5, kontostand);
+                pst.setString(6, sicherheitsantwort);
+                pst.setString(7, sicherheitsantwortSalt);
                 pst.executeUpdate();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Erfolgreich Registriert!");

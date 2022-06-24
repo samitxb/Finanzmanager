@@ -66,7 +66,7 @@ public class LoginController {
 
     public void setRegistrationData(ActionEvent actionEvent){
 
-        UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword, regsuccsessfulllabel);
+        UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword, registrationUserQuestion, regsuccsessfulllabel);
 
     }
 

@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelclasses.UserLogin;
 import modelclasses.UserRegistration;
@@ -31,6 +32,9 @@ public class LoginController {
 
     @FXML
     private Button loginOkBtn;
+
+    @FXML
+    private Button passwortVergessenBtn;
 
     //---------------------------------------------------------------
     //-------------Registration---------------------------------------
@@ -94,6 +98,16 @@ public class LoginController {
             }
 
 
+    }
+
+    public void goToPasswortVergessen(ActionEvent actionEvent) throws IOException {
+        Stage passwortStage = new Stage();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("PasswortVergessenView.fxml")));
+        passwortStage.setTitle("Passwort Vergessen - " + loginName.getText());
+        passwortStage.setScene(new Scene(root, 300, 400));
+        passwortStage.setResizable(false);
+        passwortStage.initModality(Modality.APPLICATION_MODAL);
+        passwortStage.show();
     }
 }
 

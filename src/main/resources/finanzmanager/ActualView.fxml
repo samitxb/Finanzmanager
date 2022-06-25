@@ -30,24 +30,44 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
+                              <TableView fx:id="einnahmenViewUebersicht" layoutX="8.0" layoutY="65.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                                 <columns>
+                                    <TableColumn fx:id="einnahmenListDatumUebersicht" prefWidth="70.0" text="Datum" />
+                                    <TableColumn fx:id="einnahmenListBezeichnungUebersicht" prefWidth="143.0" text="Bezeichnung" />
+                                    <TableColumn fx:id="einnahmenListBetragUebersicht" prefWidth="95.0" text="Betrag" />
+                                 </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="369.0" layoutY="15.0" prefHeight="607.0" prefWidth="344.0" style="-fx-background-color: #383838; -fx-background-radius: 10;">
                            <children>
-                              <Label layoutX="35.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Ausgaben" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+                              <Label layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Meine Ausgaben" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
                               </Label>
+                              <TableView fx:id="ausgabenViewUebersicht" layoutX="8.0" layoutY="66.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                                 <columns>
+                                    <TableColumn fx:id="ausgabenListDatumUebersicht" prefWidth="70.0" text="Datum" />
+                                    <TableColumn fx:id="ausgabenListBezeichnungUebersicht" prefWidth="152.0" text="Bezeichnung" />
+                                    <TableColumn fx:id="ausgabenListBetragUebersicht" prefWidth="86.0" text="Betrag" />
+                                 </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="724.0" layoutY="15.0" prefHeight="607.0" prefWidth="344.0" style="-fx-background-color: #383838; -fx-background-radius: 10;">
                            <children>
-                              <Label layoutX="18.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Gesamt Übersicht" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
+                              <Label layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="309.0" text="Gesamt Übersicht" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" underline="true">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="18.0" layoutY="80.0" text="Aktueller Kontostand:" />
+                              <TextField fx:id="akteullerKontostandUebersicht" editable="false" layoutX="16.0" layoutY="108.0" />
+                              <Label layoutX="18.0" layoutY="161.0" text="Gesamtausgaben:" />
+                              <TextField fx:id="gesamtAusgabenUebersicht" editable="false" layoutX="18.0" layoutY="189.0" />
+                              <Label layoutX="18.0" layoutY="241.0" text="Gesamteinnahmen:" />
+                              <TextField fx:id="gesamteinnahmenUebersicht" editable="false" layoutX="18.0" layoutY="269.0" />
                            </children>
                         </AnchorPane>
                         <Button fx:id="quitBtn" layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
@@ -87,8 +107,8 @@
                               <TableView fx:id="ausgabenView" layoutX="7.0" layoutY="61.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
                                 <columns>
                                   <TableColumn fx:id="ausgabenListDatum" prefWidth="70.0" text="Datum" />
-                                  <TableColumn fx:id="ausgabenListBezeichnung" prefWidth="118.0" text="Bezeichnung" />
-                                    <TableColumn fx:id="ausgabenListBetrag" prefWidth="61.0" text="Betrag" />
+                                  <TableColumn fx:id="ausgabenListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
+                                    <TableColumn fx:id="ausgabenListBetrag" prefWidth="64.0" text="Betrag" />
                                     <TableColumn prefWidth="51.0" text="Del" />
                                 </columns>
                               </TableView>
@@ -117,9 +137,9 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="einnahmenView" layoutX="8.0" layoutY="64.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                              <TableView fx:id="einnahmenView" layoutX="7.0" layoutY="61.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
                                  <columns>
-                                    <TableColumn fx:id="einnahmenListDatum" prefWidth="78.0" text="Datum" />
+                                    <TableColumn fx:id="einnahmenListDatum" prefWidth="70.0" text="Datum" />
                                     <TableColumn fx:id="einnahmenListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
                                     <TableColumn fx:id="einnahmenListBetrag" prefWidth="64.0" text="Betrag" />
                                     <TableColumn prefWidth="51.0" text="Del" />

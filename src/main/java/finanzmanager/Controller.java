@@ -113,6 +113,30 @@ public class Controller implements Initializable {
     ObservableList<Einnahmen> oblisteinnahmen =FXCollections.observableArrayList();
 
     //----------------------------------------------------------------
+    @FXML
+    private TableView<Ausgaben> ausgabenViewUebersicht;
+    @FXML
+    private TableColumn<Ausgaben, Float> ausgabenListBetragUebersicht;
+    @FXML
+    private TableColumn<Ausgaben, String> ausgabenListBezeichnungUebersicht;
+
+    @FXML
+    private TableColumn<Ausgaben, String> ausgabenListDatumUebersicht;
+
+    //----------------------------------------------------------------
+    @FXML
+    private TableView<Einnahmen> einnahmenViewUebersicht;
+
+    @FXML
+    private TableColumn<Einnahmen, Float> einnahmenListBetragUebersicht;
+
+    @FXML
+    private TableColumn<Einnahmen, String> einnahmenListBezeichnungUebersicht;
+
+    @FXML
+    private TableColumn<Einnahmen, String> einnahmenListDatumUebersicht;
+
+
     //-----------------Einnahmen Reiter--------------------------------
 
 
@@ -129,6 +153,17 @@ public class Controller implements Initializable {
     private Label labelEinnahmen;
 
     //----------------------------------------------------------------
+
+
+    @FXML
+    private TextField akteullerKontostandUebersicht;
+
+    @FXML
+    private TextField gesamtAusgabenUebersicht;
+
+    @FXML
+    private TextField gesamteinnahmenUebersicht;
+
 
     //--------------------Daueraufträge ------------------------------
     @FXML
@@ -260,8 +295,13 @@ public class Controller implements Initializable {
             ausgabenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
             ausgabenListBetrag.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
 
+            ausgabenListDatumUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListDatum"));
+            ausgabenListBezeichnungUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
+            ausgabenListBetragUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
+
 
             ausgabenView.setItems(oblistausgaben);
+            ausgabenViewUebersicht.setItems(oblistausgaben);
 
     //--------------------------------------------------------------------------------------------------------------------------------------------
             try
@@ -290,8 +330,12 @@ public class Controller implements Initializable {
             einnahmenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListBezeichnung"));
             einnahmenListBetrag.setCellValueFactory(new PropertyValueFactory<Einnahmen, Float>("einnahmenListBetrag"));
 
+            einnahmenListDatumUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListDatum"));
+            einnahmenListBezeichnungUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListBezeichnung"));
+            einnahmenListBetragUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, Float>("einnahmenListBetrag"));
 
             einnahmenView.setItems(oblisteinnahmen);
+            einnahmenViewUebersicht.setItems(oblisteinnahmen);
 
             //--------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -216,8 +216,7 @@ public class Controller implements Initializable {
                 Connection con = databaseConnectionLink;
                 PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
                 pstAusgaben.setInt(1, id);
-                PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM ausgaben ");
-                ResultSet rs = preparedStatement.executeQuery();
+                ResultSet rs = pstAusgaben.executeQuery();
 
                 while (rs.next()) {
                     oblistausgaben.add(
@@ -250,10 +249,9 @@ public class Controller implements Initializable {
             try
             {
                 Connection con = databaseConnectionLink;
-                PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM einnahmen WHERE user_ausgabenid=?");
-                pstAusgaben.setInt(1, id);
-                PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM einnahmen ");
-                ResultSet rs = preparedStatement.executeQuery();
+                PreparedStatement pstEinnahmen = con.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");
+                pstEinnahmen.setInt(1, id);
+                ResultSet rs = pstEinnahmen.executeQuery();
 
                 while (rs.next()) {
                     oblisteinnahmen.add(
@@ -285,10 +283,9 @@ public class Controller implements Initializable {
             try
             {
                 Connection con = databaseConnectionLink;
-                PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM dauerauftrag WHERE user_ausgabenid=?");
-                pstAusgaben.setInt(1, id);
-                PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM dauerauftrag ");
-                ResultSet rs = preparedStatement.executeQuery();
+                PreparedStatement pstDauerauftrag = con.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
+                pstDauerauftrag.setInt(1, id);
+                ResultSet rs = pstDauerauftrag.executeQuery();
 
                 while (rs.next()) {
                     oblistdauerauftraege.add(

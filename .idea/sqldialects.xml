@@ -4,7 +4,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/database/GetPostgresData.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/database/JavaPostgres.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/database/Postgres.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/finanzmanager/AusgabenController.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/finanzmanager/Controller.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/finanzmanager/LoginController.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/finanzmanager/SettingsController.java" dialect="GenericSQL" />

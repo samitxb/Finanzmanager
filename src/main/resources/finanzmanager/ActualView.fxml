@@ -63,11 +63,11 @@
                                  </font>
                               </Label>
                               <Label layoutX="18.0" layoutY="80.0" text="Aktueller Kontostand:" />
-                              <TextField fx:id="akteullerKontostandUebersicht" editable="false" layoutX="16.0" layoutY="108.0" />
+                              <TextField fx:id="aktuellerKontostandUebersicht" editable="false" layoutX="16.0" layoutY="108.0" styleClass="text-field-dark" />
                               <Label layoutX="18.0" layoutY="161.0" text="Gesamtausgaben:" />
-                              <TextField fx:id="gesamtAusgabenUebersicht" editable="false" layoutX="18.0" layoutY="189.0" />
+                              <TextField fx:id="gesamtAusgabenUebersicht" editable="false" layoutX="18.0" layoutY="189.0" styleClass="text-field-dark" />
                               <Label layoutX="18.0" layoutY="241.0" text="Gesamteinnahmen:" />
-                              <TextField fx:id="gesamteinnahmenUebersicht" editable="false" layoutX="18.0" layoutY="269.0" />
+                              <TextField fx:id="gesamteinnahmenUebersicht" editable="false" layoutX="18.0" layoutY="269.0" styleClass="text-field-dark" />
                            </children>
                         </AnchorPane>
                         <Button fx:id="quitBtn" layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />

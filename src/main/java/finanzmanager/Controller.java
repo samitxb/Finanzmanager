@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelclasses.NurNummern;
+import modelclasses.Uebersicht;
 import modelclasses.UserLogin;
 
 import java.io.IOException;
@@ -156,13 +157,18 @@ public class Controller implements Initializable {
 
 
     @FXML
-    private TextField akteullerKontostandUebersicht;
+    private TextField aktuellerKontostandUebersicht;
+    public Float kontostand;
 
     @FXML
     private TextField gesamtAusgabenUebersicht;
 
+    public Float gesamtAusgaben;
+
     @FXML
     private TextField gesamteinnahmenUebersicht;
+
+    public Float gesamtEinnahmen;
 
 
     //--------------------Daueraufträge ------------------------------
@@ -196,72 +202,9 @@ public class Controller implements Initializable {
     private Button quitBtn;
 
     //----------------------------------------------------------------
-/*
-    private TableView<Sample> createTable() {
-
-        TableView<Sample> table = new TableView<>();
-
-        TableColumn<Sample, Integer> idColumn = new TableColumn<>("Id");
-        idColumn.setCellValueFactory(param -> param.getValue().id);
-        idColumn.setPrefWidth(100);
-
-        TableColumn<Sample, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(param -> param.getValue().foo);
-        nameColumn.setPrefWidth(70);
-
-        table.getColumns().addAll(idColumn, nameColumn);
-        return table;
-    }
-
-    //this method used to fill data in tableview
-    private List<Sample> createData() {
-
-        List<Sample> data = new ArrayList<>(dataSize);
-
-        for (int i = 1; i <= dataSize; i++) {
-            data.add(new Sample(i, "foo " + i, "bar " + i));
-        }
-
-        return data;
-    }
-    private Node createPage(int pageIndex) {
-        int fromIndex = pageIndex * rowsPerPage;
-        int toIndex = Math.min(fromIndex + rowsPerPage, data.size());
-        table.setItems(FXCollections.observableArrayList(data.subList(fromIndex, toIndex)));
-        return table;
-    }
-
-    //@Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        ausgabenPagination.setPageFactory(this::createPage);
-
-    }
-
-    //static class for data model
-    public static class Sample {
-
-        private final ObservableValue<Integer> id;
-        private final SimpleStringProperty foo;
-        private final SimpleStringProperty bar;
-
-        private Sample(int id, String foo, String bar) {
-            this.id = new SimpleObjectProperty<>(id);
-            this.foo = new SimpleStringProperty(foo);
-            this.bar = new SimpleStringProperty(bar);
-        }
-    }
-*/
     //--------------------------------------------------------------------------
 
-/*
-    private ObservableList<Ausgaben> getUserList() {
-        Ausgaben ausgabe1 = new Ausgaben(10,"hammer","10-5-2022");
-        Ausgaben ausgabe2 = new Ausgaben(100,"dildo","10-5-2022");
-        ObservableList<Ausgaben> list = FXCollections.observableArrayList(ausgabe1, ausgabe2);
-        return list;
-    }
-*/
+
         @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -368,6 +311,18 @@ public class Controller implements Initializable {
             dauerauftraegeListDauer.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, String >("dauerauftraegeListDauer"));
 
             dauerauftraegeView.setItems(oblistdauerauftraege);
+
+            //--------------------------------------------------------------------------------------------------------------------------------------------
+
+            aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
+
+            gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
+            gesamtAusgabenUebersicht.setText(String.valueOf(gesamtAusgaben));
+
+            gesamtEinnahmen= Uebersicht.einnahmenZusammenRechnen();
+            gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
+
+
 
     }
     @FXML

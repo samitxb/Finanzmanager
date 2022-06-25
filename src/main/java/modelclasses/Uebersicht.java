@@ -1,17 +1,22 @@
 package modelclasses;
 
 public class Uebersicht {
-    protected float gesamtAusgaben;
-    protected float gesamtEinnahmen;
+    protected static float gesamtAusgaben;
+    protected static float gesamtEinnahmen;
 
- public static void ausgabenZusammenRechnen(){
+ public static float ausgabenZusammenRechnen(){
 
+
+
+     return gesamtAusgaben;
  }
 
 
 
- public static void einnahmenZusammenRechnen(){
+ public static float einnahmenZusammenRechnen(){
 
+
+     return gesamtEinnahmen;
  }
 
 }

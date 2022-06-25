@@ -81,7 +81,7 @@
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: #383838; /*-fx-focus-color;*/
     -fx-text-fill: white;
 }
 
@@ -120,7 +120,7 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
-.text-field-uebersicht{
+.text-field-dark{
     -fx-background-color: #515355 ;
     -fx-font-size: 12pt;
     -fx-text-fill: white;

@@ -274,9 +274,8 @@
                         <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                         <Label layoutX="14.0" layoutY="224.0" text="Name:" />
                         <TextField fx:id="exportName" layoutX="14.0" layoutY="245.0" />
-                        <Label layoutX="14.0" layoutY="294.0" text="Speicherort:" />
-                        <TextField fx:id="exportSpeicherort" layoutX="14.0" layoutY="315.0" />
-                        <Button fx:id="exportWo" layoutX="14.0" layoutY="373.0" mnemonicParsing="false" onAction="#exportierenWoBtnPressed" text="Wo?" />
+                        <Button fx:id="exportWo" layoutX="14.0" layoutY="292.0" mnemonicParsing="false" onAction="#exportierenWoBtnPressed" text="Wo?" />
+                        <Label fx:id="exportSpeicherort" layoutX="14.0" layoutY="334.0" prefHeight="59.0" prefWidth="394.0" />
                      </children></AnchorPane>
               </content>
             </Tab>

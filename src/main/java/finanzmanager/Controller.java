@@ -13,12 +13,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelclasses.NurNummern;
 import modelclasses.Uebersicht;
 import modelclasses.UserLogin;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -219,7 +222,7 @@ public class Controller implements Initializable{
     private TextField exportName;
 
     @FXML
-    private TextField exportSpeicherort;
+    private Label exportSpeicherort;
 
     @FXML
     private Button exportWo;
@@ -371,10 +374,7 @@ public class Controller implements Initializable{
     @FXML
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
 
-
-
         labelAusgaben.setText(null);
-
 
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
@@ -410,7 +410,6 @@ public class Controller implements Initializable{
         }
 
     }
-
 
     /* Für Einnahmen alles */
     @FXML
@@ -498,7 +497,11 @@ public class Controller implements Initializable{
 
     @FXML
     void exportierenWoBtnPressed(ActionEvent event) {
-
+        Stage stage = (Stage) exportWo.getScene().getWindow();
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        System.out.println(selectedDirectory.getAbsolutePath());
+        exportSpeicherort.setText(String.valueOf(selectedDirectory));
     }
 
     //----------------------------------------------------------------

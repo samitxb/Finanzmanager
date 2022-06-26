@@ -5,6 +5,7 @@ import database.JavaPostgres;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,6 +30,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 import static database.JavaPostgres.databaseConnectionLink;
 
@@ -157,7 +160,7 @@ public class Controller implements Initializable {
 
     //----------------------------------------------------------------
 
-
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     @FXML
     private TextField aktuellerKontostandUebersicht;
     public Float kontostand;
@@ -325,26 +328,30 @@ public class Controller implements Initializable {
         //--------------------------------------------------------------------------------------------------------------------------------------------
 
         kontostand = Uebersicht.aktuellerKontostandZusammen();
-        aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
+        aktuellerKontostandUebersicht.setText((df.format(kontostand)));
 
         gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
-        gesamtAusgabenUebersicht.setText(String.valueOf(gesamtAusgaben));
+        gesamtAusgabenUebersicht.setText(df.format(gesamtAusgaben));
 
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
-        gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
+        gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen));
+
+        NurNummern.numericOnly(ausgabenBetrag);
+        NurNummern.numericOnly(einnahmenBetrag);
+        NurNummern.numericOnly(dauerauftragBetrag);
 
     }
 
 
     public void kontodatenaktualisieren(){
         kontostand = Uebersicht.aktuellerKontostandZusammen();
-        aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
+        aktuellerKontostandUebersicht.setText((df.format(kontostand)));
 
         gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
-        gesamtAusgabenUebersicht.setText(String.valueOf(gesamtAusgaben));
+        gesamtAusgabenUebersicht.setText(df.format(gesamtAusgaben));
 
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
-        gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
+        gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen));
     }
     @FXML
     /**
@@ -503,6 +510,7 @@ public class Controller implements Initializable {
     @FXML
     public void dauerauftragHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
 
+
         labelDauerauftraege.setText(null);
 
         System.out.println(dauerauftragBetrag.getText());
@@ -513,6 +521,7 @@ public class Controller implements Initializable {
         System.out.println(localDate);
 
         boolean numerisch;
+
 
         if (Objects.equals(dauerauftragBetrag.getText(), "")) {
             labelDauerauftraege.setText("Kein Betrag!");
@@ -579,6 +588,13 @@ public class Controller implements Initializable {
         exportSpeicherort.setText(String.valueOf(selectedDirectory));
     }
 
+    public void clearlabels(Event event) {
+
+        labelEinnahmen.setText(null);
+        labelAusgaben.setText(null);
+        labelDauerauftraege.setText(null);
+    }
+
     //----------------------------------------------------------------
     public void taeglich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Täglich");
@@ -595,6 +611,8 @@ public class Controller implements Initializable {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
+
+
 
 
     //----------------------------------------------------------------

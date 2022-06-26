@@ -75,7 +75,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Ausgaben">
+          <Tab onSelectionChanged="#clearlabels" text="Ausgaben">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -126,7 +126,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Einnahmen">
+            <Tab onSelectionChanged="#clearlabels" text="Einnahmen">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -178,7 +178,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Daueraufträge">
+            <Tab onSelectionChanged="#clearlabels" text="Daueraufträge">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

@@ -2,16 +2,22 @@ package modelclasses;
 
 import database.JavaPostgres;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class Uebersicht {
     protected static float gesamtAusgaben;
     protected static float gesamtEinnahmen;
 
     protected static float aktuellerKontostand;
+
+
+
+
 
 
  public static float ausgabenZusammenRechnen()  {
@@ -30,10 +36,7 @@ public class Uebersicht {
          {
              gesamtAusgaben = rs.getFloat("ausgabengesamt");
          }
-
-
      }
-
      catch (SQLException e) {
          throw new RuntimeException(e);
      }
@@ -61,10 +64,7 @@ public class Uebersicht {
          {
              gesamtEinnahmen = rs.getFloat("einnahmengesamt");
          }
-
-
      }
-
      catch (SQLException e) {
          throw new RuntimeException(e);
      }
@@ -90,17 +90,18 @@ public class Uebersicht {
          {
              aktuellerKontostand = rs.getFloat("kontostand");
          }
-
-
      }
-
      catch (SQLException e) {
          throw new RuntimeException(e);
      }
 
      gesamtEinnahmen=einnahmenZusammenRechnen();
      gesamtAusgaben=ausgabenZusammenRechnen();
+
+
      aktuellerKontostand = aktuellerKontostand - gesamtAusgaben + gesamtEinnahmen;
+
+     System.out.println("Aktueller Kontostand: " +aktuellerKontostand);
 
      return aktuellerKontostand;
 

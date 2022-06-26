@@ -12,11 +12,12 @@ import modelclasses.UserLogin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PasswortVergessenView {
 
     @FXML
-    private TextField altesPasswort;
+    private TextField neuesPasswort;
 
     @FXML
     private TextField passwortVergessenAntwort;
@@ -31,73 +32,60 @@ public class PasswortVergessenView {
     private Button quitPasswortView;
 
 
+    ResultSet rs;
 
 
-    public boolean checkSicherheitsfrage (String sicherheitsfrageEingabe)
-    {
-        int id = UserLogin.id;
-        ResultSet rs;
+    public boolean checkSicherheitsfrage(String sicherheitsfrageEingabe) {
 
-
-        System.out.println(sicherheitsfrageEingabe);
 
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
 
 
+        try {
 
-        try
-        {
+            PreparedStatement ps = conDb.prepareStatement("SELECT * FROM userinfo WHERE username=?");
+            ps.setString(1, passwortVergessenBenutzername.getText());
 
-            PreparedStatement ps = conDb.prepareStatement("SELECT * FROM userinfo WHERE userid=? AND sicherheitsanwort=? ");
-            ps.setInt(1,id);
             rs = ps.executeQuery();
 
-            boolean hasResults= rs.next();
 
-            if(hasResults)
-            {
-                do
-                {
+            boolean hasResults = rs.next();
+
+            if (hasResults) {
+                do {
+
                     // User provided password to validate
-                    String providedAntwort = sicherheitsfrageEingabe;
+                    String providedAntwort = passwortVergessenAntwort.getText();
 
                     // Encrypted and Base64 encoded password read from database
-                    String secureSicherheitsfrage = rs.getString("password");
+                    String secureAntwort = rs.getString("sicherheitsantwort");
 
                     // Salt value stored in database
-                    String sicherheitsSalt = rs.getString("passwordsalt");
+                    String sicherheitsSalt = rs.getString("sicherheitsantwort_salt");
 
+                    String neuPasswort = rs.getString("password");
 
-                    PasswordEncryption verifySicherheitsfrage = new PasswordEncryption();
+                    String neuPasswortSalt = rs.getString("passwordsalt");
 
-                    verifySicherheitsfrage.equals(PasswordEncryption.verifyUserPassword(providedAntwort, secureSicherheitsfrage,sicherheitsSalt));
+                    boolean sicherheitsfrageMatch = PasswordEncryption.verifyUserPassword(providedAntwort, secureAntwort, sicherheitsSalt);
 
+                    if (sicherheitsfrageMatch) {
 
-                    boolean sicherheitsfrageMatch = PasswordEncryption.verifyUserPassword(providedAntwort, secureSicherheitsfrage, secureSicherheitsfrage);
-
-                    if(sicherheitsfrageMatch)
-                    {
-                        sicherheitsfrageEingabe = rs.getString(2);
-                        System.out.println("Test: " + sicherheitsfrageEingabe);
-
-                        return true;
+                    return true;
                     }
 
-                }while (rs.next());
+                } while (rs.next());
 
-            }
-            else {
+            } else {
                 System.out.println("Falsche Eingabe");
             }
 
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return false;
     }
-
 
 
     @FXML
@@ -109,7 +97,13 @@ public class PasswortVergessenView {
     @FXML
     void okBtnPressed(ActionEvent event)
     {
-        checkSicherheitsfrage(sicherheitsfrageAntwort.getText());
+        boolean check;
+
+        check = checkSicherheitsfrage(passwortVergessenAntwort.getText());
+
+        if (check){
+            neuesPasswort.isEditable();
+        }
 
     }
 

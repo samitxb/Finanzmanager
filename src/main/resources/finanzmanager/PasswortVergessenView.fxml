@@ -5,15 +5,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="300.0" stylesheets="@themeLoginScreen.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finanzmanager.PasswortVergessenView">
    <children>
       <Label layoutX="8.0" layoutY="-4.0" prefHeight="59.0" prefWidth="285.0" style="-fx-font-size: 25;" styleClass="label-header" stylesheets="@themeActualView.css" text="Passwort vergessen:" underline="true" />
       <Label layoutX="14.0" layoutY="124.0" styleClass="label-bright" text="Wie lautet der Vorname ihres Vaters?" />
       <TextField fx:id="passwortVergessenAntwort" layoutX="14.0" layoutY="147.0" prefHeight="35.0" prefWidth="248.0" />
       <Button layoutX="117.0" layoutY="200.0" mnemonicParsing="false" onAction="#okBtnPressed" text="Ok" />
-      <Label layoutX="14.0" layoutY="279.0" styleClass="label-bright" text="Ihr altes Passwort war:" />
-      <TextField fx:id="altesPasswort" editable="false" layoutX="14.0" layoutY="306.0" prefHeight="35.0" prefWidth="248.0" styleClass="text-field-dark" />
+      <Label layoutX="14.0" layoutY="279.0" styleClass="label-bright" text="Neues Passwort:" />
+      <TextField fx:id="neuesPasswort" layoutX="14.0" layoutY="306.0" prefHeight="35.0" prefWidth="248.0" />
       <Label layoutX="55.0" layoutY="247.0" prefHeight="21.0" prefWidth="192.0" />
       <Button fx:id="quitPasswortView" layoutX="209.0" layoutY="353.0" mnemonicParsing="false" onAction="#quitPasswortVergessen" text="Quit" />
       <Label layoutX="14.0" layoutY="56.0" styleClass="label-bright" text="Benutzername:" />

@@ -24,7 +24,6 @@ public class Uebersicht {
 
      int id = UserLogin.id;
 
-
      try {
          JavaPostgres javaPostgres = new JavaPostgres();
 
@@ -52,7 +51,6 @@ public class Uebersicht {
 
      int id = UserLogin.id;
 
-
      try {
          JavaPostgres javaPostgres = new JavaPostgres();
 
@@ -78,7 +76,6 @@ public class Uebersicht {
 
      int id = UserLogin.id;
 
-
      try {
          JavaPostgres javaPostgres = new JavaPostgres();
 
@@ -101,7 +98,7 @@ public class Uebersicht {
 
      aktuellerKontostand = aktuellerKontostand - gesamtAusgaben + gesamtEinnahmen;
 
-     System.out.println("Aktueller Kontostand: " +aktuellerKontostand);
+     //System.out.println("Aktueller Kontostand: " +aktuellerKontostand);
 
      return aktuellerKontostand;
 

@@ -242,6 +242,7 @@ public class Controller implements Initializable {
         ladeDatenAusgaben();
         ladeDatenEinnahmen();
         ladeDatenDauerauftrag();
+        ladekontodaten();
 
         NurNummern.numericOnly(ausgabenBetrag);
         NurNummern.numericOnly(einnahmenBetrag);
@@ -283,6 +284,8 @@ public class Controller implements Initializable {
         ausgabenView.setItems(oblistausgaben);
         ausgabenViewUebersicht.setItems(oblistausgaben);
 
+        ladekontodaten();
+
     }
         //--------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -317,6 +320,8 @@ public class Controller implements Initializable {
 
         einnahmenView.setItems(oblisteinnahmen);
         einnahmenViewUebersicht.setItems(oblisteinnahmen);
+
+        ladekontodaten();
     }
         //--------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -347,8 +352,16 @@ public class Controller implements Initializable {
 
         dauerauftraegeView.setItems(oblistdauerauftraege);
 
+        ladekontodaten();
+
         //--------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
+    }
+
+
+    public void ladekontodaten(){
         kontostand = Uebersicht.aktuellerKontostandZusammen();
         aktuellerKontostandUebersicht.setText((df.format(kontostand)));
 
@@ -357,10 +370,7 @@ public class Controller implements Initializable {
 
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
         gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen));
-
-
     }
-
     @FXML
     /**
      * Bei betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
@@ -534,10 +544,13 @@ public class Controller implements Initializable {
     }
 
     public void clearlabels(Event event) {
-
         labelEinnahmen.setText(null);
         labelAusgaben.setText(null);
         labelDauerauftraege.setText(null);
+    }
+
+    public void ladeKontostand(Event event){
+        ladekontodaten();
     }
 
     //----------------------------------------------------------------

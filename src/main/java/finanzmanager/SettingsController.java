@@ -48,6 +48,7 @@ public class SettingsController {
 
         boolean numerisch;
 
+
         kontostandLabel.setText(null);
 
         if (!Objects.equals(kontostand.getText(), "")){

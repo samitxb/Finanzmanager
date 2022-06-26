@@ -15,20 +15,26 @@ import modelclasses.UserLogin;
 //import static database.Postgres.*;
 
 
-/** Zum erstellen des PDF Dokuments wird iText (vers. 5.5.13.2) verwendet.
+/**
+ * Zum erstellen des PDF Dokuments wird iText (vers. 5.5.13.2) verwendet.
  */
+
 
 public class PDFGenerator {
     //public static void main(String[] args)
     public void pdfGenAusgaben() throws SQLException {
 
         int id = UserLogin.id;                                                //Holt user ID für DB
+        Controller controller = new Controller();
+       // controller.exportierenWoBtnPressed();
+
 
         try {
 
+
             //=============================================Dokument spezifizieren=============================================
             Document document = new Document(PageSize.A4);
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("test.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("ausgaben.pdf"));
             writer.setPdfVersion(PdfWriter.VERSION_1_7);
             document.open();
 

@@ -14,7 +14,6 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelclasses.NurNummern;
@@ -336,6 +335,17 @@ public class Controller implements Initializable {
 
     }
 
+
+    public void kontodatenaktualisieren(){
+        kontostand = Uebersicht.aktuellerKontostandZusammen();
+        aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
+
+        gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
+        gesamtAusgabenUebersicht.setText(String.valueOf(gesamtAusgaben));
+
+        gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
+        gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
+    }
     @FXML
     /**
      * Bei betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
@@ -423,11 +433,7 @@ public class Controller implements Initializable {
         ausgabenView.setItems(oblistausgaben);
         ausgabenViewUebersicht.setItems(oblistausgaben);
 
-        gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
-        gesamtAusgabenUebersicht.setText(String.valueOf(gesamtAusgaben));
-
-        kontostand = Uebersicht.aktuellerKontostandZusammen();
-        aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
+        kontodatenaktualisieren();
 
     }
 
@@ -491,11 +497,7 @@ public class Controller implements Initializable {
         einnahmenView.setItems(oblisteinnahmen);
         einnahmenViewUebersicht.setItems(oblisteinnahmen);
 
-        gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
-        gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
-
-        kontostand = Uebersicht.aktuellerKontostandZusammen();
-        aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
+        kontodatenaktualisieren();
     }
 
     @FXML

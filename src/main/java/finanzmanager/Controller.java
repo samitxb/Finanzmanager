@@ -129,6 +129,9 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListDatumUebersicht;
 
+    @FXML
+    private TableColumn<Ausgaben, String > ausgabenListDel;
+
     //----------------------------------------------------------------
     @FXML
     private TableView<Einnahmen> einnahmenViewUebersicht;
@@ -141,6 +144,9 @@ public class Controller implements Initializable {
 
     @FXML
     private TableColumn<Einnahmen, String> einnahmenListDatumUebersicht;
+
+    @FXML
+    private TableColumn<Einnahmen, String> einnahmenListDel;
 
 
     //-----------------Einnahmen Reiter--------------------------------
@@ -233,6 +239,14 @@ public class Controller implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        ladeDaten();
+
+        NurNummern.numericOnly(ausgabenBetrag);
+        NurNummern.numericOnly(einnahmenBetrag);
+        NurNummern.numericOnly(dauerauftragBetrag);
+    }
+
+    public void ladeDaten(){
         JavaPostgres javaPostgres = new JavaPostgres();
         javaPostgres.getConnection();
 
@@ -336,23 +350,10 @@ public class Controller implements Initializable {
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
         gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen));
 
-        NurNummern.numericOnly(ausgabenBetrag);
-        NurNummern.numericOnly(einnahmenBetrag);
-        NurNummern.numericOnly(dauerauftragBetrag);
+
 
     }
 
-
-    public void kontodatenaktualisieren(){
-        kontostand = Uebersicht.aktuellerKontostandZusammen();
-        aktuellerKontostandUebersicht.setText((df.format(kontostand)));
-
-        gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
-        gesamtAusgabenUebersicht.setText(df.format(gesamtAusgaben));
-
-        gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
-        gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen));
-    }
     @FXML
     /**
      * Bei betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
@@ -416,31 +417,10 @@ public class Controller implements Initializable {
                 ausgabenDate.setValue(null);
             } else labelAusgaben.setText("Keine Zahl!");
         }
-        //--------------------------------------------------------------------------------------------------------------------------------------------
+
+
         oblistausgaben.clear();
-        try {
-            Connection con = databaseConnectionLink;
-            PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
-            pstAusgaben.setInt(1, id);
-            ResultSet rs = pstAusgaben.executeQuery();
-
-            while (rs.next()) {
-                oblistausgaben.add(
-                        new Ausgaben(
-                                rs.getFloat("ausgaben_betrag"),
-                                rs.getString("ausgaben_bezeichnung"),
-                                rs.getString("ausgaben_datum")
-                        )
-                );
-            }
-        } catch (SQLException exception) {
-            Logger.getLogger(Ausgaben.class.getName()).log(Level.SEVERE, null, exception);
-        }
-
-        ausgabenView.setItems(oblistausgaben);
-        ausgabenViewUebersicht.setItems(oblistausgaben);
-
-        kontodatenaktualisieren();
+        ladeDaten();
 
     }
 
@@ -481,30 +461,7 @@ public class Controller implements Initializable {
         }
 
         oblisteinnahmen.clear();
-        try {
-            Connection con = databaseConnectionLink;
-            PreparedStatement pstEinnahmen = con.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");
-            pstEinnahmen.setInt(1, id);
-            ResultSet rs = pstEinnahmen.executeQuery();
-
-            while (rs.next()) {
-                oblisteinnahmen.add(
-                        new Einnahmen(
-                                rs.getString("einnahmen_bezeichnung"),
-                                rs.getFloat("einnahmen_betrag"),
-                                rs.getString("einnahmen_datum")
-                        )
-                );
-            }
-        } catch (SQLException exception) {
-            Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
-        }
-
-
-        einnahmenView.setItems(oblisteinnahmen);
-        einnahmenViewUebersicht.setItems(oblisteinnahmen);
-
-        kontodatenaktualisieren();
+        ladeDaten();
     }
 
     @FXML
@@ -548,28 +505,9 @@ public class Controller implements Initializable {
 
             } else labelDauerauftraege.setText("Keine Zahl!");
         }
+
         oblistdauerauftraege.clear();
-        try {
-            Connection con = databaseConnectionLink;
-            PreparedStatement pstDauerauftrag = con.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
-            pstDauerauftrag.setInt(1, id);
-            ResultSet rs = pstDauerauftrag.executeQuery();
-
-            while (rs.next()) {
-                oblistdauerauftraege.add(
-                        new Dauerauftraege(
-                                rs.getString("dauerauftrag_bezeichnung"),
-                                rs.getFloat("dauerauftrag_betrag"),
-                                rs.getString("dauerauftrag_datum"),
-                                rs.getString("dauerauftrag_zeitraum")
-                        )
-                );
-            }
-        } catch (SQLException exception) {
-            Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
-        }
-
-        dauerauftraegeView.setItems(oblistdauerauftraege);
+        ladeDaten();
     }
 
 

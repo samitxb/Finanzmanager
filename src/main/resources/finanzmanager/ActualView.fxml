@@ -109,7 +109,7 @@
                                   <TableColumn fx:id="ausgabenListDatum" prefWidth="70.0" text="Datum" />
                                   <TableColumn fx:id="ausgabenListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
                                     <TableColumn fx:id="ausgabenListBetrag" prefWidth="64.0" text="Betrag" />
-                                    <TableColumn prefWidth="51.0" text="Del" />
+                                    <TableColumn fx:id="ausgabenListDel" prefWidth="64.0" text="Del" />
                                 </columns>
                               </TableView>
                            </children>
@@ -142,7 +142,7 @@
                                     <TableColumn fx:id="einnahmenListDatum" prefWidth="70.0" text="Datum" />
                                     <TableColumn fx:id="einnahmenListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
                                     <TableColumn fx:id="einnahmenListBetrag" prefWidth="64.0" text="Betrag" />
-                                    <TableColumn prefWidth="51.0" text="Del" />
+                                    <TableColumn fx:id="einnahmenListDel" prefWidth="63.0" text="Del" />
                                  </columns>
                               </TableView>
                            </children>

@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 import static database.JavaPostgres.databaseConnectionLink;
 
 
-public class Controller implements Initializable{
+public class Controller implements Initializable {
 
 
     //-----------------Ausgaben Reiter--------------------------------
@@ -58,14 +58,14 @@ public class Controller implements Initializable{
     @FXML
     private Pagination ausgabenPagination;
 
-   /* private final static int dataSize = 100;
+    /* private final static int dataSize = 100;
 
-    private final TableView<Sample> table = createTable();
+     private final TableView<Sample> table = createTable();
 
-    private final List<Sample> data = createData();
+     private final List<Sample> data = createData();
 
-    private final static int rowsPerPage = 10;
-*/
+     private final static int rowsPerPage = 10;
+ */
     //----------------------------------------------------------------
     @FXML
     private TableView<Ausgaben> ausgabenView;
@@ -78,7 +78,7 @@ public class Controller implements Initializable{
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListDatum;
 
-    ObservableList<Ausgaben> oblistausgaben =FXCollections.observableArrayList();
+    ObservableList<Ausgaben> oblistausgaben = FXCollections.observableArrayList();
     int id = UserLogin.id;
 
     //----------------------------------------------------------------
@@ -90,14 +90,14 @@ public class Controller implements Initializable{
     private TableColumn<Dauerauftraege, String> dauerauftraegeListBezeichnung;
 
     @FXML
-    private TableColumn<Dauerauftraege,String > dauerauftraegeListDatum;
+    private TableColumn<Dauerauftraege, String> dauerauftraegeListDatum;
 
     @FXML
     private TableView<Dauerauftraege> dauerauftraegeView;
     @FXML
     private TableColumn<Dauerauftraege, String> dauerauftraegeListDauer;
 
-    ObservableList<Dauerauftraege> oblistdauerauftraege =FXCollections.observableArrayList();
+    ObservableList<Dauerauftraege> oblistdauerauftraege = FXCollections.observableArrayList();
 
     //----------------------------------------------------------------
 
@@ -114,7 +114,7 @@ public class Controller implements Initializable{
     @FXML
     private TableView<Einnahmen> einnahmenView;
 
-    ObservableList<Einnahmen> oblisteinnahmen =FXCollections.observableArrayList();
+    ObservableList<Einnahmen> oblisteinnahmen = FXCollections.observableArrayList();
 
     //----------------------------------------------------------------
     @FXML
@@ -229,122 +229,113 @@ public class Controller implements Initializable{
     //--------------------------------------------------------------------------
 
 
-
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            JavaPostgres javaPostgres = new JavaPostgres();
-            javaPostgres.getConnection();
+        JavaPostgres javaPostgres = new JavaPostgres();
+        javaPostgres.getConnection();
 
-            try
-            {
-                Connection con = databaseConnectionLink;
-                PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
-                pstAusgaben.setInt(1, id);
-                ResultSet rs = pstAusgaben.executeQuery();
+        try {
+            Connection con = databaseConnectionLink;
+            PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
+            pstAusgaben.setInt(1, id);
+            ResultSet rs = pstAusgaben.executeQuery();
 
-                while (rs.next()) {
-                    oblistausgaben.add(
-                            new Ausgaben(
-                                    rs.getFloat("ausgaben_betrag"),
-                                    rs.getString("ausgaben_bezeichnung"),
-                                    rs.getString("ausgaben_datum")
-                            )
-                    );
-                }
+            while (rs.next()) {
+                oblistausgaben.add(
+                        new Ausgaben(
+                                rs.getFloat("ausgaben_betrag"),
+                                rs.getString("ausgaben_bezeichnung"),
+                                rs.getString("ausgaben_datum")
+                        )
+                );
             }
-            catch (SQLException exception)
-            {
-                Logger.getLogger(Ausgaben.class.getName()).log(Level.SEVERE, null ,exception);
+        } catch (SQLException exception) {
+            Logger.getLogger(Ausgaben.class.getName()).log(Level.SEVERE, null, exception);
+        }
+
+        ausgabenListDatum.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListDatum"));
+        ausgabenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
+        ausgabenListBetrag.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
+
+        ausgabenListDatumUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListDatum"));
+        ausgabenListBezeichnungUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
+        ausgabenListBetragUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
+
+
+        ausgabenView.setItems(oblistausgaben);
+        ausgabenViewUebersicht.setItems(oblistausgaben);
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------
+        try {
+            Connection con = databaseConnectionLink;
+            PreparedStatement pstEinnahmen = con.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");
+            pstEinnahmen.setInt(1, id);
+            ResultSet rs = pstEinnahmen.executeQuery();
+
+            while (rs.next()) {
+                oblisteinnahmen.add(
+                        new Einnahmen(
+                                rs.getString("einnahmen_bezeichnung"),
+                                rs.getFloat("einnahmen_betrag"),
+                                rs.getString("einnahmen_datum")
+                        )
+                );
             }
+        } catch (SQLException exception) {
+            Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        einnahmenListDatum.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListDatum"));
+        einnahmenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListBezeichnung"));
+        einnahmenListBetrag.setCellValueFactory(new PropertyValueFactory<Einnahmen, Float>("einnahmenListBetrag"));
 
-            ausgabenListDatum.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListDatum"));
-            ausgabenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
-            ausgabenListBetrag.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
+        einnahmenListDatumUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListDatum"));
+        einnahmenListBezeichnungUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListBezeichnung"));
+        einnahmenListBetragUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, Float>("einnahmenListBetrag"));
 
-            ausgabenListDatumUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListDatum"));
-            ausgabenListBezeichnungUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
-            ausgabenListBetragUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
+        einnahmenView.setItems(oblisteinnahmen);
+        einnahmenViewUebersicht.setItems(oblisteinnahmen);
 
+        //--------------------------------------------------------------------------------------------------------------------------------------------
 
-            ausgabenView.setItems(oblistausgaben);
-            ausgabenViewUebersicht.setItems(oblistausgaben);
+        try {
+            Connection con = databaseConnectionLink;
+            PreparedStatement pstDauerauftrag = con.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
+            pstDauerauftrag.setInt(1, id);
+            ResultSet rs = pstDauerauftrag.executeQuery();
 
-    //--------------------------------------------------------------------------------------------------------------------------------------------
-            try
-            {
-                Connection con = databaseConnectionLink;
-                PreparedStatement pstEinnahmen = con.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");
-                pstEinnahmen.setInt(1, id);
-                ResultSet rs = pstEinnahmen.executeQuery();
-
-                while (rs.next()) {
-                    oblisteinnahmen.add(
-                            new Einnahmen(
-                                    rs.getString("einnahmen_bezeichnung"),
-                                    rs.getFloat("einnahmen_betrag"),
-                                    rs.getString("einnahmen_datum")
-                            )
-                    );
-                }
+            while (rs.next()) {
+                oblistdauerauftraege.add(
+                        new Dauerauftraege(
+                                rs.getString("dauerauftrag_bezeichnung"),
+                                rs.getFloat("dauerauftrag_betrag"),
+                                rs.getString("dauerauftrag_datum"),
+                                rs.getString("dauerauftrag_zeitraum")
+                        )
+                );
             }
-            catch (SQLException exception)
-            {
-                Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null ,exception);
-            }
-            einnahmenListDatum.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListDatum"));
-            einnahmenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListBezeichnung"));
-            einnahmenListBetrag.setCellValueFactory(new PropertyValueFactory<Einnahmen, Float>("einnahmenListBetrag"));
+        } catch (SQLException exception) {
+            Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
+        }
+        dauerauftraegeListDatum.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, String>("dauerauftraegeListDatum"));
+        dauerauftraegeListBezeichnung.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, String>("dauerauftraegeListBezeichnung"));
+        dauerauftraegeListBetrag.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, Float>("dauerauftraegeListBetrag"));
+        dauerauftraegeListDauer.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, String>("dauerauftraegeListDauer"));
 
-            einnahmenListDatumUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListDatum"));
-            einnahmenListBezeichnungUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListBezeichnung"));
-            einnahmenListBetragUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, Float>("einnahmenListBetrag"));
+        dauerauftraegeView.setItems(oblistdauerauftraege);
 
-            einnahmenView.setItems(oblisteinnahmen);
-            einnahmenViewUebersicht.setItems(oblisteinnahmen);
+        //--------------------------------------------------------------------------------------------------------------------------------------------
 
-            //--------------------------------------------------------------------------------------------------------------------------------------------
+        kontostand = Uebersicht.aktuellerKontostandZusammen();
+        aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
 
-            try
-            {
-                Connection con = databaseConnectionLink;
-                PreparedStatement pstDauerauftrag = con.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
-                pstDauerauftrag.setInt(1, id);
-                ResultSet rs = pstDauerauftrag.executeQuery();
+        gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
+        gesamtAusgabenUebersicht.setText(String.valueOf(gesamtAusgaben));
 
-                while (rs.next()) {
-                    oblistdauerauftraege.add(
-                            new Dauerauftraege(
-                                    rs.getString("dauerauftrag_bezeichnung"),
-                                    rs.getFloat("dauerauftrag_betrag"),
-                                    rs.getString("dauerauftrag_datum"),
-                                    rs.getString("dauerauftrag_zeitraum")
-                            )
-                    );
-                }
-            }
-            catch (SQLException exception)
-            {
-                Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null ,exception);
-            }
-            dauerauftraegeListDatum.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, String>("dauerauftraegeListDatum"));
-            dauerauftraegeListBezeichnung.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, String>("dauerauftraegeListBezeichnung"));
-            dauerauftraegeListBetrag.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, Float>("dauerauftraegeListBetrag"));
-            dauerauftraegeListDauer.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, String >("dauerauftraegeListDauer"));
-
-            dauerauftraegeView.setItems(oblistdauerauftraege);
-
-            //--------------------------------------------------------------------------------------------------------------------------------------------
-
-            kontostand=Uebersicht.aktuellerKontostandZusammen();
-            aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
-
-            gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
-            gesamtAusgabenUebersicht.setText(String.valueOf(gesamtAusgaben));
-
-            gesamtEinnahmen= Uebersicht.einnahmenZusammenRechnen();
-            gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
+        gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
+        gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
 
     }
+
     @FXML
     /**
      * Bei betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
@@ -408,6 +399,35 @@ public class Controller implements Initializable{
                 ausgabenDate.setValue(null);
             } else labelAusgaben.setText("Keine Zahl!");
         }
+        //--------------------------------------------------------------------------------------------------------------------------------------------
+        oblistausgaben.clear();
+        try {
+            Connection con = databaseConnectionLink;
+            PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
+            pstAusgaben.setInt(1, id);
+            ResultSet rs = pstAusgaben.executeQuery();
+
+            while (rs.next()) {
+                oblistausgaben.add(
+                        new Ausgaben(
+                                rs.getFloat("ausgaben_betrag"),
+                                rs.getString("ausgaben_bezeichnung"),
+                                rs.getString("ausgaben_datum")
+                        )
+                );
+            }
+        } catch (SQLException exception) {
+            Logger.getLogger(Ausgaben.class.getName()).log(Level.SEVERE, null, exception);
+        }
+
+        ausgabenView.setItems(oblistausgaben);
+        ausgabenViewUebersicht.setItems(oblistausgaben);
+
+        gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
+        gesamtAusgabenUebersicht.setText(String.valueOf(gesamtAusgaben));
+
+        kontostand = Uebersicht.aktuellerKontostandZusammen();
+        aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
 
     }
 
@@ -446,6 +466,36 @@ public class Controller implements Initializable{
             } else labelEinnahmen.setText("Keine Zahl!");
 
         }
+
+        oblisteinnahmen.clear();
+        try {
+            Connection con = databaseConnectionLink;
+            PreparedStatement pstEinnahmen = con.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");
+            pstEinnahmen.setInt(1, id);
+            ResultSet rs = pstEinnahmen.executeQuery();
+
+            while (rs.next()) {
+                oblisteinnahmen.add(
+                        new Einnahmen(
+                                rs.getString("einnahmen_bezeichnung"),
+                                rs.getFloat("einnahmen_betrag"),
+                                rs.getString("einnahmen_datum")
+                        )
+                );
+            }
+        } catch (SQLException exception) {
+            Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
+        }
+
+
+        einnahmenView.setItems(oblisteinnahmen);
+        einnahmenViewUebersicht.setItems(oblisteinnahmen);
+
+        gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
+        gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
+
+        kontostand = Uebersicht.aktuellerKontostandZusammen();
+        aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
     }
 
     @FXML
@@ -487,6 +537,28 @@ public class Controller implements Initializable{
 
             } else labelDauerauftraege.setText("Keine Zahl!");
         }
+        oblistdauerauftraege.clear();
+        try {
+            Connection con = databaseConnectionLink;
+            PreparedStatement pstDauerauftrag = con.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
+            pstDauerauftrag.setInt(1, id);
+            ResultSet rs = pstDauerauftrag.executeQuery();
+
+            while (rs.next()) {
+                oblistdauerauftraege.add(
+                        new Dauerauftraege(
+                                rs.getString("dauerauftrag_bezeichnung"),
+                                rs.getFloat("dauerauftrag_betrag"),
+                                rs.getString("dauerauftrag_datum"),
+                                rs.getString("dauerauftrag_zeitraum")
+                        )
+                );
+            }
+        } catch (SQLException exception) {
+            Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
+        }
+
+        dauerauftraegeView.setItems(oblistdauerauftraege);
     }
 
 

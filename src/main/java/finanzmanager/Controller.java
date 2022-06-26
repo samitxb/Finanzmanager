@@ -239,14 +239,16 @@ public class Controller implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ladeDaten();
+        ladeDatenAusgaben();
+        ladeDatenEinnahmen();
+        ladeDatenDauerauftrag();
 
         NurNummern.numericOnly(ausgabenBetrag);
         NurNummern.numericOnly(einnahmenBetrag);
         NurNummern.numericOnly(dauerauftragBetrag);
     }
 
-    public void ladeDaten(){
+    public void ladeDatenAusgaben() {
         JavaPostgres javaPostgres = new JavaPostgres();
         javaPostgres.getConnection();
 
@@ -281,7 +283,12 @@ public class Controller implements Initializable {
         ausgabenView.setItems(oblistausgaben);
         ausgabenViewUebersicht.setItems(oblistausgaben);
 
+    }
         //--------------------------------------------------------------------------------------------------------------------------------------------
+
+    public void ladeDatenEinnahmen() {
+        JavaPostgres javaPostgres = new JavaPostgres();
+        javaPostgres.getConnection();
         try {
             Connection con = databaseConnectionLink;
             PreparedStatement pstEinnahmen = con.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");
@@ -310,9 +317,10 @@ public class Controller implements Initializable {
 
         einnahmenView.setItems(oblisteinnahmen);
         einnahmenViewUebersicht.setItems(oblisteinnahmen);
-
+    }
         //--------------------------------------------------------------------------------------------------------------------------------------------
 
+    public void ladeDatenDauerauftrag() {
         try {
             Connection con = databaseConnectionLink;
             PreparedStatement pstDauerauftrag = con.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
@@ -349,7 +357,6 @@ public class Controller implements Initializable {
 
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
         gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen));
-
 
 
     }
@@ -420,7 +427,7 @@ public class Controller implements Initializable {
 
 
         oblistausgaben.clear();
-        ladeDaten();
+        ladeDatenAusgaben();
 
     }
 
@@ -461,7 +468,7 @@ public class Controller implements Initializable {
         }
 
         oblisteinnahmen.clear();
-        ladeDaten();
+        ladeDatenEinnahmen();
     }
 
     @FXML
@@ -507,7 +514,7 @@ public class Controller implements Initializable {
         }
 
         oblistdauerauftraege.clear();
-        ladeDaten();
+        ladeDatenDauerauftrag();
     }
 
 

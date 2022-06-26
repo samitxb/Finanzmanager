@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 import static database.JavaPostgres.databaseConnectionLink;
 
 
-public class Controller implements Initializable {
+public class Controller implements Initializable{
 
 
     //-----------------Ausgaben Reiter--------------------------------
@@ -202,10 +202,31 @@ public class Controller implements Initializable {
     private Button quitBtn;
 
     //----------------------------------------------------------------
+
+    @FXML
+    private CheckBox exportAlles;
+
+    @FXML
+    private CheckBox exportAusgaben;
+
+    @FXML
+    private CheckBox exportEinnahmen;
+
+    @FXML
+    private Button exportExportierenBtn;
+
+    @FXML
+    private TextField exportName;
+
+    @FXML
+    private TextField exportSpeicherort;
+
+    @FXML
+    private Button exportWo;
     //--------------------------------------------------------------------------
 
 
-        @Override
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
             JavaPostgres javaPostgres = new JavaPostgres();
@@ -311,6 +332,7 @@ public class Controller implements Initializable {
 
             //--------------------------------------------------------------------------------------------------------------------------------------------
 
+            kontostand=Uebersicht.aktuellerKontostandZusammen();
             aktuellerKontostandUebersicht.setText(String.valueOf(kontostand));
 
             gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
@@ -318,8 +340,6 @@ public class Controller implements Initializable {
 
             gesamtEinnahmen= Uebersicht.einnahmenZusammenRechnen();
             gesamteinnahmenUebersicht.setText(String.valueOf(gesamtEinnahmen));
-
-
 
     }
     @FXML
@@ -350,6 +370,8 @@ public class Controller implements Initializable {
 
     @FXML
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
+
+
 
         labelAusgaben.setText(null);
 
@@ -466,6 +488,17 @@ public class Controller implements Initializable {
 
             } else labelDauerauftraege.setText("Keine Zahl!");
         }
+    }
+
+
+    @FXML
+    void exportierenBtnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void exportierenWoBtnPressed(ActionEvent event) {
+
     }
 
     //----------------------------------------------------------------

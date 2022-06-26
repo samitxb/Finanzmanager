@@ -94,6 +94,7 @@ public class LoginController {
                 primaryStage.setScene(new Scene(root, 1082, 726));
                 primaryStage.setResizable(false);
                 primaryStage.show();
+                //Controller.zeigedaten();
 
             }
 

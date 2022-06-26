@@ -11,6 +11,8 @@ public class Uebersicht {
     protected static float gesamtAusgaben;
     protected static float gesamtEinnahmen;
 
+    protected static float aktuellerKontostand;
+
  public static float ausgabenZusammenRechnen()  {
 
      int id = UserLogin.id;
@@ -69,6 +71,12 @@ public class Uebersicht {
      System.out.println(gesamtEinnahmen);
 
      return gesamtEinnahmen;
+ }
+
+ public static float aktuellerKontostandZusammen(){
+
+     return aktuellerKontostand;
+
  }
 
 }

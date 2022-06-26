@@ -22,7 +22,7 @@ import modelclasses.UserLogin;
 
 public class PDFGenerator {
     //public static void main(String[] args)
-    public void pdfGenAusgaben() throws SQLException {
+    public static void pdfGenAusgaben(String speicherort, String name) throws SQLException {
 
         int id = UserLogin.id;                                                //Holt user ID für DB
         Controller controller = new Controller();

@@ -565,8 +565,9 @@ public class Controller implements Initializable {
 
 
     @FXML
-    void exportierenBtnPressed(ActionEvent event) {
-
+    void exportierenBtnPressed(ActionEvent event) throws SQLException {
+        PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
+        System.out.println(exportSpeicherort.getText()+ "\n"+ exportName.getText());
     }
 
     @FXML

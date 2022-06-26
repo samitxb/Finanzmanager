@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelclasses.UserLogin;
+import modelclasses.UserRegistration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,10 +25,6 @@ public class PasswortVergessenView {
 
     @FXML
     private TextField passwortVergessenBenutzername;
-
-    @FXML
-    private TextField sicherheitsfrageAntwort;
-
     @FXML
     private Button quitPasswortView;
 
@@ -52,9 +49,9 @@ public class PasswortVergessenView {
 
             boolean hasResults = rs.next();
 
-            if (hasResults) {
+            if (hasResults)
+            {
                 do {
-
                     // User provided password to validate
                     String providedAntwort = passwortVergessenAntwort.getText();
 
@@ -64,15 +61,27 @@ public class PasswortVergessenView {
                     // Salt value stored in database
                     String sicherheitsSalt = rs.getString("sicherheitsantwort_salt");
 
-                    String neuPasswort = rs.getString("password");
-
-                    String neuPasswortSalt = rs.getString("passwordsalt");
 
                     boolean sicherheitsfrageMatch = PasswordEncryption.verifyUserPassword(providedAntwort, secureAntwort, sicherheitsSalt);
 
-                    if (sicherheitsfrageMatch) {
+                    if (sicherheitsfrageMatch)
+                    {
+                        String securePasswordSalt = PasswordEncryption.getSalt(30);
 
-                    return true;
+
+                        PreparedStatement psNewPassword = conDb.prepareStatement("Update userinfo set password=?, passwordsalt=? WHERE userid=?");
+                        psNewPassword.setInt(3, rs.getInt(1));
+
+
+                        String securePassword = PasswordEncryption.generateSecurePassword(sicherheitsfrageEingabe, securePasswordSalt);
+
+                        psNewPassword.setString(1, securePassword);
+                        psNewPassword.setString(2, securePasswordSalt);
+                        psNewPassword.executeUpdate();
+
+                        System.out.println("Test Pwd  " + sicherheitsfrageEingabe + "Test Salt  " + securePasswordSalt);
+
+
                     }
 
                 } while (rs.next());
@@ -99,7 +108,7 @@ public class PasswortVergessenView {
     {
         boolean check;
 
-        check = checkSicherheitsfrage(passwortVergessenAntwort.getText());
+        check = checkSicherheitsfrage(neuesPasswort.getText());
 
         if (check){
             neuesPasswort.isEditable();

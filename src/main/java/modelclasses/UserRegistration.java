@@ -28,11 +28,16 @@ public class UserRegistration {
         else if (Objects.equals(registrationUserPassword.getText(), "")) {
             System.out.println("Kein Passwort!");
             regsuccsessfulllabel.setText("Kein Passwort!");
+        }
+        else if (Objects.equals(registrationUserQuestion.getText(), "")) {
+                System.out.println("Keine Sicherheitsantwort!");
+                regsuccsessfulllabel.setText("Keine Sicherheitsantwort!");
         } else {
             JavaPostgres.writeToDatabaseUser(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText(), registrationUserQuestion.getText());
             registrationName.clear();
             registrationUserName.clear();
             registrationUserPassword.clear();
+            registrationUserQuestion.clear();
             regsuccsessfulllabel.setText(null);
         }
     }

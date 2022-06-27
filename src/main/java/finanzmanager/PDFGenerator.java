@@ -10,6 +10,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import database.JavaPostgres;
+import modelclasses.Uebersicht;
 import modelclasses.UserLogin;
 
 //import static database.Postgres.*;
@@ -44,6 +45,15 @@ public class PDFGenerator {
             ueberschrift.setSpacingBefore(10f);
             document.add(ueberschrift);
 
+            //=============================================Infos über den Auszug=============================================
+
+
+            Paragraph info = new Paragraph();
+            info.setFont(new Font(Font.FontFamily.COURIER, 10));
+            Chunk c_info = new Chunk("Ausgaben von: " + LoginController.getUserFullname());
+            info.add(c_info);
+            document.add(info);
+
 
             //=============================================Datenbank auslesen=============================================
 
@@ -69,7 +79,7 @@ public class PDFGenerator {
 
                 table_ausgaben.addCell("Datum");
                 table_ausgaben.addCell("Ausgaben in €");
-                table_ausgaben.addCell(" ");
+                table_ausgaben.addCell("Bezeichnung");
 
                 while (res.next()) {
 
@@ -101,6 +111,20 @@ public class PDFGenerator {
 
                 }
                 document.add(table_ausgaben);
+
+                //======================================Kontostand und Gesamt========================================
+
+                Paragraph ausgaben = new Paragraph();
+                ausgaben.setFont(new Font(Font.FontFamily.COURIER, 10));
+                Chunk c_ausgaben = new Chunk("Gesamte Ausgaben: " + Uebersicht.ausgabenZusammenRechnen() + "€");
+                ausgaben.add(c_ausgaben);
+                document.add(ausgaben);
+
+                Paragraph kontostand = new Paragraph();
+                kontostand.setFont(new Font(Font.FontFamily.COURIER, 10));
+                Chunk c_kontostand = new Chunk("Aktueller Kontostand: " + Uebersicht.aktuellerKontostandZusammen() + "€");
+                kontostand.add(c_kontostand);
+                document.add(kontostand);
 
             }
 
@@ -145,6 +169,17 @@ public class PDFGenerator {
             ueberschrift.setSpacingBefore(10f);
             document.add(ueberschrift);
 
+            //=============================================Infos über den Auszug=============================================
+
+
+            Paragraph info = new Paragraph();
+            info.setFont(new Font(Font.FontFamily.COURIER, 10));
+            Chunk c_info = new Chunk("Einnahmen von: " + LoginController.getUserFullname());
+            info.add(c_info);
+            document.add(info);
+
+
+
             //=============================================Datenbank auslesen=============================================
 
             JavaPostgres javaPostgres = new JavaPostgres();
@@ -169,7 +204,7 @@ public class PDFGenerator {
 
                 table_einnahmen.addCell("Datum");
                 table_einnahmen.addCell("Einnahmen in €");
-                table_einnahmen.addCell(" ");
+                table_einnahmen.addCell("Bezeichnung");
 
                 while (res.next()) {
 
@@ -201,6 +236,20 @@ public class PDFGenerator {
 
                 }
                 document.add(table_einnahmen);
+
+                //======================================Kontostand und Gesamt========================================
+
+                Paragraph ausgaben = new Paragraph();
+                ausgaben.setFont(new Font(Font.FontFamily.COURIER, 10));
+                Chunk c_ausgaben = new Chunk("Gesamte Einnahmen: " + Uebersicht.einnahmenZusammenRechnen() + "€");
+                ausgaben.add(c_ausgaben);
+                document.add(ausgaben);
+
+                Paragraph kontostand = new Paragraph();
+                kontostand.setFont(new Font(Font.FontFamily.COURIER, 10));
+                Chunk c_kontostand = new Chunk("Aktueller Kontostand: " + Uebersicht.aktuellerKontostandZusammen() + "€");
+                kontostand.add(c_kontostand);
+                document.add(kontostand);
 
             }
 

@@ -140,7 +140,6 @@ public class Controller implements Initializable {
     private TableColumn<Einnahmen, String> einnahmenListDatumUebersicht;
 
 
-
     //-----------------Einnahmen Reiter--------------------------------
 
 
@@ -226,6 +225,9 @@ public class Controller implements Initializable {
 
     @FXML
     private Button exportWo;
+
+    @FXML
+    private Label exportLabel;
     //--------------------------------------------------------------------------
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -350,7 +352,7 @@ public class Controller implements Initializable {
     }
 
 
-    public void ladeKontodaten(){
+    public void ladeKontodaten() {
         kontostand = Uebersicht.aktuellerKontostandZusammen();
         aktuellerKontostandUebersicht.setText((df.format(kontostand)));
 
@@ -360,6 +362,7 @@ public class Controller implements Initializable {
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
         gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen));
     }
+
     @FXML
     /**
      * Bei betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
@@ -508,8 +511,7 @@ public class Controller implements Initializable {
         }
     }
 
-    public void ausgabenListLoeschen(ActionEvent actionEvent) throws SQLException
-    {
+    public void ausgabenListLoeschen(ActionEvent actionEvent) throws SQLException {
 
         Connection con = databaseConnectionLink;
 
@@ -517,7 +519,7 @@ public class Controller implements Initializable {
 
 
         PreparedStatement pst = con.prepareStatement("DELETE FROM ausgaben WHERE ausgabenid=?");
-        pst.setInt(1,  selectedItem.getAusgabenId());
+        pst.setInt(1, selectedItem.getAusgabenId());
         pst.executeUpdate();
 
         System.out.println(selectedItem.getAusgabenId());
@@ -534,7 +536,7 @@ public class Controller implements Initializable {
 
 
         PreparedStatement pst = con.prepareStatement("DELETE FROM einnahmen WHERE einnahmenid=?");
-        pst.setInt(1,  selectedItem.getEinnahmenId());
+        pst.setInt(1, selectedItem.getEinnahmenId());
         pst.executeUpdate();
 
         System.out.println(selectedItem.getEinnahmenId());
@@ -550,7 +552,7 @@ public class Controller implements Initializable {
         Dauerauftraege selectedItem = dauerauftraegeView.getSelectionModel().getSelectedItem();
 
         PreparedStatement pst = con.prepareStatement("DELETE FROM dauerauftrag WHERE dauerauftragid=?");
-        pst.setInt(1,  selectedItem.getDauerauftraegeId());
+        pst.setInt(1, selectedItem.getDauerauftraegeId());
         pst.executeUpdate();
 
         System.out.println(selectedItem.getDauerauftraegeId());
@@ -558,34 +560,43 @@ public class Controller implements Initializable {
         dauerauftraegeView.getItems().remove(selectedItem);
 
 
-
     }
+
     @FXML
     void exportierenBtnPressed(ActionEvent event) throws SQLException {
 
+        if(!exportAlles.isSelected() && !exportEinnahmen.isSelected() && !exportAusgaben.isSelected()){
+            exportLabel.setText("Keine Daten ausgewählt!");
+        }else if(exportSpeicherort.getText().equals("")){
+            exportLabel.setText("Kein Speicherort ausgewählt!");
+        }else if(exportName.getText().equals("")){
+            exportLabel.setText("Kein Name angegeben!");
+        }else {
+            if (exportAusgaben.isSelected()) {
+                PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
+                exportLabel.setText("Exportiert!");
+            }
+            if (exportEinnahmen.isSelected()) {
+                PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
+                exportLabel.setText("Exportiert!");
+            }
+            if (exportAlles.isSelected()) {
+                PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
+                PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
+                exportLabel.setText("Exportiert!");
+            }
 
-       if (exportAusgaben.isSelected()){
-           PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
-       }
-        if (exportEinnahmen.isSelected()){
-            PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
+            System.out.println(exportSpeicherort.getText() + "\n" + exportName.getText());
         }
-        if (exportAlles.isSelected()){
-            PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
-            PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
-        }
-
-        System.out.println(exportSpeicherort.getText()+ "\n"+ exportName.getText());
     }
 
-    public void checkCheckBoxes(){
-        if (exportAlles.isSelected()){
+    public void checkCheckBoxes() {
+        if (exportAlles.isSelected()) {
             exportAusgaben.setSelected(false);
             exportEinnahmen.setSelected(false);
             exportEinnahmen.setDisable(true);
             exportAusgaben.setDisable(true);
-        }
-        if (!exportAlles.isSelected()){
+        } else {
             exportEinnahmen.setDisable(false);
             exportAusgaben.setDisable(false);
         }
@@ -596,14 +607,18 @@ public class Controller implements Initializable {
         Stage stage = (Stage) exportWo.getScene().getWindow();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(stage);
-        System.out.println(selectedDirectory.getAbsolutePath());
-        exportSpeicherort.setText(String.valueOf(selectedDirectory));
+        if(selectedDirectory != null){
+            System.out.println(selectedDirectory.getAbsolutePath());
+            exportSpeicherort.setText(String.valueOf(selectedDirectory));
+        }
+
     }
 
     public void clearlabels(Event event) {
         labelEinnahmen.setText(null);
         labelAusgaben.setText(null);
         labelDauerauftraege.setText(null);
+        exportLabel.setText(null);
     }
 
     public void ladeDatenNeu(ActionEvent actionEvent) {
@@ -632,7 +647,6 @@ public class Controller implements Initializable {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
-
 
 
     //----------------------------------------------------------------

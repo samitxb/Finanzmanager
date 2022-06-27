@@ -288,6 +288,7 @@
                         <Label fx:id="exportSpeicherort" layoutX="37.0" layoutY="365.0" prefHeight="33.0" prefWidth="569.0" />
                         <Line endX="944.0" endY="-6.0" layoutX="129.0" layoutY="631.0" startX="-119.0" startY="-6.0" stroke="#ffffff2f" />
                         <Line endX="463.0" fill="WHITE" layoutX="138.0" layoutY="94.0" startX="-98.0" stroke="WHITE" strokeWidth="1.5" />
+                        <Label fx:id="exportLabel" layoutX="37.0" layoutY="464.0" prefHeight="21.0" prefWidth="286.0" />
                      </children></AnchorPane>
               </content>
             </Tab>

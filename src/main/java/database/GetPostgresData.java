@@ -46,8 +46,10 @@ public class GetPostgresData {
                 getAusgabenListBezeichnung.add(rs.getString("ausgaben_bezeichnung"));
                 getAusgabenListDatum.add(rs.getString("ausgaben_datum"));
             }
+
             System.out.print("Data Ausgaben:\n " + getAusgabenListBetrag + " \n" + getAusgabenListBezeichnung + "\n" + getAusgabenListDatum + "\n\n");
 
+            rs.close();
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(GetPostgresData.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -87,7 +89,7 @@ public class GetPostgresData {
                 getEinnahmenListDatum.add(rs.getString("einnahmen_datum"));
             }
             System.out.print("Data Einnahmen:\n" + getEinnahmenListBetrag + " \n" + getEinnahmenListBezeichnung + "\n  " + getEinnahmenListDatum + "\n\n");
-
+            rs.close();
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(GetPostgresData.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -130,6 +132,7 @@ public class GetPostgresData {
                 getDauerauftragListDatum.add(rs.getString("dauerauftrag_datum"));
                 getDauerauftragListZeitraum.add(rs.getString("dauerauftrag_zeitraum"));
             }
+            rs.close();
             System.out.print("Data Dauerauftrag:\n " + getDauerauftragListBetrag + " \n" + getDauerauftragListBezeichnung + "\n" + getDauerauftragListDatum +  "\n" + "\n\n");
 
         } catch (SQLException ex) {

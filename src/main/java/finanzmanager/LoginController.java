@@ -1,6 +1,7 @@
 package finanzmanager;
 
 import database.GetPostgresData;
+import database.JavaPostgres;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +14,16 @@ import modelclasses.UserLogin;
 import modelclasses.UserRegistration;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class LoginController {
 
     public static int id;
+
     //--------------Login Register----------------------------------
     @FXML
     private TextField loginName;
@@ -55,7 +61,7 @@ public class LoginController {
      * @throws IOException -> wirft einen Fehler.
      */
     @FXML
-    void btnOKClicked(ActionEvent event) throws IOException{
+    void btnOKClicked(ActionEvent event) throws IOException, SQLException {
 
         if(!loginName.getText().isBlank() && !loginPassword.getText().isBlank())
         {
@@ -78,11 +84,30 @@ public class LoginController {
         UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword, registrationUserQuestion, regsuccsessfulllabel);
     }
 
+    public String getUserFullname() throws SQLException
+    {
+
+        String nameOfUser = "";
+        int id = UserLogin.id;
+        Connection con =  JavaPostgres.databaseConnectionLink;
+
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM userinfo WHERE userid=?");
+        pst.setInt(1, id);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next())
+        {
+            nameOfUser = rs.getString("fullname");
+        }
+        rs.close();
+
+        return nameOfUser;
+    }
+
     /**
      * Wenn Passwort und Benutzername übereinstimmen, kommt man in die ActualView.
      * @throws IOException wirft einen Fehler.
      */
-    public void validateUserLogin() throws IOException {
+    public void validateUserLogin() throws IOException, SQLException {
 
         boolean match;
 
@@ -98,11 +123,10 @@ public class LoginController {
                 GetPostgresData.getDauerauftragDatabase();
                 Stage primaryStage = new Stage();
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
-                primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + registrationName.getText());
+                primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + getUserFullname());
                 primaryStage.setScene(new Scene(root, 1082, 726));
                 primaryStage.setResizable(false);
                 primaryStage.show();
-                //Controller.zeigedaten();
             }
     }
 
@@ -120,5 +144,9 @@ public class LoginController {
         passwortStage.initModality(Modality.APPLICATION_MODAL);
         passwortStage.show();
     }
+
+
+
+
 }
 

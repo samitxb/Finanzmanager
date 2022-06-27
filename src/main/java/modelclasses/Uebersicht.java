@@ -16,7 +16,9 @@ public class Uebersicht {
     protected static float aktuellerKontostand;
 
 
+    static JavaPostgres javaPostgres = new JavaPostgres();
 
+    static Connection con = javaPostgres.getConnection();
 
 
 
@@ -25,9 +27,7 @@ public class Uebersicht {
      int id = UserLogin.id;
 
      try {
-         JavaPostgres javaPostgres = new JavaPostgres();
 
-         Connection con = javaPostgres.getConnection();
          PreparedStatement pst = con.prepareStatement("SELECT Sum(ausgaben_betrag) as ausgabengesamt FROM ausgaben where user_ausgabenid=?");
          pst.setInt(1, id);
          ResultSet rs = pst.executeQuery();
@@ -52,9 +52,7 @@ public class Uebersicht {
      int id = UserLogin.id;
 
      try {
-         JavaPostgres javaPostgres = new JavaPostgres();
 
-         Connection con = javaPostgres.getConnection();
          PreparedStatement pst = con.prepareStatement("SELECT Sum(einnahmen_betrag) as einnahmengesamt FROM einnahmen where user_einnahmenid=?");
          pst.setInt(1, id);
          ResultSet rs = pst.executeQuery();

@@ -124,6 +124,7 @@ public class JavaPostgres {
                 // Wirft Fenster mit Fehlermeldung aus
                 alert.show();
             }
+            resultSet.close();
 
             // Wirft Fehlermeldung bei fehlgeschlagener Datenbankverbindung aus
         } catch (SQLException ex) {
@@ -167,6 +168,7 @@ public class JavaPostgres {
                     pstEinnahmen.executeUpdate();
                     pstEinnahmen.close();
                 } while (rs.next());
+                pstEinnahmen.close();
                 rs.close();
             }
         }
@@ -204,6 +206,8 @@ public class JavaPostgres {
                 pstAusgaben.setInt(4, id);
                 pstAusgaben.executeUpdate();
             }
+            pstAusgaben.close();
+            rs.close();
         }
         catch (SQLException ex)
 
@@ -239,6 +243,8 @@ public class JavaPostgres {
                 pstDauerauftrag.setString(5, dauerauftragZeitraum);
                 pstDauerauftrag.executeUpdate();
             }
+            pstDauerauftrag.close();
+            rs.close();
         }
         catch (SQLException ex)
 

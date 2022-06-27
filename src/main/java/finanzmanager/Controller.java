@@ -334,6 +334,7 @@ public class Controller implements Initializable {
                         )
                 );
             }
+
         } catch (SQLException exception) {
             Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
         }

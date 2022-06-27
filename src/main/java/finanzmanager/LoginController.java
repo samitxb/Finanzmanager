@@ -1,8 +1,6 @@
 package finanzmanager;
 
 import database.GetPostgresData;
-import database.JavaPostgres;
-import database.PasswordEncryption;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +13,6 @@ import modelclasses.UserLogin;
 import modelclasses.UserRegistration;
 
 import java.io.IOException;
-import java.sql.*;
 import java.util.Objects;
 
 public class LoginController {
@@ -51,6 +48,12 @@ public class LoginController {
     private TextField registrationUserQuestion;
 
     //----------------------------------------------------------------
+
+    /**
+     * Frägt ab, ob die Textfelder leer sind, falls nicht wird die Funktion validateUserLogin aufgerufen.
+     * @param event -> Funktion wird beim drücken des Knopfes ausgeführt.
+     * @throws IOException -> wirft einen Fehler.
+     */
     @FXML
     void btnOKClicked(ActionEvent event) throws IOException{
 
@@ -67,13 +70,18 @@ public class LoginController {
     }
 
 
-
+    /**
+     * Übergibt die Parameter an die Funktion setRegistrationData in der Klasse UserRegistration
+     * @param actionEvent -> Funktion wird beim drücken des Knopfes ausgeführt.
+     */
     public void setRegistrationData(ActionEvent actionEvent){
-
         UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword, registrationUserQuestion, regsuccsessfulllabel);
-
     }
 
+    /**
+     * Wenn Passwort und Benutzername übereinstimmen, kommt man in die ActualView.
+     * @throws IOException wirft einen Fehler.
+     */
     public void validateUserLogin() throws IOException {
 
         boolean match;
@@ -95,12 +103,14 @@ public class LoginController {
                 primaryStage.setResizable(false);
                 primaryStage.show();
                 //Controller.zeigedaten();
-
             }
-
-
     }
 
+    /**
+     * Öfnet das Fenster, in der ein Benutzer sein Passwort zurücksetzten kann.
+     * @param actionEvent -> Funktion wird beim drücken des Knopfes ausgeführt.
+     * @throws IOException wirft einen Fehler.
+     */
     public void goToPasswortVergessen(ActionEvent actionEvent) throws IOException {
         Stage passwortStage = new Stage();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("PasswortVergessenView.fxml")));

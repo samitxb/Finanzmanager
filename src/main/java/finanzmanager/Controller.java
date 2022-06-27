@@ -308,7 +308,8 @@ public class Controller implements Initializable {
                         new Einnahmen(
                                 rs.getString("einnahmen_bezeichnung"),
                                 rs.getFloat("einnahmen_betrag"),
-                                rs.getString("einnahmen_datum")
+                                rs.getString("einnahmen_datum"),
+                                rs.getInt("einnahmenid")
                         )
                 );
             }
@@ -342,7 +343,8 @@ public class Controller implements Initializable {
                                 rs.getString("dauerauftrag_bezeichnung"),
                                 rs.getFloat("dauerauftrag_betrag"),
                                 rs.getString("dauerauftrag_datum"),
-                                rs.getString("dauerauftrag_zeitraum")
+                                rs.getString("dauerauftrag_zeitraum"),
+                                rs.getInt("dauerauftragid")
                         )
                 );
             }

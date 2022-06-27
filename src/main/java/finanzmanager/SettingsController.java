@@ -37,7 +37,10 @@ public class SettingsController {
     @FXML
     private Button quitSettingsBtn;
 
-
+    /**
+     * Schließt das Fenster
+     * @param event -> Funktion wird beim drücken des Knopfes ausgeführt.
+     */
     @FXML
     void quitSettings(ActionEvent event) {
 
@@ -49,8 +52,8 @@ public class SettingsController {
     /**
      * Funktion wird ausgeführt, wenn man auf Speichern drückt.
      * Leitet weiter zu neuerUserName, neuesUserPasswort und setKontostand.
-     * @param actionEvent
-     * @throws SQLException
+     * @param actionEvent -> Funktion wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException wirft einen Fehler.
      */
     public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
 
@@ -84,7 +87,7 @@ public class SettingsController {
     /**
      * Updatet den UserName des eingeloggten Benutzers
      * @param neuUserName übergibt den gewünschten Benutzernamen.
-     * @throws SQLException
+     * @throws SQLException wirft einen Fehler.
      */
     public void neuerUserName( String neuUserName) throws SQLException//, String neuUserPassword)
     {
@@ -134,7 +137,10 @@ public class SettingsController {
     }
 
 
-
+    /**
+     * Setzt ein neues Passwort des eingeloggten Benutzers.
+     * @param neuUserPasswort übergibt das gewünschte Passwort.
+     */
     public void neuesUserPasswort(String neuUserPasswort)
     {
         int id = UserLogin.id;
@@ -164,10 +170,10 @@ public class SettingsController {
     }
 
 
-
-
-
-
+    /**
+     * Setzt den gewünschten Kontostand des eingeloggten Benutzers.
+     * @param eingabeKontostand übergibt den gewünschten Kontostand.
+     */
     public void setKontostand(Float eingabeKontostand)
     {
         int id = UserLogin.id;

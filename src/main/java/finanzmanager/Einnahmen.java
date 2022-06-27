@@ -6,12 +6,18 @@ public class Einnahmen {
     private float einnahmenListBetrag;
     private String einnahmenListDatum;
 
-    public Einnahmen(String einnahmenListBezeichnung, Float einnahmenListBetrag, String einnahmenListDatum) {
+    private int einnahmenId;
+
+    public Einnahmen(String einnahmenListBezeichnung, float einnahmenListBetrag, String einnahmenListDatum, int einnahmenId) {
         this.einnahmenListBezeichnung = einnahmenListBezeichnung;
         this.einnahmenListBetrag = einnahmenListBetrag;
         this.einnahmenListDatum = einnahmenListDatum;
+        this.einnahmenId = einnahmenId;
     }
 
+    public int getEinnahmenId() {
+        return einnahmenId;
+    }
 
     public String getEinnahmenListBezeichnung() {
         return einnahmenListBezeichnung;

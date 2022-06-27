@@ -25,8 +25,6 @@ public class PDFGenerator {
     public static void pdfGenAusgaben(String speicherort, String name) throws SQLException {
 
         int id = UserLogin.id;                                                //Holt user ID für DB
-        Controller controller = new Controller();
-       // controller.exportierenWoBtnPressed();
 
 
         try {
@@ -34,7 +32,7 @@ public class PDFGenerator {
 
             //=============================================Dokument spezifizieren=============================================
             Document document = new Document(PageSize.A4);
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("ausgaben.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(speicherort + "\\" + name + ".pdf"));
             writer.setPdfVersion(PdfWriter.VERSION_1_7);
             document.open();
 
@@ -46,12 +44,6 @@ public class PDFGenerator {
             ueberschrift.setSpacingBefore(10f);
             document.add(ueberschrift);
 
-            //=============================================Infos über den Auszug=============================================
-            //Paragraph info = new Paragraph();
-            //info.setFont(new Font(Font.FontFamily.COURIER, 10));
-            //Chunk c_info = new Chunk("Einnahmen und Ausgaben von * im Zeitraum von * bis *");
-            //info.add(c_info);
-            //document.add(info);
 
             //=============================================Datenbank auslesen=============================================
 
@@ -133,7 +125,7 @@ public class PDFGenerator {
 
     }
 
-    public static void pdfGenEinnahmen(String text, String exportNameText) throws SQLException {
+    public void pdfGenEinnahmen(String speicherort, String name) throws SQLException {
 
         int id = UserLogin.id;                                                //Holt user ID für DB
 
@@ -141,7 +133,7 @@ public class PDFGenerator {
 
             //=============================================Dokument spezifizieren=============================================
             Document document = new Document(PageSize.A4);
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("einnahmen.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(speicherort + "\\" + name + ".pdf"));
             writer.setPdfVersion(PdfWriter.VERSION_1_7);
             document.open();
 
@@ -152,13 +144,6 @@ public class PDFGenerator {
             ueberschrift.add(c_ueberschrift);
             ueberschrift.setSpacingBefore(10f);
             document.add(ueberschrift);
-
-            //=============================================Infos über den Auszug=============================================
-            //Paragraph info = new Paragraph();
-            //info.setFont(new Font(Font.FontFamily.COURIER, 10));
-            //Chunk c_info = new Chunk("Einnahmen und Ausgaben von * im Zeitraum von * bis *");
-            //info.add(c_info);
-            //document.add(info);
 
             //=============================================Datenbank auslesen=============================================
 

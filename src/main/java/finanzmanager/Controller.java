@@ -604,6 +604,16 @@ public class Controller implements Initializable {
         ladeKontodaten();
     }
 
+    public void ladeDatenNeu(ActionEvent actionEvent) {
+        oblistausgaben.clear();
+        oblistdauerauftraege.clear();
+        oblisteinnahmen.clear();
+        ladeDatenAusgaben();
+        ladeDatenEinnahmen();
+        ladeDatenDauerauftrag();
+        ladeKontodaten();
+    }
+
     //----------------------------------------------------------------
     public void taeglich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Täglich");
@@ -620,6 +630,8 @@ public class Controller implements Initializable {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
+
+
 
     //----------------------------------------------------------------
 

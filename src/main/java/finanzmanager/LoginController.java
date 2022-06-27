@@ -84,7 +84,7 @@ public class LoginController {
         UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword, registrationUserQuestion, regsuccsessfulllabel);
     }
 
-    public String getUserFullname() throws SQLException
+    public static String getUserFullname() throws SQLException
     {
 
         String nameOfUser = "";

@@ -3,22 +3,23 @@ package finanzmanager;
 import database.JavaPostgres;
 import database.PasswordEncryption;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import modelclasses.NurNummern;
-import modelclasses.Uebersicht;
 import modelclasses.UserLogin;
 
+import java.net.URL;
 import java.sql.*;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class SettingsController {
+public class SettingsController implements Initializable {
     @FXML
     private TextField kontostand;
 
@@ -32,11 +33,23 @@ public class SettingsController {
     private TextField settingsPasswortNeu;
 
     @FXML
-    private Label kontostandLabel;
+    private Label settingsKontostandLabel;
 
     @FXML
     private Button quitSettingsBtn;
 
+
+    @FXML
+    private Label settingsPasswortLabel;
+
+    @FXML
+    private Label settingsNutzernameLabel;
+
+
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        NurNummern.numericOnly(kontostand);
+    }
     /**
      * Schließt das Fenster
      * @param event -> Funktion wird beim drücken des Knopfes ausgeführt.
@@ -60,15 +73,15 @@ public class SettingsController {
         boolean numerisch;
 
 
-        kontostandLabel.setText(null);
+        settingsKontostandLabel.setText(null);
 
         if (!Objects.equals(kontostand.getText(), "")){
             numerisch = NurNummern.isNumeric(kontostand.getText());
             if (numerisch){
                 System.out.println("Kontostand:" + kontostand.getText());
                 setKontostand(Float.valueOf(kontostand.getText()));
-                kontostandLabel.setText("Gespeichert!");
-            }else kontostandLabel.setText("Keine Zahl!");
+                settingsKontostandLabel.setText("Gespeichert!");
+            }else settingsKontostandLabel.setText("Keine Zahl!");
         }
 
         if(!settingsNutzernameNeu.getText().equals("")){
@@ -119,6 +132,8 @@ public class SettingsController {
 
                 // Wirft Fenster mit Fehlermeldung aus
                 alert.show();
+                settingsNutzernameLabel.setTextFill(Color.color(1, 0, 0));
+                settingsNutzernameLabel.setText("Vergeben!");
             }
 
             else
@@ -127,6 +142,8 @@ public class SettingsController {
                 ps.setString(1, neuUserName);
                 ps.setInt(2, id);
                 ps.executeUpdate();
+                settingsNutzernameLabel.setTextFill(Color.color(1, 1, 1));
+                settingsNutzernameLabel.setText("Gespeichert!");
             }
 
         }
@@ -161,6 +178,7 @@ public class SettingsController {
             ps.setInt(3,id);
 
             ps.executeUpdate();
+            settingsPasswortLabel.setText("Gespeichert!");
 
         }
 
@@ -193,6 +211,7 @@ public class SettingsController {
             psKontostand.setFloat(1, eingabeKontostand);
             psKontostand.setInt(2,id);
             psKontostand.executeUpdate();
+            settingsKontostandLabel.setText("Gespeichert!");
 
         }
 

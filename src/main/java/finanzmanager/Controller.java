@@ -57,18 +57,6 @@ public class Controller implements Initializable {
     //------------------------------------------------------------------
 
     @FXML
-    private Pagination ausgabenPagination;
-
-    /* private final static int dataSize = 100;
-
-     private final TableView<Sample> table = createTable();
-
-     private final List<Sample> data = createData();
-
-     private final static int rowsPerPage = 10;
- */
-    //----------------------------------------------------------------
-    @FXML
     private TableView<Ausgaben> ausgabenView;
     @FXML
     private TableColumn<Ausgaben, Float> ausgabenListBetrag;
@@ -239,7 +227,6 @@ public class Controller implements Initializable {
     @FXML
     private Button exportWo;
     //--------------------------------------------------------------------------
-
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -432,11 +419,10 @@ public class Controller implements Initializable {
             ausgabenBezeichnung.clear();
             ausgabenDate.setValue(null);
 
+            oblistausgaben.clear();
+            ladeDatenAusgaben();
+
         }
-
-
-        oblistausgaben.clear();
-        ladeDatenAusgaben();
 
     }
 
@@ -471,11 +457,12 @@ public class Controller implements Initializable {
             einnahmenBezeichnung.clear();
             einnahmenDate.setValue(null);
 
+            oblisteinnahmen.clear();
+            ladeDatenEinnahmen();
 
         }
 
-        oblisteinnahmen.clear();
-        ladeDatenEinnahmen();
+
     }
 
     @FXML
@@ -515,10 +502,9 @@ public class Controller implements Initializable {
             einnahmenDate.setValue(null);
             dauerauftragZeitspanneText.clear();
 
+            oblistdauerauftraege.clear();
+            ladeDatenDauerauftrag();
         }
-
-        oblistdauerauftraege.clear();
-        ladeDatenDauerauftrag();
     }
 
     public void ausgabenListLoeschen(ActionEvent actionEvent) throws SQLException
@@ -633,9 +619,6 @@ public class Controller implements Initializable {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
-
-
-
 
     //----------------------------------------------------------------
 

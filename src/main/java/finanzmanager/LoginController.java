@@ -98,7 +98,7 @@ public class LoginController {
                 GetPostgresData.getDauerauftragDatabase();
                 Stage primaryStage = new Stage();
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
-                primaryStage.setTitle("FINANZMANAGER - " + loginName.getText());
+                primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + registrationName.getText());
                 primaryStage.setScene(new Scene(root, 1082, 726));
                 primaryStage.setResizable(false);
                 primaryStage.show();

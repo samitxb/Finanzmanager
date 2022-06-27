@@ -72,31 +72,33 @@ public class Uebersicht {
      return gesamtEinnahmen;
  }
 
- public static float aktuellerKontostandZusammen(){
+ public static float aktuellerKontostandZusammen() {
 
      int id = UserLogin.id;
+     JavaPostgres javaPostgres = new JavaPostgres();
+     Connection con = javaPostgres.getConnection();
 
      try {
-         JavaPostgres javaPostgres = new JavaPostgres();
 
-         Connection con = javaPostgres.getConnection();
          PreparedStatement pst = con.prepareStatement("SELECT kontostand FROM userinfo where userid=?");
          pst.setInt(1, id);
          ResultSet rs = pst.executeQuery();
-         if(rs.next())
-         {
+         if (rs.next()) {
              aktuellerKontostand = rs.getFloat("kontostand");
          }
-     }
-     catch (SQLException e) {
+         rs.close();
+     } catch (SQLException e) {
          throw new RuntimeException(e);
      }
 
-     gesamtEinnahmen=einnahmenZusammenRechnen();
-     gesamtAusgaben=ausgabenZusammenRechnen();
-
+     gesamtEinnahmen = einnahmenZusammenRechnen();
+     gesamtAusgaben = ausgabenZusammenRechnen();
 
      aktuellerKontostand = aktuellerKontostand - gesamtAusgaben + gesamtEinnahmen;
+
+
+
+
 
      //System.out.println("Aktueller Kontostand: " +aktuellerKontostand);
 

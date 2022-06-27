@@ -520,9 +520,22 @@ public class Controller implements Initializable {
         ladeDatenDauerauftrag();
     }
 
-    public void ausgabenListLoeschen(ActionEvent actionEvent) {
+    public void ausgabenListLoeschen(ActionEvent actionEvent) throws SQLException
+    {
+
+        Connection con = databaseConnectionLink;
+
         Ausgaben selectedItem = ausgabenView.getSelectionModel().getSelectedItem();
+
+
+        PreparedStatement pst = con.prepareStatement("DELETE FROM ausgaben WHERE ausgabenid=?");
+        pst.setInt(1,  selectedItem.getAusgabenId());
+        pst.executeUpdate();
+
+        System.out.println(selectedItem.getAusgabenId());
+
         ausgabenView.getItems().remove(selectedItem);
+
     }
 
     public void einnahmenListLoeschen(ActionEvent actionEvent) {

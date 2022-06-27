@@ -30,7 +30,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import static database.JavaPostgres.databaseConnectionLink;
@@ -247,7 +246,7 @@ public class Controller implements Initializable {
         ladeDatenAusgaben();
         ladeDatenEinnahmen();
         ladeDatenDauerauftrag();
-        ladekontodaten();
+        ladeKontodaten();
 
         NurNummern.numericOnly(ausgabenBetrag);
         NurNummern.numericOnly(einnahmenBetrag);
@@ -290,7 +289,7 @@ public class Controller implements Initializable {
         ausgabenView.setItems(oblistausgaben);
         ausgabenViewUebersicht.setItems(oblistausgaben);
 
-        ladekontodaten();
+        ladeKontodaten();
 
     }
 
@@ -327,7 +326,7 @@ public class Controller implements Initializable {
         einnahmenView.setItems(oblisteinnahmen);
         einnahmenViewUebersicht.setItems(oblisteinnahmen);
 
-        ladekontodaten();
+        ladeKontodaten();
     }
 
     public void ladeDatenDauerauftrag() {
@@ -358,12 +357,12 @@ public class Controller implements Initializable {
 
         dauerauftraegeView.setItems(oblistdauerauftraege);
 
-        ladekontodaten();
+        ladeKontodaten();
 
     }
 
 
-    public void ladekontodaten(){
+    public void ladeKontodaten(){
         kontostand = Uebersicht.aktuellerKontostandZusammen();
         aktuellerKontostandUebersicht.setText((df.format(kontostand)));
 
@@ -540,14 +539,39 @@ public class Controller implements Initializable {
 
     }
 
-    public void einnahmenListLoeschen(ActionEvent actionEvent) {
+    public void einnahmenListLoeschen(ActionEvent actionEvent) throws SQLException {
+
+        Connection con = databaseConnectionLink;
+
         Einnahmen selectedItem = einnahmenView.getSelectionModel().getSelectedItem();
+
+
+        PreparedStatement pst = con.prepareStatement("DELETE FROM einnahmen WHERE einnahmenid=?");
+        pst.setInt(1,  selectedItem.getEinnahmenId());
+        pst.executeUpdate();
+
+        System.out.println(selectedItem.getEinnahmenId());
+
         einnahmenView.getItems().remove(selectedItem);
+
     }
 
-    public void dauerauftragListLoeschen(ActionEvent actionEvent) {
+    public void dauerauftragListLoeschen(ActionEvent actionEvent) throws SQLException {
+
+        Connection con = databaseConnectionLink;
+
         Dauerauftraege selectedItem = dauerauftraegeView.getSelectionModel().getSelectedItem();
+
+        PreparedStatement pst = con.prepareStatement("DELETE FROM dauerauftrag WHERE dauerauftragid=?");
+        pst.setInt(1,  selectedItem.getDauerauftraegeId());
+        pst.executeUpdate();
+
+        System.out.println(selectedItem.getDauerauftraegeId());
+
         dauerauftraegeView.getItems().remove(selectedItem);
+
+
+
     }
     @FXML
     void exportierenBtnPressed(ActionEvent event) throws SQLException {
@@ -590,7 +614,7 @@ public class Controller implements Initializable {
     }
 
     public void ladeKontostand(Event event){
-        ladekontodaten();
+        ladeKontodaten();
     }
 
     //----------------------------------------------------------------

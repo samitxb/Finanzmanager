@@ -6,19 +6,19 @@ public class Dauerauftraege {
     private String dauerauftraegeListDatum;
     private String dauerauftraegeListDauer;
 
-    private int dauerauftaegeId;
+    private int dauerauftraegeId;
 
     public Dauerauftraege(String dauerauftraegeListBezeichnung, float dauerauftraegeListBetrag, String dauerauftraegeListDatum, String dauerauftraegeListDauer, int dauerauftaegeId) {
         this.dauerauftraegeListBezeichnung = dauerauftraegeListBezeichnung;
         this.dauerauftraegeListBetrag = dauerauftraegeListBetrag;
         this.dauerauftraegeListDatum = dauerauftraegeListDatum;
         this.dauerauftraegeListDauer = dauerauftraegeListDauer;
-        this.dauerauftaegeId = dauerauftaegeId;
+        this.dauerauftraegeId = dauerauftaegeId;
     }
 
 
-    public int getDauerauftaegeId() {
-        return dauerauftaegeId;
+    public int getDauerauftraegeId() {
+        return dauerauftraegeId;
     }
 
     public String getDauerauftraegeListDauer() {

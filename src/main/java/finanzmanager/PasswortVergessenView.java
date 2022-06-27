@@ -5,6 +5,7 @@ import database.PasswordEncryption;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelclasses.UserLogin;
@@ -28,16 +29,24 @@ public class PasswortVergessenView {
     @FXML
     private Button quitPasswortView;
 
+    @FXML
+    private Label PasswortVergessenLabel;
+
+
+    @FXML
+    private Button PasswortVergessenSpeicherBtn;
+
+    @FXML
+    private Label neuesPasswortLabel;
+
 
     ResultSet rs;
 
 
-    public boolean checkSicherheitsfrage(String sicherheitsfrageEingabe) {
-
+    public boolean checkSicherheitsfrage() {
 
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
-
 
         try {
 
@@ -63,25 +72,18 @@ public class PasswortVergessenView {
 
 
                     boolean sicherheitsfrageMatch = PasswordEncryption.verifyUserPassword(providedAntwort, secureAntwort, sicherheitsSalt);
+                    System.out.println(sicherheitsfrageMatch);
 
                     if (sicherheitsfrageMatch)
                     {
-                        String securePasswordSalt = PasswordEncryption.getSalt(30);
+                        PasswortVergessenLabel.setText("Ändern sie nun ihr Passwort!");
+                        neuesPasswort.setEditable(true);
+                        neuesPasswort.setVisible(true);
+                        PasswortVergessenLabel.setVisible(true);
+                        PasswortVergessenSpeicherBtn.setVisible(true);
+                        neuesPasswortLabel.setVisible(true);
 
-
-                        PreparedStatement psNewPassword = conDb.prepareStatement("Update userinfo set password=?, passwordsalt=? WHERE userid=?");
-                        psNewPassword.setInt(3, rs.getInt(1));
-
-
-                        String securePassword = PasswordEncryption.generateSecurePassword(sicherheitsfrageEingabe, securePasswordSalt);
-
-                        psNewPassword.setString(1, securePassword);
-                        psNewPassword.setString(2, securePasswordSalt);
-                        psNewPassword.executeUpdate();
-
-                        System.out.println("Test Pwd  " + sicherheitsfrageEingabe + "Test Salt  " + securePasswordSalt);
-
-
+                        return true;
                     }
 
                 } while (rs.next());
@@ -104,15 +106,40 @@ public class PasswortVergessenView {
     }
 
     @FXML
+    void speicherPasswort(ActionEvent event) throws SQLException {
+
+        boolean match = checkSicherheitsfrage();
+        JavaPostgres connectNow = new JavaPostgres();
+        Connection conDb = connectNow.getConnection();
+
+
+
+        if (match){
+
+            String neuesPasswortt = neuesPasswort.getText();
+            String securePasswordSalt = PasswordEncryption.getSalt(30);
+
+
+            PreparedStatement psNewPassword = conDb.prepareStatement("Update userinfo set password=?, passwordsalt=? WHERE userid=?");
+            psNewPassword.setInt(3, rs.getInt(1));
+
+
+            String securePassword = PasswordEncryption.generateSecurePassword(neuesPasswortt, securePasswordSalt);
+
+            psNewPassword.setString(1, securePassword);
+            psNewPassword.setString(2, securePasswordSalt);
+            psNewPassword.executeUpdate();
+
+            PasswortVergessenLabel.setText(neuesPasswortt);
+
+        }
+
+    }
+
+    @FXML
     void okBtnPressed(ActionEvent event)
     {
-        boolean check;
-
-        check = checkSicherheitsfrage(neuesPasswort.getText());
-
-        if (check){
-            neuesPasswort.isEditable();
-        }
+        checkSicherheitsfrage();
 
     }
 

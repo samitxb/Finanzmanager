@@ -8,14 +8,15 @@
 <AnchorPane prefHeight="400.0" prefWidth="300.0" stylesheets="@themeLoginScreen.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finanzmanager.PasswortVergessenView">
    <children>
       <Label layoutX="8.0" layoutY="-4.0" prefHeight="59.0" prefWidth="285.0" style="-fx-font-size: 25;" styleClass="label-header" stylesheets="@themeActualView.css" text="Passwort vergessen:" underline="true" />
-      <Label layoutX="14.0" layoutY="124.0" styleClass="label-bright" text="Wie lautet der Vorname ihres Vaters?" />
-      <TextField fx:id="passwortVergessenAntwort" layoutX="14.0" layoutY="147.0" prefHeight="35.0" prefWidth="248.0" />
-      <Button layoutX="117.0" layoutY="200.0" mnemonicParsing="false" onAction="#okBtnPressed" text="Ok" />
-      <Label layoutX="14.0" layoutY="279.0" styleClass="label-bright" text="Neues Passwort:" />
-      <TextField fx:id="neuesPasswort" layoutX="14.0" layoutY="306.0" prefHeight="35.0" prefWidth="248.0" />
-      <Label layoutX="55.0" layoutY="247.0" prefHeight="21.0" prefWidth="192.0" />
+      <Label layoutX="14.0" layoutY="117.0" styleClass="label-bright" text="Wie lautet der Vorname ihres Vaters?" />
+      <TextField fx:id="passwortVergessenAntwort" layoutX="14.0" layoutY="140.0" prefHeight="35.0" prefWidth="248.0" />
+      <Button layoutX="105.0" layoutY="184.0" mnemonicParsing="false" onAction="#okBtnPressed" text="Ok" />
+      <Label fx:id="neuesPasswortLabel" layoutX="14.0" layoutY="233.0" styleClass="label-bright" text="Neues Passwort:" visible="false" />
+      <TextField fx:id="neuesPasswort" editable="false" layoutX="14.0" layoutY="260.0" prefHeight="35.0" prefWidth="248.0" visible="false" />
+      <Label fx:id="PasswortVergessenLabel" layoutX="9.0" layoutY="359.0" prefHeight="21.0" prefWidth="192.0" />
       <Button fx:id="quitPasswortView" layoutX="209.0" layoutY="353.0" mnemonicParsing="false" onAction="#quitPasswortVergessen" text="Quit" />
-      <Label layoutX="14.0" layoutY="56.0" styleClass="label-bright" text="Benutzername:" />
-      <TextField fx:id="passwortVergessenBenutzername" layoutX="14.0" layoutY="81.0" prefHeight="35.0" prefWidth="248.0" />
+      <Label layoutX="14.0" layoutY="49.0" styleClass="label-bright" text="Benutzername:" />
+      <TextField fx:id="passwortVergessenBenutzername" layoutX="14.0" layoutY="74.0" prefHeight="35.0" prefWidth="248.0" />
+      <Button fx:id="PasswortVergessenSpeicherBtn" layoutX="82.0" layoutY="306.0" mnemonicParsing="false" onAction="#speicherPasswort" text="Speichern" visible="false" />
    </children>
 </AnchorPane>

@@ -70,31 +70,21 @@ public class SettingsController implements Initializable {
      */
     public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
 
-        boolean numerisch;
-
-
         settingsKontostandLabel.setText(null);
 
         if (!Objects.equals(kontostand.getText(), "")){
-            numerisch = NurNummern.isNumeric(kontostand.getText());
-            if (numerisch){
                 System.out.println("Kontostand:" + kontostand.getText());
                 setKontostand(Float.valueOf(kontostand.getText()));
                 settingsKontostandLabel.setText("Gespeichert!");
-            }else settingsKontostandLabel.setText("Keine Zahl!");
         }
-
         if(!settingsNutzernameNeu.getText().equals("")){
             System.out.println("Neuer Username:" + settingsNutzernameNeu.getText());
             neuerUserName(settingsNutzernameNeu.getText());
         }
-
         if(!settingsPasswortNeu.getText().equals("")){
             System.out.println("Neues Passwort:" + settingsPasswortNeu.getText());
             neuesUserPasswort(settingsPasswortNeu.getText());
         }
-
-
     }
 
     /**

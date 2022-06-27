@@ -582,6 +582,12 @@ public class Controller implements Initializable {
         if (exportAlles.isSelected()){
             exportAusgaben.setSelected(false);
             exportEinnahmen.setSelected(false);
+            exportEinnahmen.setDisable(true);
+            exportAusgaben.setDisable(true);
+        }
+        if (!exportAlles.isSelected()){
+            exportEinnahmen.setDisable(false);
+            exportAusgaben.setDisable(false);
         }
     }
 
@@ -598,10 +604,6 @@ public class Controller implements Initializable {
         labelEinnahmen.setText(null);
         labelAusgaben.setText(null);
         labelDauerauftraege.setText(null);
-    }
-
-    public void ladeKontostand(Event event){
-        ladeKontodaten();
     }
 
     public void ladeDatenNeu(ActionEvent actionEvent) {

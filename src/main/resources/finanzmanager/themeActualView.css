@@ -185,7 +185,7 @@
 
 .button-delete {
     -fx-background-color:#515355;
-    -fx-border-color: #1d1d1d;
+    -fx-border-color: null;
     -fx-border-width: 0;
 }
 

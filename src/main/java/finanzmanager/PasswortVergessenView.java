@@ -140,6 +140,16 @@ public class PasswortVergessenView {
     void okBtnPressed(ActionEvent event)
     {
         checkSicherheitsfrage();
+        if(!passwortVergessenBenutzername.getText().isBlank() && !passwortVergessenAntwort.getText().isBlank())
+        {
+            System.out.println("Checking");
+            checkSicherheitsfrage();
+        }
+        else
+        {
+            System.out.println("Enter data");
+            PasswortVergessenLabel.setText("Keine Eingabe");
+        }
 
     }
 

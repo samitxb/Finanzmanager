@@ -287,7 +287,6 @@ public class Controller implements Initializable {
         ladekontodaten();
 
     }
-        //--------------------------------------------------------------------------------------------------------------------------------------------
 
     public void ladeDatenEinnahmen() {
         JavaPostgres javaPostgres = new JavaPostgres();
@@ -323,7 +322,6 @@ public class Controller implements Initializable {
 
         ladekontodaten();
     }
-        //--------------------------------------------------------------------------------------------------------------------------------------------
 
     public void ladeDatenDauerauftrag() {
         try {
@@ -353,10 +351,6 @@ public class Controller implements Initializable {
         dauerauftraegeView.setItems(oblistdauerauftraege);
 
         ladekontodaten();
-
-        //--------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
     }
 
@@ -422,17 +416,15 @@ public class Controller implements Initializable {
         } else if (Objects.equals(localDate, null)) {
             labelAusgaben.setText("Kein Datum!");
         } else {
-            numerisch = NurNummern.isNumeric(ausgabenBetrag.getText());
-            if (numerisch) {
-                labelAusgaben.setText("Gespeichert!");
+            labelAusgaben.setText("Gespeichert!");
 
-                JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
-                GetPostgresData.getAusgabenDatabase();
+            JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
+            GetPostgresData.getAusgabenDatabase();
 
-                ausgabenBetrag.clear();
-                ausgabenBezeichnung.clear();
-                ausgabenDate.setValue(null);
-            } else labelAusgaben.setText("Keine Zahl!");
+            ausgabenBetrag.clear();
+            ausgabenBezeichnung.clear();
+            ausgabenDate.setValue(null);
+
         }
 
 
@@ -463,17 +455,15 @@ public class Controller implements Initializable {
             labelEinnahmen.setText("Kein Datum!");
         } else {
 
-            numerisch = NurNummern.isNumeric(einnahmenBetrag.getText());
-            if (numerisch) {
-                labelEinnahmen.setText("Gespeichert!");
+            labelEinnahmen.setText("Gespeichert!");
 
-                JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
-                GetPostgresData.getEinnahmenDatabase();
+            JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
+            GetPostgresData.getEinnahmenDatabase();
 
-                einnahmenBetrag.clear();
-                einnahmenBezeichnung.clear();
-                einnahmenDate.setValue(null);
-            } else labelEinnahmen.setText("Keine Zahl!");
+            einnahmenBetrag.clear();
+            einnahmenBezeichnung.clear();
+            einnahmenDate.setValue(null);
+
 
         }
 
@@ -507,20 +497,17 @@ public class Controller implements Initializable {
             labelDauerauftraege.setText("Keine Zeitspanne!");
         } else {
 
-            numerisch = NurNummern.isNumeric(dauerauftragBetrag.getText());
-            if (numerisch) {
-                labelDauerauftraege.setText("Gespeichert!");
+            labelDauerauftraege.setText("Gespeichert!");
 
-                JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
-                GetPostgresData.getDauerauftragDatabase();
+            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
+            GetPostgresData.getDauerauftragDatabase();
 
 
-                dauerauftragBetrag.clear();
-                dauerauftragBezeichnung.clear();
-                einnahmenDate.setValue(null);
-                dauerauftragZeitspanneText.clear();
+            dauerauftragBetrag.clear();
+            dauerauftragBezeichnung.clear();
+            einnahmenDate.setValue(null);
+            dauerauftragZeitspanneText.clear();
 
-            } else labelDauerauftraege.setText("Keine Zahl!");
         }
 
         oblistdauerauftraege.clear();

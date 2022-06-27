@@ -107,11 +107,11 @@
                               <TableView fx:id="ausgabenView" layoutX="7.0" layoutY="61.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
                                 <columns>
                                   <TableColumn fx:id="ausgabenListDatum" prefWidth="70.0" text="Datum" />
-                                  <TableColumn fx:id="ausgabenListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
-                                    <TableColumn fx:id="ausgabenListBetrag" prefWidth="64.0" text="Betrag" />
-                                    <TableColumn fx:id="ausgabenListDel" prefWidth="64.0" text="Del" />
+                                  <TableColumn fx:id="ausgabenListBezeichnung" prefWidth="132.0" text="Bezeichnung" />
+                                    <TableColumn fx:id="ausgabenListBetrag" prefWidth="102.0" text="Betrag" />
                                 </columns>
                               </TableView>
+                              <Button fx:id="ausgabenListLoeschenBtn" layoutX="212.0" layoutY="24.0" mnemonicParsing="false" onAction="#ausgabenListLoeschen" text="Löschen" />
                            </children>
                         </AnchorPane>
                         <Button layoutX="14.0" layoutY="328.0" mnemonicParsing="false" onAction="#ausgabeHinzufuegenBtn" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
@@ -140,11 +140,11 @@
                               <TableView fx:id="einnahmenView" layoutX="7.0" layoutY="61.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
                                  <columns>
                                     <TableColumn fx:id="einnahmenListDatum" prefWidth="70.0" text="Datum" />
-                                    <TableColumn fx:id="einnahmenListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
-                                    <TableColumn fx:id="einnahmenListBetrag" prefWidth="64.0" text="Betrag" />
-                                    <TableColumn fx:id="einnahmenListDel" prefWidth="63.0" text="Del" />
+                                    <TableColumn fx:id="einnahmenListBezeichnung" prefWidth="132.0" text="Bezeichnung" />
+                                    <TableColumn fx:id="einnahmenListBetrag" prefWidth="102.0" text="Betrag" />
                                  </columns>
                               </TableView>
+                              <Button fx:id="einnahmenListLoeschenBtn" layoutX="222.0" layoutY="24.0" mnemonicParsing="false" onAction="#einnahmenListLoeschen" text="Löschen" />
                            </children>
                         </AnchorPane>
                         <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="303.0" styleClass="label-header" text="Meine Einnahmen" underline="true">
@@ -194,9 +194,10 @@
                                     <TableColumn fx:id="dauerauftraegeListDatum" prefWidth="78.0" text="Datum" />
                                     <TableColumn fx:id="dauerauftraegeListBezeichnung" prefWidth="107.0" text="Bezeichnung" />
                                     <TableColumn fx:id="dauerauftraegeListBetrag" prefWidth="64.0" text="Betrag" />
-                                    <TableColumn fx:id="dauerauftraegeListDauer" prefWidth="51.0" text="Dauer" />
+                                    <TableColumn fx:id="dauerauftraegeListDauer" prefWidth="60.0" text="Dauer" />
                                  </columns>
                               </TableView>
+                              <Button fx:id="dauerauftragListLoeschenBtn" layoutX="224.0" layoutY="24.0" mnemonicParsing="false" onAction="#dauerauftragListLoeschen" text="Löschen" />
                            </children>
                         </AnchorPane>
                         <Button layoutX="14.0" layoutY="475.0" mnemonicParsing="false" onAction="#dauerauftragHinzufuegenBtn" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />

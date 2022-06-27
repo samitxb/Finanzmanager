@@ -80,6 +80,9 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListDatum;
 
+    @FXML
+    private Button ausgabenListLoeschenBtn;
+
     ObservableList<Ausgaben> oblistausgaben = FXCollections.observableArrayList();
     int id = UserLogin.id;
 
@@ -99,6 +102,9 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<Dauerauftraege, String> dauerauftraegeListDauer;
 
+    @FXML
+    private Button dauerauftragListLoeschenBtn;
+
     ObservableList<Dauerauftraege> oblistdauerauftraege = FXCollections.observableArrayList();
 
     //----------------------------------------------------------------
@@ -116,6 +122,9 @@ public class Controller implements Initializable {
     @FXML
     private TableView<Einnahmen> einnahmenView;
 
+    @FXML
+    private Button einnahmenListLoeschenBtn;
+
     ObservableList<Einnahmen> oblisteinnahmen = FXCollections.observableArrayList();
 
     //----------------------------------------------------------------
@@ -129,8 +138,6 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListDatumUebersicht;
 
-    @FXML
-    private TableColumn<Ausgaben, String > ausgabenListDel;
 
     //----------------------------------------------------------------
     @FXML
@@ -145,8 +152,6 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<Einnahmen, String> einnahmenListDatumUebersicht;
 
-    @FXML
-    private TableColumn<Einnahmen, String> einnahmenListDel;
 
 
     //-----------------Einnahmen Reiter--------------------------------
@@ -514,7 +519,20 @@ public class Controller implements Initializable {
         ladeDatenDauerauftrag();
     }
 
+    public void ausgabenListLoeschen(ActionEvent actionEvent) {
+        Ausgaben selectedItem = ausgabenView.getSelectionModel().getSelectedItem();
+        ausgabenView.getItems().remove(selectedItem);
+    }
 
+    public void einnahmenListLoeschen(ActionEvent actionEvent) {
+        Einnahmen selectedItem = einnahmenView.getSelectionModel().getSelectedItem();
+        einnahmenView.getItems().remove(selectedItem);
+    }
+
+    public void dauerauftragListLoeschen(ActionEvent actionEvent) {
+        Dauerauftraege selectedItem = dauerauftraegeView.getSelectionModel().getSelectedItem();
+        dauerauftraegeView.getItems().remove(selectedItem);
+    }
     @FXML
     void exportierenBtnPressed(ActionEvent event) throws SQLException {
 

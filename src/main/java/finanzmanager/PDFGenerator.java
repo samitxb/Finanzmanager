@@ -125,7 +125,7 @@ public class PDFGenerator {
 
     }
 
-    public void pdfGenEinnahmen(String speicherort, String name) throws SQLException {
+    public static void pdfGenEinnahmen(String speicherort, String name) throws SQLException {
 
         int id = UserLogin.id;                                                //Holt user ID für DB
 

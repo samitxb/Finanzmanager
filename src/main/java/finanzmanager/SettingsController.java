@@ -3,6 +3,8 @@ package finanzmanager;
 import database.JavaPostgres;
 import database.PasswordEncryption;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -41,9 +43,15 @@ public class SettingsController {
 
         Stage stage = (Stage) quitSettingsBtn.getScene().getWindow();
         stage.close();
+
     }
 
-
+    /**
+     * Funktion wird ausgeführt, wenn man auf Speichern drückt.
+     * Leitet weiter zu neuerUserName, neuesUserPasswort und setKontostand.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
 
         boolean numerisch;
@@ -73,7 +81,11 @@ public class SettingsController {
 
     }
 
-
+    /**
+     * Updatet den UserName des eingeloggten Benutzers
+     * @param neuUserName übergibt den gewünschten Benutzernamen.
+     * @throws SQLException
+     */
     public void neuerUserName( String neuUserName) throws SQLException//, String neuUserPassword)
     {
         int id = UserLogin.id;

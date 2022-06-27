@@ -267,9 +267,10 @@ public class Controller implements Initializable {
             while (rs.next()) {
                 oblistausgaben.add(
                         new Ausgaben(
-                                rs.getFloat("ausgaben_betrag"),
                                 rs.getString("ausgaben_bezeichnung"),
-                                rs.getString("ausgaben_datum")
+                                rs.getFloat("ausgaben_betrag"),
+                                rs.getString("ausgaben_datum"),
+                                rs.getInt("ausgabenid")
                         )
                 );
             }

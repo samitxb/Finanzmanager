@@ -11,16 +11,19 @@ public class Ausgaben {
 
     private String ausgabeLabel;
 
+    private int ausgabenId;
 
-    public Ausgaben(float ausgabenListBetrag, String ausgabenListBezeichnung, String ausgabenListDatum)
-    {
-        this.ausgabenListBetrag = ausgabenListBetrag;
+
+    public Ausgaben(String ausgabenListBezeichnung, float ausgabenListBetrag, String ausgabenListDatum, int ausgabenId) {
         this.ausgabenListBezeichnung = ausgabenListBezeichnung;
+        this.ausgabenListBetrag = ausgabenListBetrag;
         this.ausgabenListDatum = ausgabenListDatum;
-
+        this.ausgabenId = ausgabenId;
     }
 
-
+    public int getAusgabenId() {
+        return ausgabenId;
+    }
     public float getAusgabenListBetrag() {
         return ausgabenListBetrag;
     }

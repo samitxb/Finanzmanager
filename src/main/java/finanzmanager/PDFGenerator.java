@@ -133,7 +133,7 @@ public class PDFGenerator {
 
     }
 
-    public void pdfGenEinnahmen() throws SQLException {
+    public static void pdfGenEinnahmen(String text, String exportNameText) throws SQLException {
 
         int id = UserLogin.id;                                                //Holt user ID für DB
 

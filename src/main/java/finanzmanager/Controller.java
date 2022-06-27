@@ -517,8 +517,27 @@ public class Controller implements Initializable {
 
     @FXML
     void exportierenBtnPressed(ActionEvent event) throws SQLException {
-        PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
+
+
+       if (exportAusgaben.isSelected()){
+           PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
+       }
+        if (exportEinnahmen.isSelected()){
+            PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
+        }
+        if (exportAlles.isSelected()){
+            PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
+            PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
+        }
+
         System.out.println(exportSpeicherort.getText()+ "\n"+ exportName.getText());
+    }
+
+    public void checkCheckBoxes(){
+        if (exportAlles.isSelected()){
+            exportAusgaben.setSelected(false);
+            exportEinnahmen.setSelected(false);
+        }
     }
 
     @FXML

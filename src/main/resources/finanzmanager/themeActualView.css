@@ -183,6 +183,12 @@
     -fx-border-color: #1d1d1d;
 }
 
+.button-delete {
+    -fx-background-color:#515355;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 0;
+}
+
 .button:hover {
     /*-fx-background-color: #3a3a3a;*/
     -fx-background-color: -fx-secondary-color;

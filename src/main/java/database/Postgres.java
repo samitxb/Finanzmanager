@@ -93,6 +93,7 @@ class Postgres {
                         " dauerauftrag_bezeichnung  TEXT, " +
                         " dauerauftrag_datum        DATE, " +
                         " dauerauftrag_zeitraum     TEXT," +
+                        " dauerauftrag_datumabbuchung TEXT, "+
                         " FOREIGN KEY (user_dauerauftragID)" +
                         " REFERENCES userinfo(userID))";
 
@@ -105,54 +106,6 @@ class Postgres {
                 statementDb.executeUpdate(sqlDauerauftrag);
 
 
-
-                ResultSet rsUserinfo = statementDb.executeQuery("SELECT * FROM USERINFO;");
-                while (rsUserinfo.next())
-                {
-                   rsUserinfo.getInt("id");
-                   rsUserinfo.getString("username");
-                   rsUserinfo.getInt("password");
-                }
-
-
-                ResultSet rsEinnahmen = statementDb.executeQuery("SELECT userid FROM userinfo UNION Select user_einnahmenid from einnahmen;");
-
-                while(rsEinnahmen.next())
-                {
-                    rsEinnahmen.getInt("id");
-                    rsEinnahmen.getFloat("betrag");
-                    rsEinnahmen.getString("bezeichnung");
-                    rsEinnahmen.getDate("datum");
-                }
-
-
-                ResultSet rsAusgaben = statementDb.executeQuery("SELECT * FROM AUSGABEN;");
-
-                while(rsAusgaben.next())
-                {
-                    rsAusgaben.getInt("id");
-                    rsAusgaben.getFloat("betrag");
-                    rsAusgaben.getString("bezeichnung");
-                    rsAusgaben.getDate("datum");
-                }
-
-
-                ResultSet rsDauerauftrag = statementDb.executeQuery("SELECT * FROM DAUERAUFTRAG;");
-
-                while(rsDauerauftrag.next())
-                {
-                    rsDauerauftrag.getInt("id");
-                    rsDauerauftrag.getFloat("betrag");
-                    rsDauerauftrag.getString("bezeichnung");
-                    rsDauerauftrag.getDate("datum");
-                    rsDauerauftrag.getDate("zeitraum");
-                }
-
-
-                rsUserinfo.close();
-                rsEinnahmen.close();
-                rsAusgaben.close();
-                rsDauerauftrag.close();
                 statementDb.close();
                 connectionDb.close();
 

@@ -119,8 +119,10 @@ public class LoginController {
         if (match) {
             System.out.println(match);
 
+            Programm.startactualview();
+
             errorText.setText("Erfolgreich eingeloggt!");
-            Stage stage = (Stage) loginOkBtn.getScene().getWindow();
+           /* Stage stage = (Stage) loginOkBtn.getScene().getWindow();
             stage.close();
             GetPostgresData.getEinnahmenDatabase();
             GetPostgresData.getDauerauftragDatabase();
@@ -130,7 +132,7 @@ public class LoginController {
             //primaryStage.setScene(new Scene(root, 1082, 726));
             primaryStage.setScene(new Scene(root, 1082, 737));
             primaryStage.setResizable(false);
-            primaryStage.show();
+            primaryStage.show();*/
         }
     }
 

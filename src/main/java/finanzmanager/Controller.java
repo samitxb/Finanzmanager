@@ -235,7 +235,6 @@ public class Controller implements Initializable {
         ladeDatenAusgaben();
         ladeDatenEinnahmen();
         ladeDatenDauerauftrag();
-        ladeKontodaten();
 
         NurNummern.numericOnly(ausgabenBetrag);
         NurNummern.numericOnly(einnahmenBetrag);
@@ -442,7 +441,6 @@ public class Controller implements Initializable {
         LocalDate localDate = einnahmenDate.getValue();
         System.out.println(localDate);
 
-        boolean numerisch;
 
         if (Objects.equals(einnahmenBetrag.getText(), "")) {
             labelEinnahmen.setText("Kein Betrag!");
@@ -526,6 +524,8 @@ public class Controller implements Initializable {
 
         ausgabenView.getItems().remove(selectedItem);
 
+        ladeKontodaten();
+
     }
 
     public void einnahmenListLoeschen(ActionEvent actionEvent) throws SQLException {
@@ -543,6 +543,8 @@ public class Controller implements Initializable {
 
         einnahmenView.getItems().remove(selectedItem);
 
+        ladeKontodaten();
+
     }
 
     public void dauerauftragListLoeschen(ActionEvent actionEvent) throws SQLException {
@@ -558,6 +560,8 @@ public class Controller implements Initializable {
         System.out.println(selectedItem.getDauerauftraegeId());
 
         dauerauftraegeView.getItems().remove(selectedItem);
+
+        ladeKontodaten();
 
 
     }

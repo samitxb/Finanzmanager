@@ -57,19 +57,17 @@ public class LoginController {
 
     /**
      * Frägt ab, ob die Textfelder leer sind, falls nicht wird die Funktion validateUserLogin aufgerufen.
+     *
      * @param event -> Funktion wird beim drücken des Knopfes ausgeführt.
      * @throws IOException -> wirft einen Fehler.
      */
     @FXML
     void btnOKClicked(ActionEvent event) throws IOException, SQLException {
 
-        if(!loginName.getText().isBlank() && !loginPassword.getText().isBlank())
-        {
+        if (!loginName.getText().isBlank() && !loginPassword.getText().isBlank()) {
             System.out.println("Login...");
             validateUserLogin();
-        }
-        else
-        {
+        } else {
             System.out.println("Enter login data");
             errorText.setText("Bitte geben sie ihren Benutzernamen und Passwort ein!");
         }
@@ -78,24 +76,23 @@ public class LoginController {
 
     /**
      * Übergibt die Parameter an die Funktion setRegistrationData in der Klasse UserRegistration
+     *
      * @param actionEvent -> Funktion wird beim drücken des Knopfes ausgeführt.
      */
-    public void setRegistrationData(ActionEvent actionEvent){
-        UserRegistration.setRegistrationData(registrationName,registrationUserName,registrationUserPassword, registrationUserQuestion, regsuccsessfulllabel);
+    public void setRegistrationData(ActionEvent actionEvent) {
+        UserRegistration.setRegistrationData(registrationName, registrationUserName, registrationUserPassword, registrationUserQuestion, regsuccsessfulllabel);
     }
 
-    public static String getUserFullname() throws SQLException
-    {
+    public static String getUserFullname() throws SQLException {
 
         String nameOfUser = "";
         int id = UserLogin.id;
-        Connection con =  JavaPostgres.databaseConnectionLink;
+        Connection con = JavaPostgres.databaseConnectionLink;
 
         PreparedStatement pst = con.prepareStatement("SELECT * FROM userinfo WHERE userid=?");
         pst.setInt(1, id);
         ResultSet rs = pst.executeQuery();
-        if (rs.next())
-        {
+        if (rs.next()) {
             nameOfUser = rs.getString("fullname");
         }
         rs.close();
@@ -105,6 +102,7 @@ public class LoginController {
 
     /**
      * Wenn Passwort und Benutzername übereinstimmen, kommt man in die ActualView.
+     *
      * @throws IOException wirft einen Fehler.
      */
     public void validateUserLogin() throws IOException, SQLException {
@@ -113,25 +111,27 @@ public class LoginController {
 
         match = UserLogin.validateUserLogin(loginName, loginPassword, errorText);
 
-        if (match){
+        if (match) {
             System.out.println(match);
 
-                errorText.setText("Erfolgreich eingeloggt!");
-                Stage stage = (Stage) loginOkBtn.getScene().getWindow();
-                stage.close();
-                GetPostgresData.getEinnahmenDatabase();
-                GetPostgresData.getDauerauftragDatabase();
-                Stage primaryStage = new Stage();
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
-                primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + getUserFullname());
-                primaryStage.setScene(new Scene(root, 1082, 726));
-                primaryStage.setResizable(false);
-                primaryStage.show();
-            }
+            errorText.setText("Erfolgreich eingeloggt!");
+            Stage stage = (Stage) loginOkBtn.getScene().getWindow();
+            stage.close();
+            GetPostgresData.getEinnahmenDatabase();
+            GetPostgresData.getDauerauftragDatabase();
+            Stage primaryStage = new Stage();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
+            primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + getUserFullname());
+            //primaryStage.setScene(new Scene(root, 1082, 726));
+            primaryStage.setScene(new Scene(root, 1082, 737));
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        }
     }
 
     /**
      * Öfnet das Fenster, in der ein Benutzer sein Passwort zurücksetzten kann.
+     *
      * @param actionEvent -> Funktion wird beim drücken des Knopfes ausgeführt.
      * @throws IOException wirft einen Fehler.
      */
@@ -144,8 +144,6 @@ public class LoginController {
         passwortStage.initModality(Modality.APPLICATION_MODAL);
         passwortStage.show();
     }
-
-
 
 
 }

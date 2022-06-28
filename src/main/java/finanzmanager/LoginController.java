@@ -119,20 +119,19 @@ public class LoginController {
         if (match) {
             System.out.println(match);
 
-            Programm.startactualview();
 
             errorText.setText("Erfolgreich eingeloggt!");
-           /* Stage stage = (Stage) loginOkBtn.getScene().getWindow();
+            Stage stage = (Stage) loginOkBtn.getScene().getWindow();
             stage.close();
             GetPostgresData.getEinnahmenDatabase();
             GetPostgresData.getDauerauftragDatabase();
             Stage primaryStage = new Stage();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Actualview.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ActualView.fxml")));
             primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + getUserFullname());
             //primaryStage.setScene(new Scene(root, 1082, 726));
             primaryStage.setScene(new Scene(root, 1082, 737));
             primaryStage.setResizable(false);
-            primaryStage.show();*/
+            primaryStage.show();
         }
     }
 

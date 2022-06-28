@@ -11,9 +11,8 @@ module com.example.finanzmanager_java {
     requires eu.hansolo.tilesfx;
     requires java.sql;
     requires itextpdf;
-    requires org.postgresql.jdbc;
 
-    opens finanzmanager to javafx.fxml;
+    opens finanzmanager;
     exports finanzmanager;
     exports database;
     opens database to javafx.fxml;

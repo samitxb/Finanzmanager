@@ -7,7 +7,6 @@ package finanzmanager;
  *
  * @author Max Weichselgartner
  * @version 1.0
- *
  */
 public class Einnahmen {
 
@@ -18,10 +17,11 @@ public class Einnahmen {
 
     /**
      * Constructor der Einnahmen.
+     *
      * @param einnahmenListBezeichnung Bezeichnung der Einnahme.
-     * @param einnahmenListBetrag Betrag der Einnahme.
-     * @param einnahmenListDatum Datum der Einnahme.
-     * @param einnahmenId ID der Einnahme.
+     * @param einnahmenListBetrag      Betrag der Einnahme.
+     * @param einnahmenListDatum       Datum der Einnahme.
+     * @param einnahmenId              ID der Einnahme.
      */
     public Einnahmen(String einnahmenListBezeichnung, float einnahmenListBetrag, String einnahmenListDatum, int einnahmenId) {
         this.einnahmenListBezeichnung = einnahmenListBezeichnung;
@@ -32,6 +32,7 @@ public class Einnahmen {
 
     /**
      * Getter der EinnahmenId.
+     *
      * @return Id der Einnahme.
      */
     public int getEinnahmenId() {
@@ -40,6 +41,7 @@ public class Einnahmen {
 
     /**
      * Getter der Bezeichnung der Einnahme.
+     *
      * @return Bezeichnung der Einnahme.
      */
     public String getEinnahmenListBezeichnung() {
@@ -48,6 +50,7 @@ public class Einnahmen {
 
     /**
      * Getter des Betrags der Einnahme.
+     *
      * @return Betrag der Einnahme.
      */
     public float getEinnahmenListBetrag() {
@@ -56,6 +59,7 @@ public class Einnahmen {
 
     /**
      * Getter des Datums der Einnahme.
+     *
      * @return Datum der Einnahme.
      */
     public String getEinnahmenListDatum() {

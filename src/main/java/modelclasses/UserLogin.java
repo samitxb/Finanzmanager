@@ -2,7 +2,6 @@ package modelclasses;
 
 import database.JavaPostgres;
 import database.PasswordEncryption;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -10,8 +9,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
+/**
+ * Klasse UserLogin überprüft, ob Benutzername und Passwort übereinstimmen.
+ *
+ * @author Max Weichselgartner, Michael Irlmeier
+ * @version 1.0
+ */
 public class UserLogin {
     public static int id;
+
+    /**
+     * Überprüft, ob Benutzername und Passwort übereinstimmen.
+     *
+     * @param loginName     ist der eingegebene LoginName
+     * @param loginPassword ist das eingegebene Passwort
+     * @param errorText     ist das Label
+     * @return true, falls Passwort und Benutzername übereinstimmen
+     */
     public static boolean validateUserLogin(TextField loginName, TextField loginPassword, Label errorText) {
 
         PreparedStatement preparedStatement;
@@ -61,14 +76,12 @@ public class UserLogin {
                 System.out.println("No Match found");
                 errorText.setText("Benutzername nicht vorhanden!");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return false;
     }
-    }
+}
 
 
 

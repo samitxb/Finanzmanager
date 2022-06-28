@@ -24,7 +24,6 @@ import java.util.ResourceBundle;
  *
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
- *
  */
 
 public class SettingsController implements Initializable {
@@ -47,15 +46,18 @@ public class SettingsController implements Initializable {
 
     /**
      * Beim start des Controllers werden diese Funktionen ausgeführt.
-     * @param url .
+     *
+     * @param url            .
      * @param resourceBundle .
      */
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         NurNummern.numericOnly(kontostand);
     }
+
     /**
      * Schließt das Fenster Einstellungen.
+     *
      * @param event -> Funktion wird beim Drücken des Knopfes ausgeführt.
      */
     @FXML
@@ -67,6 +69,7 @@ public class SettingsController implements Initializable {
     /**
      * Funktion wird ausgeführt, wenn man auf Speichern drückt.
      * Leitet weiter zu neuerUserName, neuesUserPasswort und setKontostand.
+     *
      * @param actionEvent -> Funktion wird beim Drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler.
      */
@@ -74,16 +77,16 @@ public class SettingsController implements Initializable {
 
         settingsKontostandLabel.setText(null);
 
-        if (!Objects.equals(kontostand.getText(), "")){
-                System.out.println("Kontostand:" + kontostand.getText());
-                setKontostand(Float.valueOf(kontostand.getText()));
-                settingsKontostandLabel.setText("Gespeichert!");
+        if (!Objects.equals(kontostand.getText(), "")) {
+            System.out.println("Kontostand:" + kontostand.getText());
+            setKontostand(Float.valueOf(kontostand.getText()));
+            settingsKontostandLabel.setText("Gespeichert!");
         }
-        if(!settingsNutzernameNeu.getText().equals("")){
+        if (!settingsNutzernameNeu.getText().equals("")) {
             System.out.println("Neuer Username:" + settingsNutzernameNeu.getText());
             neuerUserName(settingsNutzernameNeu.getText());
         }
-        if(!settingsPasswortNeu.getText().equals("")){
+        if (!settingsPasswortNeu.getText().equals("")) {
             System.out.println("Neues Passwort:" + settingsPasswortNeu.getText());
             neuesUserPasswort(settingsPasswortNeu.getText());
         }
@@ -91,10 +94,11 @@ public class SettingsController implements Initializable {
 
     /**
      * Updatet den UserName des eingeloggten Benutzers
+     *
      * @param neuUserName übergibt den gewünschten Benutzernamen.
      * @throws SQLException -> wirft einen Fehler.
      */
-    public void neuerUserName( String neuUserName) throws SQLException//, String neuUserPassword)
+    public void neuerUserName(String neuUserName) throws SQLException//, String neuUserPassword)
     {
         int id = UserLogin.id;
 
@@ -113,8 +117,7 @@ public class SettingsController implements Initializable {
 
         try {
             // Checkt, ob der neue Username in der Datenbank existiert
-            if(resultSet.isBeforeFirst())
-            {
+            if (resultSet.isBeforeFirst()) {
                 System.out.println("Nutzername vergeben");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Nutzername vergeben! Bitte anderen Nutzernamen wählen.");
@@ -138,10 +141,10 @@ public class SettingsController implements Initializable {
 
     /**
      * Setzt ein neues Passwort des eingeloggten Benutzers.
+     *
      * @param neuUserPasswort übergibt das gewünschte Passwort.
      */
-    public void neuesUserPasswort(String neuUserPasswort)
-    {
+    public void neuesUserPasswort(String neuUserPasswort) {
         int id = UserLogin.id;
 
         PreparedStatement ps;
@@ -155,28 +158,27 @@ public class SettingsController implements Initializable {
             ps = conDb.prepareStatement("UPDATE userinfo SET password = ?, passwordsalt =? WHERE userid = ?");
             ps.setString(1, neuUserPasswort);
             ps.setString(2, salt);
-            ps.setInt(3,id);
+            ps.setInt(3, id);
 
             ps.executeUpdate();
             settingsPasswortLabel.setText("Gespeichert!");
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Setzt den gewünschten Kontostand des eingeloggten Benutzers.
+     *
      * @param eingabeKontostand übergibt den gewünschten Kontostand.
      */
-    public void setKontostand(Float eingabeKontostand)
-    {
+    public void setKontostand(Float eingabeKontostand) {
         int id = UserLogin.id;
 
 
         System.out.println(eingabeKontostand);
-        System.out.println("method: "+ kontostand.getText());
+        System.out.println("method: " + kontostand.getText());
 
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
@@ -186,7 +188,7 @@ public class SettingsController implements Initializable {
 
             psKontostand = conDb.prepareStatement("UPDATE Userinfo SET kontostand =? WHERE userid =? ");
             psKontostand.setFloat(1, eingabeKontostand);
-            psKontostand.setInt(2,id);
+            psKontostand.setInt(2, id);
             psKontostand.executeUpdate();
             settingsKontostandLabel.setText("Gespeichert!");
         } catch (Exception e) {

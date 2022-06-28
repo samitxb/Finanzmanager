@@ -25,7 +25,6 @@ import java.util.Objects;
  *
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
- *
  */
 
 public class LoginController {
@@ -61,6 +60,7 @@ public class LoginController {
 
     /**
      * Frägt ab, ob die Textfelder leer sind, falls nicht, wird die Funktion validateUserLogin aufgerufen.
+     *
      * @param event -> Funktion wird beim drücken des Knopfes ausgeführt.
      * @throws IOException -> wirft einen Fehler.
      */
@@ -78,6 +78,7 @@ public class LoginController {
 
     /**
      * Übergibt die Parameter an die Funktion setRegistrationData in der Klasse UserRegistration
+     *
      * @param actionEvent -> Funktion wird beim Drücken des Knopfes ausgeführt.
      */
     public void setRegistrationData(ActionEvent actionEvent) {
@@ -86,6 +87,7 @@ public class LoginController {
 
     /**
      * Beim Aufrufen der Funktion, wird der volle Name des Benutzers aus der Datenbank geholt.
+     *
      * @return Gibt den vollen Namen des Benutzers zurück.
      * @throws SQLException -> wirft einen Fehler.
      */
@@ -108,6 +110,7 @@ public class LoginController {
 
     /**
      * Wenn Passwort und Benutzername übereinstimmen, wird man zur ActualView weitergeleitet.
+     *
      * @throws IOException -> wirft einen Fehler.
      */
     public void validateUserLogin() throws IOException, SQLException {
@@ -137,6 +140,7 @@ public class LoginController {
 
     /**
      * Öfnet das Fenster, in der ein Benutzer sein Passwort zurücksetzten kann.
+     *
      * @param actionEvent -> Funktion wird beim Drücken des Knopfes ausgeführt.
      * @throws IOException -> wirft einen Fehler.
      */

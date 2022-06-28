@@ -19,7 +19,6 @@ import java.sql.SQLException;
  *
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
- *
  */
 
 public class PasswortVergessenController {
@@ -43,6 +42,7 @@ public class PasswortVergessenController {
     /**
      * Überprüft, ob die Sicherheitsfrage mit dem angegebenen Benutzer übereinstimmt.
      * Falls ja, kann man sein neues Passwort eingeben.
+     *
      * @return true, falls es übereinstimmt.
      */
     public boolean checkSicherheitsfrage() {
@@ -100,6 +100,7 @@ public class PasswortVergessenController {
 
     /**
      * Schließt das Fenster PasswortVergessen.
+     *
      * @param event -> wird beim Drücken des Knopfes ausgeführt.
      */
     @FXML
@@ -110,6 +111,7 @@ public class PasswortVergessenController {
 
     /**
      * Speichert das neue Passwort in die Datenbank.
+     *
      * @param event -> wird beim Drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler.
      */
@@ -120,7 +122,7 @@ public class PasswortVergessenController {
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
 
-        if (match){
+        if (match) {
 
             String neuesPasswortt = neuesPasswort.getText();
             String securePasswordSalt = PasswordEncryption.getSalt(30);
@@ -142,16 +144,16 @@ public class PasswortVergessenController {
 
     /**
      * Wenn die Textfelder nicht leer sind, wird die Funktion checkSicherheitsfrage() ausgeführt.
+     *
      * @param event -> wird beim Drücken des Knopfes ausgeführt.
      */
     @FXML
     void okBtnPressed(ActionEvent event) {
         checkSicherheitsfrage();
-        if(!passwortVergessenBenutzername.getText().isBlank() && !passwortVergessenAntwort.getText().isBlank()) {
+        if (!passwortVergessenBenutzername.getText().isBlank() && !passwortVergessenAntwort.getText().isBlank()) {
             System.out.println("Checking");
             checkSicherheitsfrage();
-        }
-        else {
+        } else {
             System.out.println("Enter data");
             PasswortVergessenLabel.setText("Keine Eingabe");
         }

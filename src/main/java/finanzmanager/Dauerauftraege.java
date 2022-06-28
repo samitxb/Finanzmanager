@@ -7,7 +7,6 @@ package finanzmanager;
  *
  * @author Max Weichselgartner
  * @version 1.0
- *
  */
 public class Dauerauftraege {
     private String dauerauftraegeListBezeichnung;
@@ -18,11 +17,12 @@ public class Dauerauftraege {
 
     /**
      * Constructor der Daueraufträge.
+     *
      * @param dauerauftraegeListBezeichnung Bezeichnung des Dauerauftrags.
-     * @param dauerauftraegeListBetrag Betrag des Dauerauftrags.
-     * @param dauerauftraegeListDatum Datum des Dauerauftrags.
-     * @param dauerauftraegeListDauer Abstand des Dauerauftrags.
-     * @param dauerauftaegeId ID des Dauerauftrags.
+     * @param dauerauftraegeListBetrag      Betrag des Dauerauftrags.
+     * @param dauerauftraegeListDatum       Datum des Dauerauftrags.
+     * @param dauerauftraegeListDauer       Abstand des Dauerauftrags.
+     * @param dauerauftaegeId               ID des Dauerauftrags.
      */
     public Dauerauftraege(String dauerauftraegeListBezeichnung, float dauerauftraegeListBetrag, String dauerauftraegeListDatum, String dauerauftraegeListDauer, int dauerauftaegeId) {
         this.dauerauftraegeListBezeichnung = dauerauftraegeListBezeichnung;
@@ -34,6 +34,7 @@ public class Dauerauftraege {
 
     /**
      * Getter des DauerauftragID.
+     *
      * @return ID des Dauerauftrags.
      */
     public int getDauerauftraegeId() {
@@ -42,6 +43,7 @@ public class Dauerauftraege {
 
     /**
      * Getter der Dauer des Dauerauftrags.
+     *
      * @return Dauer/Abstand des Dauerauftrags.
      */
     public String getDauerauftraegeListDauer() {
@@ -50,6 +52,7 @@ public class Dauerauftraege {
 
     /**
      * Getter der Bezeichnung des Dauerauftrags.
+     *
      * @return Bezeichnung des Dauerauftrags.
      */
     public String getDauerauftraegeListBezeichnung() {
@@ -58,6 +61,7 @@ public class Dauerauftraege {
 
     /**
      * Getter des Betrags des Dauerauftrags.
+     *
      * @return Betrag des Dauerauftrags.
      */
     public float getDauerauftraegeListBetrag() {
@@ -66,6 +70,7 @@ public class Dauerauftraege {
 
     /**
      * Getter des Datums des Dauerauftrags.
+     *
      * @return Datum des Dauerauftrags.
      */
     public String getDauerauftraegeListDatum() {

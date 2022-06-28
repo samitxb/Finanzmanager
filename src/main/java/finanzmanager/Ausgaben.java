@@ -6,7 +6,6 @@ package finanzmanager;
  *
  * @author Max Weichselgartner
  * @version 1.0
- *
  */
 public class Ausgaben {
 
@@ -17,10 +16,11 @@ public class Ausgaben {
 
     /**
      * Constructor für die Ausgaben.
+     *
      * @param ausgabenListBezeichnung Bezeichnung der Ausgabe.
-     * @param ausgabenListBetrag Betrag der Ausgabe.
-     * @param ausgabenListDatum Datum der Ausgabe.
-     * @param ausgabenId ID der Ausgabe.
+     * @param ausgabenListBetrag      Betrag der Ausgabe.
+     * @param ausgabenListDatum       Datum der Ausgabe.
+     * @param ausgabenId              ID der Ausgabe.
      */
     public Ausgaben(String ausgabenListBezeichnung, float ausgabenListBetrag, String ausgabenListDatum, int ausgabenId) {
         this.ausgabenListBezeichnung = ausgabenListBezeichnung;
@@ -31,6 +31,7 @@ public class Ausgaben {
 
     /**
      * Getter der AusgabenId.
+     *
      * @return ID der Ausgabe.
      */
     public int getAusgabenId() {
@@ -39,6 +40,7 @@ public class Ausgaben {
 
     /**
      * Getter des Betrags der Ausgabe.
+     *
      * @return Betrag der Ausgabe.
      */
     public float getAusgabenListBetrag() {
@@ -47,6 +49,7 @@ public class Ausgaben {
 
     /**
      * Getter der Bezeichnung der Ausgabe.
+     *
      * @return Bezeichnung der Ausgabe.
      */
     public String getAusgabenListBezeichnung() {
@@ -55,9 +58,12 @@ public class Ausgaben {
 
     /**
      * Getter des Datums der Ausgabe.
+     *
      * @return Datum der Ausgabe.
      */
-    public String getAusgabenListDatum() { return ausgabenListDatum; }
+    public String getAusgabenListDatum() {
+        return ausgabenListDatum;
+    }
 
 
 

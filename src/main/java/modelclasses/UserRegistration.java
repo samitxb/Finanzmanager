@@ -1,16 +1,28 @@
 package modelclasses;
 
 import database.JavaPostgres;
-import finanzmanager.LoginController;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.util.Objects;
 
+/**
+ * Klasse UserRegistration setzt die Registration Data
+ *
+ * @author Max Weichselgartner
+ * @version 1.0
+ *
+ */
 public class UserRegistration {
 
-
+    /**
+     * Die Übergebenen Parameter werden überprüft, ob sie leer sind, falls nicht werden die Daten an die Datenbank weitergegeben.
+     * @param registrationName ist der vollständige Name
+     * @param registrationUserName ist der Benutzername
+     * @param registrationUserPassword ist das Passwort
+     * @param registrationUserQuestion ist die Sicherheitsfragenantwort
+     * @param regsuccsessfulllabel ist das Label
+     */
     public static void setRegistrationData(TextField registrationName, TextField registrationUserName, TextField registrationUserPassword, TextField registrationUserQuestion ,Label regsuccsessfulllabel){
 
         System.out.println(registrationUserName.getText());

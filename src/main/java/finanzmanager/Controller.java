@@ -36,13 +36,11 @@ import java.text.DecimalFormat;
 import static database.JavaPostgres.databaseConnectionLink;
 
 
-
 /**
  * Klasse Controller ist der Controller für die ActualView.fxml
  *
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
- *
  */
 
 public class Controller implements Initializable {
@@ -242,7 +240,8 @@ public class Controller implements Initializable {
 
     /**
      * Beim start des Controllers werden diese Funktionen ausgeführt.
-     * @param url .
+     *
+     * @param url            .
      * @param resourceBundle .
      */
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -300,6 +299,7 @@ public class Controller implements Initializable {
         ladeKontodaten();
 
     }
+
     /**
      * Beim Ausführen der Funktion, werden alle Einnahmendaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
      */
@@ -338,6 +338,7 @@ public class Controller implements Initializable {
 
         ladeKontodaten();
     }
+
     /**
      * Beim ausführen der Funktion, werden alle Dauerauftragdaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
      */
@@ -405,7 +406,8 @@ public class Controller implements Initializable {
 
     /**
      * Beim Drücken des Buttons Settings, öffnet sich das Fenster mit den Einstellungen
-     * @param actionEvent  -> wird beim drücken des Knopfes ausgeführt.
+     *
+     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
      * @throws IOException -> wirft einen Fehler.
      */
     @FXML
@@ -422,7 +424,8 @@ public class Controller implements Initializable {
     /**
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
-     * @param actionEvent  -> wird beim drücken des Knopfes ausgeführt.
+     *
+     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler.
      */
     @FXML
@@ -435,7 +438,6 @@ public class Controller implements Initializable {
 
         LocalDate localDate = ausgabenDate.getValue();
         System.out.println(localDate);
-
 
 
         boolean numerisch;
@@ -466,7 +468,8 @@ public class Controller implements Initializable {
     /**
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
-     * @param event  -> wird beim drücken des Knopfes ausgeführt.
+     *
+     * @param event -> wird beim drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler
      */
     @FXML
@@ -508,6 +511,7 @@ public class Controller implements Initializable {
     /**
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
+     *
      * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler
      */
@@ -556,6 +560,7 @@ public class Controller implements Initializable {
     /**
      * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
      * als auch in der Datenbank gelöscht.
+     *
      * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler
      */
@@ -581,6 +586,7 @@ public class Controller implements Initializable {
     /**
      * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
      * als auch in der Datenbank gelöscht.
+     *
      * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler
      */
@@ -606,6 +612,7 @@ public class Controller implements Initializable {
     /**
      * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
      * als auch in der Datenbank gelöscht.
+     *
      * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler
      */
@@ -631,19 +638,20 @@ public class Controller implements Initializable {
     /**
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten zu unserem PDFGenerator übergeben.
+     *
      * @param event -> wird beim drücken des Knopfes ausgeführt.
      * @throws SQLException -> wirft einen Fehler
      */
     @FXML
     void exportierenBtnPressed(ActionEvent event) throws SQLException {
 
-        if(!exportAlles.isSelected() && !exportEinnahmen.isSelected() && !exportAusgaben.isSelected()){
+        if (!exportAlles.isSelected() && !exportEinnahmen.isSelected() && !exportAusgaben.isSelected()) {
             exportLabel.setText("Keine Daten ausgewählt!");
-        }else if(exportSpeicherort.getText().equals("")){
+        } else if (exportSpeicherort.getText().equals("")) {
             exportLabel.setText("Kein Speicherort ausgewählt!");
-        }else if(exportName.getText().equals("")){
+        } else if (exportName.getText().equals("")) {
             exportLabel.setText("Kein Name angegeben!");
-        }else {
+        } else {
             if (exportAusgaben.isSelected()) {
                 PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
                 exportLabel.setText("Exportiert!");
@@ -680,6 +688,7 @@ public class Controller implements Initializable {
 
     /**
      * Beim Drücken des Knopfes öffnet sich ein Fenster, in dem man den Speicherort der PDFDatei festlegen kann.
+     *
      * @param event -> wird beim Drücken des Knopfes ausgeführt.
      */
     @FXML
@@ -687,7 +696,7 @@ public class Controller implements Initializable {
         Stage stage = (Stage) exportWo.getScene().getWindow();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(stage);
-        if(selectedDirectory != null){
+        if (selectedDirectory != null) {
             System.out.println(selectedDirectory.getAbsolutePath());
             exportSpeicherort.setText(String.valueOf(selectedDirectory));
         }
@@ -696,6 +705,7 @@ public class Controller implements Initializable {
 
     /**
      * Beim Wechseln des Tabs werden alle Labels auf leer gesetzt.
+     *
      * @param event -> wird beim Drücken des Tabs ausgeführt.
      */
     public void clearlabels(Event event) {
@@ -708,6 +718,7 @@ public class Controller implements Initializable {
 
     /**
      * Beim Drücken des Reload-Buttons lädt es alle Anzeigen(Tableviews), sowie Kontodaten neu.
+     *
      * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
      */
     public void ladeDatenNeu(ActionEvent actionEvent) {
@@ -722,6 +733,7 @@ public class Controller implements Initializable {
 
     /**
      * Wenn Täglich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
+     *
      * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
      */
     public void taeglich(ActionEvent actionEvent) {
@@ -730,6 +742,7 @@ public class Controller implements Initializable {
 
     /**
      * Wenn Wöchentlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
+     *
      * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
      */
     public void woechentlich(ActionEvent actionEvent) {
@@ -738,6 +751,7 @@ public class Controller implements Initializable {
 
     /**
      * Wenn Monatlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
+     *
      * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
      */
     public void monatlich(ActionEvent actionEvent) {
@@ -746,6 +760,7 @@ public class Controller implements Initializable {
 
     /**
      * Wenn Jährlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
+     *
      * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
      */
     public void jaehrlich(ActionEvent actionEvent) {

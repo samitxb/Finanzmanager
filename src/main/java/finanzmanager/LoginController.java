@@ -20,26 +20,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
+/**
+ * Klasse LoginController ist der Controller für die hello-view.fxml. Also für das Login & Registrations Fenster.
+ *
+ * @author Max Weichselgartner, Michael Irlmeier
+ * @version 1.0
+ *
+ */
+
 public class LoginController {
 
-    public static int id;
 
     //--------------Login Register----------------------------------
     @FXML
     private TextField loginName;
     @FXML
     private PasswordField loginPassword;
-
     @FXML
     private Label errorText;
-
     @FXML
     private Button loginOkBtn;
-
     @FXML
     private Button passwortVergessenBtn;
 
-    //---------------------------------------------------------------
+    public static int id;
+
     //-------------Registration---------------------------------------
     @FXML
     private TextField registrationName;
@@ -49,15 +54,13 @@ public class LoginController {
     private TextField registrationUserPassword;
     @FXML
     private Label regsuccsessfulllabel;
-
     @FXML
     private TextField registrationUserQuestion;
 
     //----------------------------------------------------------------
 
     /**
-     * Frägt ab, ob die Textfelder leer sind, falls nicht wird die Funktion validateUserLogin aufgerufen.
-     *
+     * Frägt ab, ob die Textfelder leer sind, falls nicht, wird die Funktion validateUserLogin aufgerufen.
      * @param event -> Funktion wird beim drücken des Knopfes ausgeführt.
      * @throws IOException -> wirft einen Fehler.
      */
@@ -73,16 +76,19 @@ public class LoginController {
         }
     }
 
-
     /**
      * Übergibt die Parameter an die Funktion setRegistrationData in der Klasse UserRegistration
-     *
-     * @param actionEvent -> Funktion wird beim drücken des Knopfes ausgeführt.
+     * @param actionEvent -> Funktion wird beim Drücken des Knopfes ausgeführt.
      */
     public void setRegistrationData(ActionEvent actionEvent) {
         UserRegistration.setRegistrationData(registrationName, registrationUserName, registrationUserPassword, registrationUserQuestion, regsuccsessfulllabel);
     }
 
+    /**
+     * Beim Aufrufen der Funktion, wird der volle Name des Benutzers aus der Datenbank geholt.
+     * @return Gibt den vollen Namen des Benutzers zurück.
+     * @throws SQLException -> wirft einen Fehler.
+     */
     public static String getUserFullname() throws SQLException {
 
         String nameOfUser = "";
@@ -101,9 +107,8 @@ public class LoginController {
     }
 
     /**
-     * Wenn Passwort und Benutzername übereinstimmen, kommt man in die ActualView.
-     *
-     * @throws IOException wirft einen Fehler.
+     * Wenn Passwort und Benutzername übereinstimmen, wird man zur ActualView weitergeleitet.
+     * @throws IOException -> wirft einen Fehler.
      */
     public void validateUserLogin() throws IOException, SQLException {
 
@@ -131,9 +136,8 @@ public class LoginController {
 
     /**
      * Öfnet das Fenster, in der ein Benutzer sein Passwort zurücksetzten kann.
-     *
-     * @param actionEvent -> Funktion wird beim drücken des Knopfes ausgeführt.
-     * @throws IOException wirft einen Fehler.
+     * @param actionEvent -> Funktion wird beim Drücken des Knopfes ausgeführt.
+     * @throws IOException -> wirft einen Fehler.
      */
     public void goToPasswortVergessen(ActionEvent actionEvent) throws IOException {
         Stage passwortStage = new Stage();
@@ -144,7 +148,6 @@ public class LoginController {
         passwortStage.initModality(Modality.APPLICATION_MODAL);
         passwortStage.show();
     }
-
 
 }
 

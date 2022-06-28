@@ -19,54 +19,56 @@ import java.sql.*;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Klasse SettingsController ist der Controller für das Einstellungs-Fenster.
+ *
+ * @author Max Weichselgartner, Michael Irlmeier
+ * @version 1.0
+ *
+ */
+
 public class SettingsController implements Initializable {
     @FXML
     private TextField kontostand;
-
     @FXML
     private Button saveSettingsBtn;
-
     @FXML
     private TextField settingsNutzernameNeu;
-
     @FXML
     private TextField settingsPasswortNeu;
-
     @FXML
     private Label settingsKontostandLabel;
-
     @FXML
     private Button quitSettingsBtn;
-
-
     @FXML
     private Label settingsPasswortLabel;
-
     @FXML
     private Label settingsNutzernameLabel;
 
-
+    /**
+     * Beim start des Controllers werden diese Funktionen ausgeführt.
+     * @param url .
+     * @param resourceBundle .
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         NurNummern.numericOnly(kontostand);
     }
     /**
-     * Schließt das Fenster
-     * @param event -> Funktion wird beim drücken des Knopfes ausgeführt.
+     * Schließt das Fenster Einstellungen.
+     * @param event -> Funktion wird beim Drücken des Knopfes ausgeführt.
      */
     @FXML
     void quitSettings(ActionEvent event) {
-
         Stage stage = (Stage) quitSettingsBtn.getScene().getWindow();
         stage.close();
-
     }
 
     /**
      * Funktion wird ausgeführt, wenn man auf Speichern drückt.
      * Leitet weiter zu neuerUserName, neuesUserPasswort und setKontostand.
-     * @param actionEvent -> Funktion wird beim drücken des Knopfes ausgeführt.
-     * @throws SQLException wirft einen Fehler.
+     * @param actionEvent -> Funktion wird beim Drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler.
      */
     public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
 
@@ -90,7 +92,7 @@ public class SettingsController implements Initializable {
     /**
      * Updatet den UserName des eingeloggten Benutzers
      * @param neuUserName übergibt den gewünschten Benutzernamen.
-     * @throws SQLException wirft einen Fehler.
+     * @throws SQLException -> wirft einen Fehler.
      */
     public void neuerUserName( String neuUserName) throws SQLException//, String neuUserPassword)
     {
@@ -109,10 +111,7 @@ public class SettingsController implements Initializable {
         psCheckUser.setString(1, neuUserName);
         resultSet = psCheckUser.executeQuery();
 
-
-        try
-        {
-
+        try {
             // Checkt, ob der neue Username in der Datenbank existiert
             if(resultSet.isBeforeFirst())
             {
@@ -124,10 +123,7 @@ public class SettingsController implements Initializable {
                 alert.show();
                 settingsNutzernameLabel.setTextFill(Color.color(1, 0, 0));
                 settingsNutzernameLabel.setText("Vergeben!");
-            }
-
-            else
-            {
+            } else {
                 ps = conDb.prepareStatement("UPDATE userinfo SET username = ? WHERE userid = ?");
                 ps.setString(1, neuUserName);
                 ps.setInt(2, id);
@@ -135,14 +131,10 @@ public class SettingsController implements Initializable {
                 settingsNutzernameLabel.setTextFill(Color.color(1, 1, 1));
                 settingsNutzernameLabel.setText("Gespeichert!");
             }
-
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     /**
      * Setzt ein neues Passwort des eingeloggten Benutzers.
@@ -152,14 +144,12 @@ public class SettingsController implements Initializable {
     {
         int id = UserLogin.id;
 
-
         PreparedStatement ps;
 
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
 
-        try
-        {
+        try {
             String salt = PasswordEncryption.getSalt(30);
             neuUserPasswort = PasswordEncryption.generateSecurePassword(neuUserPasswort, salt);
             ps = conDb.prepareStatement("UPDATE userinfo SET password = ?, passwordsalt =? WHERE userid = ?");
@@ -171,12 +161,10 @@ public class SettingsController implements Initializable {
             settingsPasswortLabel.setText("Gespeichert!");
 
         }
-
         catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     /**
      * Setzt den gewünschten Kontostand des eingeloggten Benutzers.
@@ -193,8 +181,7 @@ public class SettingsController implements Initializable {
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
 
-        try
-        {
+        try {
             PreparedStatement psKontostand;
 
             psKontostand = conDb.prepareStatement("UPDATE Userinfo SET kontostand =? WHERE userid =? ");
@@ -202,10 +189,7 @@ public class SettingsController implements Initializable {
             psKontostand.setInt(2,id);
             psKontostand.executeUpdate();
             settingsKontostandLabel.setText("Gespeichert!");
-
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

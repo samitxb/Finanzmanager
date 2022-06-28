@@ -35,6 +35,15 @@ import java.text.DecimalFormat;
 import static database.JavaPostgres.databaseConnectionLink;
 
 
+
+/**
+ * Klasse Controller ist der Controller für die ActualView.fxml
+ *
+ * @author Max Weichselgartner, Michael Irlmeier
+ * @version 1.0
+ *
+ */
+
 public class Controller implements Initializable {
 
 
@@ -230,6 +239,11 @@ public class Controller implements Initializable {
     private Label exportLabel;
     //--------------------------------------------------------------------------
 
+    /**
+     * Beim start des Controllers werden diese Funktionen ausgeführt.
+     * @param url .
+     * @param resourceBundle .
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ladeDatenAusgaben();
@@ -241,6 +255,9 @@ public class Controller implements Initializable {
         NurNummern.numericOnly(dauerauftragBetrag);
     }
 
+    /**
+     * Beim Ausführen der Funktion, werden alle Ausgabendaten in eine ObservableList geladen, und dann in den Tableviews angezeigt
+     */
     public void ladeDatenAusgaben() {
         JavaPostgres javaPostgres = new JavaPostgres();
         javaPostgres.getConnection();
@@ -280,7 +297,9 @@ public class Controller implements Initializable {
         ladeKontodaten();
 
     }
-
+    /**
+     * Beim Ausführen der Funktion, werden alle Einnahmendaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
+     */
     public void ladeDatenEinnahmen() {
         JavaPostgres javaPostgres = new JavaPostgres();
         javaPostgres.getConnection();
@@ -316,7 +335,9 @@ public class Controller implements Initializable {
 
         ladeKontodaten();
     }
-
+    /**
+     * Beim ausführen der Funktion, werden alle Dauerauftragdaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
+     */
     public void ladeDatenDauerauftrag() {
         try {
             Connection con = databaseConnectionLink;
@@ -350,7 +371,9 @@ public class Controller implements Initializable {
 
     }
 
-
+    /**
+     * Rechnet gesamtAusgaben, gesamtEinnahmen und aktuellenKontostand zusammen und gibt diese aus.
+     */
     public void ladeKontodaten() {
         kontostand = Uebersicht.aktuellerKontostandZusammen();
         aktuellerKontostandUebersicht.setText((df.format(kontostand)));
@@ -364,7 +387,7 @@ public class Controller implements Initializable {
 
     @FXML
     /**
-     * Bei betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
+     * Bei Betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
      */
     void quitApp(ActionEvent event) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
@@ -377,6 +400,11 @@ public class Controller implements Initializable {
         primaryStage.show();
     }
 
+    /**
+     * Beim Drücken des Buttons Settings, öffnet sich das Fenster mit den Einstellungen
+     * @param actionEvent  -> wird beim drücken des Knopfes ausgeführt.
+     * @throws IOException -> wirft einen Fehler.
+     */
     @FXML
     public void enterSettings(ActionEvent actionEvent) throws IOException {
         Stage secondaryStage = new Stage();
@@ -388,10 +416,15 @@ public class Controller implements Initializable {
         secondaryStage.show();
     }
 
+    /**
+     * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
+     * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
+     * @param actionEvent  -> wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler.
+     */
     @FXML
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
 
-        labelAusgaben.setText(null);
 
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
@@ -400,9 +433,7 @@ public class Controller implements Initializable {
         LocalDate localDate = ausgabenDate.getValue();
         System.out.println(localDate);
 
-        /*LocalDate isoDate = ausgabenDate.getValue();
-        ChronoLocalDate chronoDate = ((isoDate != null) ? ausgabenDate.getChronology().date(isoDate) : null);
-        System.err.println("Selected date: " + chronoDate);*/
+
 
         boolean numerisch;
 
@@ -429,7 +460,12 @@ public class Controller implements Initializable {
 
     }
 
-    /* Für Einnahmen alles */
+    /**
+     * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
+     * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
+     * @param event  -> wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler
+     */
     @FXML
     void einnahmeHinzufuegenBtn(ActionEvent event) throws SQLException {
 
@@ -464,9 +500,14 @@ public class Controller implements Initializable {
 
         }
 
-
     }
 
+    /**
+     * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
+     * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
+     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler
+     */
     @FXML
     public void dauerauftragHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
 
@@ -509,6 +550,12 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
+     * als auch in der Datenbank gelöscht.
+     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler
+     */
     public void ausgabenListLoeschen(ActionEvent actionEvent) throws SQLException {
 
         Connection con = databaseConnectionLink;
@@ -528,6 +575,12 @@ public class Controller implements Initializable {
 
     }
 
+    /**
+     * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
+     * als auch in der Datenbank gelöscht.
+     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler
+     */
     public void einnahmenListLoeschen(ActionEvent actionEvent) throws SQLException {
 
         Connection con = databaseConnectionLink;
@@ -547,6 +600,12 @@ public class Controller implements Initializable {
 
     }
 
+    /**
+     * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
+     * als auch in der Datenbank gelöscht.
+     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler
+     */
     public void dauerauftragListLoeschen(ActionEvent actionEvent) throws SQLException {
 
         Connection con = databaseConnectionLink;
@@ -566,6 +625,12 @@ public class Controller implements Initializable {
 
     }
 
+    /**
+     * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
+     * werden die eingegebenen Daten zu unserem PDFGenerator übergeben.
+     * @param event -> wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler
+     */
     @FXML
     void exportierenBtnPressed(ActionEvent event) throws SQLException {
 
@@ -594,6 +659,10 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Überprüft, welche CheckBoxes im Export aktiviert sind. Wenn exportAlles ausgewählt ist, kann man exportAusgaben und exportEinnahmen nicht betätigen.
+     * Wenn exportEinnahmen oder exportAusgaben ausgewählt sind und man nun exportAlles auswählt, werden diese beiden deaktiviert.
+     */
     public void checkCheckBoxes() {
         if (exportAlles.isSelected()) {
             exportAusgaben.setSelected(false);
@@ -606,6 +675,10 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Beim Drücken des Knopfes öffnet sich ein Fenster, in dem man den Speicherort der PDFDatei festlegen kann.
+     * @param event -> wird beim Drücken des Knopfes ausgeführt.
+     */
     @FXML
     void exportierenWoBtnPressed(ActionEvent event) {
         Stage stage = (Stage) exportWo.getScene().getWindow();
@@ -618,6 +691,10 @@ public class Controller implements Initializable {
 
     }
 
+    /**
+     * Beim Wechseln des Tabs werden alle Labels auf leer gesetzt.
+     * @param event -> wird beim Drücken des Tabs ausgeführt.
+     */
     public void clearlabels(Event event) {
         labelEinnahmen.setText(null);
         labelAusgaben.setText(null);
@@ -625,6 +702,11 @@ public class Controller implements Initializable {
         exportLabel.setText(null);
     }
 
+
+    /**
+     * Beim Drücken des Reload-Buttons lädt es alle Anzeigen(Tableviews), sowie Kontodaten neu.
+     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     */
     public void ladeDatenNeu(ActionEvent actionEvent) {
         oblistausgaben.clear();
         oblistdauerauftraege.clear();
@@ -635,24 +717,35 @@ public class Controller implements Initializable {
         ladeKontodaten();
     }
 
-    //----------------------------------------------------------------
+    /**
+     * Wenn Täglich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
+     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     */
     public void taeglich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Täglich");
     }
 
+    /**
+     * Wenn Wöchentlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
+     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     */
     public void woechentlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Wöchentlich");
     }
 
+    /**
+     * Wenn Monatlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
+     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     */
     public void monatlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Monatlich");
     }
 
+    /**
+     * Wenn Jährlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
+     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     */
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
-
-
-    //----------------------------------------------------------------
-
 }

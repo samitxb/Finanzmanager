@@ -8,41 +8,43 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import modelclasses.UserLogin;
-import modelclasses.UserRegistration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PasswortVergessenView {
+/**
+ * Klasse PasswortVergessenController ist der Controller für das PasswortVergessen Fenster.
+ *
+ * @author Max Weichselgartner, Michael Irlmeier
+ * @version 1.0
+ *
+ */
+
+public class PasswortVergessenController {
 
     @FXML
     private TextField neuesPasswort;
-
     @FXML
     private TextField passwortVergessenAntwort;
-
     @FXML
     private TextField passwortVergessenBenutzername;
     @FXML
     private Button quitPasswortView;
-
     @FXML
     private Label PasswortVergessenLabel;
-
-
     @FXML
     private Button PasswortVergessenSpeicherBtn;
-
     @FXML
     private Label neuesPasswortLabel;
-
-
     ResultSet rs;
 
-
+    /**
+     * Überprüft, ob die Sicherheitsfrage mit dem angegebenen Benutzer übereinstimmt.
+     * Falls ja, kann man sein neues Passwort eingeben.
+     * @return true, falls es übereinstimmt.
+     */
     public boolean checkSicherheitsfrage() {
 
         JavaPostgres connectNow = new JavaPostgres();
@@ -58,8 +60,7 @@ public class PasswortVergessenView {
 
             boolean hasResults = rs.next();
 
-            if (hasResults)
-            {
+            if (hasResults) {
                 do {
                     // User provided password to validate
                     String providedAntwort = passwortVergessenAntwort.getText();
@@ -74,8 +75,7 @@ public class PasswortVergessenView {
                     boolean sicherheitsfrageMatch = PasswordEncryption.verifyUserPassword(providedAntwort, secureAntwort, sicherheitsSalt);
                     System.out.println(sicherheitsfrageMatch);
 
-                    if (sicherheitsfrageMatch)
-                    {
+                    if (sicherheitsfrageMatch) {
                         PasswortVergessenLabel.setText("Ändern sie nun ihr Passwort!");
                         neuesPasswort.setEditable(true);
                         neuesPasswort.setVisible(true);
@@ -98,21 +98,27 @@ public class PasswortVergessenView {
         return false;
     }
 
-
+    /**
+     * Schließt das Fenster PasswortVergessen.
+     * @param event -> wird beim Drücken des Knopfes ausgeführt.
+     */
     @FXML
     void quitPasswortVergessen(ActionEvent event) {
         Stage stage = (Stage) quitPasswortView.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Speichert das neue Passwort in die Datenbank.
+     * @param event -> wird beim Drücken des Knopfes ausgeführt.
+     * @throws SQLException -> wirft einen Fehler.
+     */
     @FXML
     void speicherPasswort(ActionEvent event) throws SQLException {
 
         boolean match = checkSicherheitsfrage();
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
-
-
 
         if (match){
 
@@ -131,26 +137,24 @@ public class PasswortVergessenView {
             psNewPassword.executeUpdate();
 
             PasswortVergessenLabel.setText(neuesPasswortt);
-
         }
-
     }
 
+    /**
+     * Wenn die Textfelder nicht leer sind, wird die Funktion checkSicherheitsfrage() ausgeführt.
+     * @param event -> wird beim Drücken des Knopfes ausgeführt.
+     */
     @FXML
-    void okBtnPressed(ActionEvent event)
-    {
+    void okBtnPressed(ActionEvent event) {
         checkSicherheitsfrage();
-        if(!passwortVergessenBenutzername.getText().isBlank() && !passwortVergessenAntwort.getText().isBlank())
-        {
+        if(!passwortVergessenBenutzername.getText().isBlank() && !passwortVergessenAntwort.getText().isBlank()) {
             System.out.println("Checking");
             checkSicherheitsfrage();
         }
-        else
-        {
+        else {
             System.out.println("Enter data");
             PasswortVergessenLabel.setText("Keine Eingabe");
         }
-
     }
 
 }

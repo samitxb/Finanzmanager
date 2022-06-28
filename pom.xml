@@ -95,6 +95,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.6</version>
+        </dependency>
 
 
         <!-- Dependencies für iText 7-->
@@ -192,7 +197,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.finanzmanager_java/finanzmanager.Programm
+                            <mainClass>com.example.finanzmanager_java/finanzmanager.MainClass
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

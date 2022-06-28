@@ -7,6 +7,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasse Programm zur Ausführung des Finanzmanager
+ *
+ *
+ * @author Max Weichselgartner
+ * @version 1.0.0
+ */
+
+
 public class Programm extends Application {
 
     @Override

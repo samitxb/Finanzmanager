@@ -10,22 +10,37 @@ import java.util.logging.Logger;
 
 import static database.JavaPostgres.databaseConnectionLink;
 
+/**
+ * Klasse GetPostgresData umfasst alle benötigte Funktionen, um die Einträge aus den Datenbanktabellen zu holen
+ * und in der GUI anzuzeigen
+ *
+ * @author Michael
+ * @version 1.0.1
+ */
+
 
 public class GetPostgresData {
 
+    static int id = UserLogin.id;
+    static JavaPostgres javaPostgres = new JavaPostgres();
+
+
+
+    /**
+     * Funktion getAusgabenDatabase() nimmt die Daten aus der Datenbank
+     * für den jeweiligen User aus der Tabelle Ausgaben
+     * Fügt die Daten in die lokale ArrayList und wird in die Tableview übergeben
+     */
 
     public static void getAusgabenDatabase()
     {
-
-        int ausgabenUserId = UserLogin.id;
+        javaPostgres.getConnection();
 
 
         List<String> getAusgabenListBetrag = new ArrayList<>();
         List<String> getAusgabenListBezeichnung = new ArrayList<>();
         List<String> getAusgabenListDatum = new ArrayList<>();
 
-        JavaPostgres javaPostgres = new JavaPostgres();
-        javaPostgres.getConnection();
 
 
 
@@ -37,7 +52,7 @@ public class GetPostgresData {
             st.setFetchSize(50);
 
             pstAusgaben = con.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
-            pstAusgaben.setInt(1, ausgabenUserId);
+            pstAusgaben.setInt(1, id);
 
             ResultSet rs = pstAusgaben.executeQuery();
             while (rs.next()) {
@@ -57,18 +72,23 @@ public class GetPostgresData {
 
     }
 
+    /**
+     * Funktion getEinnahmenDatabase() nimmt die Daten aus der Datenbank für den
+     * jeweiligen User aus der Tabelle Einnahmen
+     * Fügt die Daten in die lokale ArrayList und wird in die Tableview übergeben
+     */
+
 
     public static void getEinnahmenDatabase()
     {
-        int einnahmenUserId = UserLogin.id;
+
 
 
         List<String> getEinnahmenListBetrag = new ArrayList<>();
         List<String> getEinnahmenListBezeichnung = new ArrayList<>();
         List<String> getEinnahmenListDatum = new ArrayList<>();
 
-        JavaPostgres javaPostgres = new JavaPostgres();
-        javaPostgres.getConnection();
+
 
 
         try {
@@ -79,7 +99,7 @@ public class GetPostgresData {
             st.setFetchSize(50);
 
             pstEinnahmen = con.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");
-            pstEinnahmen.setInt(1, einnahmenUserId);
+            pstEinnahmen.setInt(1, id);
 
             ResultSet rs = pstEinnahmen.executeQuery();
             while (rs.next()) {
@@ -99,9 +119,16 @@ public class GetPostgresData {
     }
 
 
+    /**
+     * Funktion getDauerauftragDatabase() nimmt die Daten aus der Datenbank
+     * für den jeweiligen User aus der Tabelle Dauerauftrag
+     * Fügt die Daten in die lokale ArrayList und wird in die Tableview übergeben
+     */
+
+
     public static void getDauerauftragDatabase()
     {
-        int dauerauftragUserId = UserLogin.id;
+
 
 
         List<String> getDauerauftragListBetrag = new ArrayList<>();
@@ -109,12 +136,10 @@ public class GetPostgresData {
         List<String> getDauerauftragListDatum = new ArrayList<>();
         List<String> getDauerauftragListZeitraum = new ArrayList<>();
 
-        JavaPostgres javaPostgres = new JavaPostgres();
-        javaPostgres.getConnection();
 
 
-
-        try {
+        try
+        {
             PreparedStatement pstDauerauftrag;
             Connection con = databaseConnectionLink;
             Statement st = con.createStatement();
@@ -122,7 +147,7 @@ public class GetPostgresData {
             st.setFetchSize(50);
 
             pstDauerauftrag = con.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
-            pstDauerauftrag.setInt(1, dauerauftragUserId);
+            pstDauerauftrag.setInt(1, id);
 
             ResultSet rs = pstDauerauftrag.executeQuery();
 

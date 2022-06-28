@@ -1,10 +1,13 @@
 package database;
 
+import javafx.scene.control.Alert;
+
 import java.sql.*;
 
 
 /**
  * Klasse Postgres ist eine Vorkonfigurationsklasse für die Datenbank FinanzmanagerDb
+ * Bei Ausführung wird die Datenbank vorkonfiguriert
  *
  * @author Michael
  * @version 1.0.1
@@ -29,7 +32,6 @@ class Postgres {
 
     /**
      * Bei Ausführung der main()-Funktion wird die Tabelle userinfo angelegt
-
      */
 
     public static void main(String[] args) {
@@ -106,6 +108,9 @@ class Postgres {
                 statementDb.executeUpdate(sqlDauerauftrag);
 
 
+
+
+
                 statementDb.close();
                 connectionDb.close();
 
@@ -116,5 +121,7 @@ class Postgres {
             }
             System.out.println("Tabellen wurde erstellt");
 
+
     }
+
 }

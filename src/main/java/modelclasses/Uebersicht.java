@@ -1,6 +1,7 @@
 package modelclasses;
 
 import database.JavaPostgres;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +24,7 @@ public class Uebersicht {
 
     /**
      * Rechnet alle Ausgaben des eingeloggten Benutzers zusammen. Die Daten werden aus der Datenbank geholt.
+     *
      * @return gesamtAusgaben des eingeloggten Benutzers.
      */
     public static float ausgabenZusammenRechnen() {
@@ -45,6 +47,7 @@ public class Uebersicht {
 
     /**
      * Rechnet alle Einnahmen des eingeloggten Benutzers zusammen. Die Daten werden aus der Datenbank geholt.
+     *
      * @return gesamtEinnahmen des eingeloggten Benutzers.
      */
     public static float einnahmenZusammenRechnen() {
@@ -67,6 +70,7 @@ public class Uebersicht {
 
     /**
      * Holt den Kontostand aus der Datenbank und rechnet den aktuellen Kontostand aus.
+     *
      * @return aktuellenKontostand des eingeloggten Benutzers.
      */
     public static float aktuellerKontostandZusammen() {

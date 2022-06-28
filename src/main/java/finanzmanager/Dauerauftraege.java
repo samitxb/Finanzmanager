@@ -9,11 +9,11 @@ package finanzmanager;
  * @version 1.0
  */
 public class Dauerauftraege {
-    private String dauerauftraegeListBezeichnung;
-    private float dauerauftraegeListBetrag;
-    private String dauerauftraegeListDatum;
-    private String dauerauftraegeListDauer;
-    private int dauerauftraegeId;
+    private final String dauerauftraegeListBezeichnung;
+    private final float dauerauftraegeListBetrag;
+    private final String dauerauftraegeListDatum;
+    private final String dauerauftraegeListDauer;
+    private final int dauerauftraegeId;
 
     /**
      * Constructor der Daueraufträge.

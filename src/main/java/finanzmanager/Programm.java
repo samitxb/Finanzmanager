@@ -10,13 +10,16 @@ import java.io.IOException;
 /**
  * Klasse Programm zur Ausführung des Finanzmanager
  *
- *
  * @author Max Weichselgartner
  * @version 1.0.0
  */
 
 
 public class Programm extends Application {
+
+    public static void main(String[] args) {
+        launch();
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -26,10 +29,6 @@ public class Programm extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
 }

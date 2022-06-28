@@ -1,16 +1,13 @@
 package database;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-
-
-
 
 
 public class PasswordEncryption {
@@ -31,7 +28,7 @@ public class PasswordEncryption {
     /**
      * Funktion getSalt(int length) zur Erstellung des salt, basierend auf die final-Variablen RANDOM und ALPHABET
      *
-     * @return  returnValue
+     * @return returnValue
      */
 
     public static String getSalt(int length) {
@@ -67,8 +64,7 @@ public class PasswordEncryption {
      * Es wird dabei erst mit der hash-Funktion erfasst und per Base64 verschlüsselt
      *
      * @param password -    Erster Wert für Userpasswort
-     * @param salt -    Zweiter Wert zur Verschlüsselung des Userpasswort
-     *
+     * @param salt     -    Zweiter Wert zur Verschlüsselung des Userpasswort
      * @return returnValue
      */
 

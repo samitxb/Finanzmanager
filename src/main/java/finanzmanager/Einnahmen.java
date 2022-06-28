@@ -10,10 +10,10 @@ package finanzmanager;
  */
 public class Einnahmen {
 
-    private String einnahmenListBezeichnung;
-    private float einnahmenListBetrag;
-    private String einnahmenListDatum;
-    private int einnahmenId;
+    private final String einnahmenListBezeichnung;
+    private final float einnahmenListBetrag;
+    private final String einnahmenListDatum;
+    private final int einnahmenId;
 
     /**
      * Constructor der Einnahmen.

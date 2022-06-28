@@ -2,7 +2,6 @@ package finanzmanager;
 
 import database.GetPostgresData;
 import database.JavaPostgres;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
@@ -26,12 +24,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.text.DecimalFormat;
 
 import static database.JavaPostgres.databaseConnectionLink;
 
@@ -46,82 +44,64 @@ import static database.JavaPostgres.databaseConnectionLink;
 public class Controller implements Initializable {
 
 
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+    public Float kontostand;
+    public Float gesamtAusgaben;
+    public Float gesamtEinnahmen;
+
+    //------------------------------------------------------------------
+    ObservableList<Ausgaben> oblistausgaben = FXCollections.observableArrayList();
+    int id = UserLogin.id;
+    ObservableList<Dauerauftraege> oblistdauerauftraege = FXCollections.observableArrayList();
+    ObservableList<Einnahmen> oblisteinnahmen = FXCollections.observableArrayList();
     //-----------------Ausgaben Reiter--------------------------------
     @FXML
     private TextField ausgabenBetrag;
-
     @FXML
     /**
      * Textfeld zur Eingabe vom Datum der Ausgabe
      */
     private DatePicker ausgabenDate;
-
     @FXML
     private TextField ausgabenBezeichnung;
 
+    //----------------------------------------------------------------
     @FXML
     private Label labelAusgaben;
-
-    //------------------------------------------------------------------
-
     @FXML
     private TableView<Ausgaben> ausgabenView;
     @FXML
     private TableColumn<Ausgaben, Float> ausgabenListBetrag;
-
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListBezeichnung;
-
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListDatum;
-
     @FXML
     private Button ausgabenListLoeschenBtn;
-
-    ObservableList<Ausgaben> oblistausgaben = FXCollections.observableArrayList();
-    int id = UserLogin.id;
-
-    //----------------------------------------------------------------
-
     @FXML
     private TableColumn<Dauerauftraege, Float> dauerauftraegeListBetrag;
 
+    //----------------------------------------------------------------
     @FXML
     private TableColumn<Dauerauftraege, String> dauerauftraegeListBezeichnung;
-
     @FXML
     private TableColumn<Dauerauftraege, String> dauerauftraegeListDatum;
-
     @FXML
     private TableView<Dauerauftraege> dauerauftraegeView;
     @FXML
     private TableColumn<Dauerauftraege, String> dauerauftraegeListDauer;
-
     @FXML
     private Button dauerauftragListLoeschenBtn;
-
-    ObservableList<Dauerauftraege> oblistdauerauftraege = FXCollections.observableArrayList();
-
-    //----------------------------------------------------------------
-
-
     @FXML
     private TableColumn<Einnahmen, Float> einnahmenListBetrag;
-
     @FXML
     private TableColumn<Einnahmen, String> einnahmenListBezeichnung;
-
     @FXML
     private TableColumn<Einnahmen, String> einnahmenListDatum;
-
     @FXML
     private TableView<Einnahmen> einnahmenView;
-
     @FXML
     private Button einnahmenListLoeschenBtn;
-
-    ObservableList<Einnahmen> oblisteinnahmen = FXCollections.observableArrayList();
-
     //----------------------------------------------------------------
     @FXML
     private TableView<Ausgaben> ausgabenViewUebersicht;
@@ -129,58 +109,36 @@ public class Controller implements Initializable {
     private TableColumn<Ausgaben, Float> ausgabenListBetragUebersicht;
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListBezeichnungUebersicht;
-
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListDatumUebersicht;
 
 
+    //-----------------Einnahmen Reiter--------------------------------
     //----------------------------------------------------------------
     @FXML
     private TableView<Einnahmen> einnahmenViewUebersicht;
-
     @FXML
     private TableColumn<Einnahmen, Float> einnahmenListBetragUebersicht;
-
     @FXML
     private TableColumn<Einnahmen, String> einnahmenListBezeichnungUebersicht;
-
     @FXML
     private TableColumn<Einnahmen, String> einnahmenListDatumUebersicht;
 
-
-    //-----------------Einnahmen Reiter--------------------------------
-
-
+    //----------------------------------------------------------------
     @FXML
     private TextField einnahmenBetrag;
-
     @FXML
     private DatePicker einnahmenDate;
-
     @FXML
     private TextField einnahmenBezeichnung;
-
     @FXML
     private Label labelEinnahmen;
-
-    //----------------------------------------------------------------
-
-    private static final DecimalFormat df = new DecimalFormat("0.00");
     @FXML
     private TextField aktuellerKontostandUebersicht;
-    public Float kontostand;
-
     @FXML
     private TextField gesamtAusgabenUebersicht;
-
-    public Float gesamtAusgaben;
-
     @FXML
     private TextField gesamteinnahmenUebersicht;
-
-    public Float gesamtEinnahmen;
-
-
     //--------------------Daueraufträge ------------------------------
     @FXML
     private MenuButton menubarZeitspanneDauerauftrag;

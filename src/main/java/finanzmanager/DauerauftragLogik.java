@@ -7,11 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
-public class DauerauftragLogik{
+public class DauerauftragLogik {
 
-    public void test (int id_dauerauftrag) throws SQLException {
+    public void test(int id_dauerauftrag) throws SQLException {
 
         int id = UserLogin.id;
 
@@ -23,9 +22,7 @@ public class DauerauftragLogik{
             statement.setInt(1, id);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM dauerauftrag ");
             ResultSet res = preparedStatement.executeQuery();
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

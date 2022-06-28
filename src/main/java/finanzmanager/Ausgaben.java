@@ -9,10 +9,10 @@ package finanzmanager;
  */
 public class Ausgaben {
 
-    private String ausgabenListBezeichnung;
-    private float ausgabenListBetrag;
-    private String ausgabenListDatum;
-    private int ausgabenId;
+    private final String ausgabenListBezeichnung;
+    private final float ausgabenListBetrag;
+    private final String ausgabenListDatum;
+    private final int ausgabenId;
 
     /**
      * Constructor für die Ausgaben.

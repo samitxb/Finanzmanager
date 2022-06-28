@@ -2,6 +2,7 @@ package finanzmanager;
 
 import database.GetPostgresData;
 import database.JavaPostgres;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -262,6 +263,7 @@ public class Controller implements Initializable {
         JavaPostgres javaPostgres = new JavaPostgres();
         javaPostgres.getConnection();
 
+
         try {
             Connection con = databaseConnectionLink;
             PreparedStatement pstAusgaben = con.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
@@ -281,6 +283,7 @@ public class Controller implements Initializable {
         } catch (SQLException exception) {
             Logger.getLogger(Ausgaben.class.getName()).log(Level.SEVERE, null, exception);
         }
+
 
         ausgabenListDatum.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListDatum"));
         ausgabenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
@@ -376,13 +379,13 @@ public class Controller implements Initializable {
      */
     public void ladeKontodaten() {
         kontostand = Uebersicht.aktuellerKontostandZusammen();
-        aktuellerKontostandUebersicht.setText((df.format(kontostand)));
+        aktuellerKontostandUebersicht.setText((df.format(kontostand)) + " €");
 
         gesamtAusgaben = Uebersicht.ausgabenZusammenRechnen();
-        gesamtAusgabenUebersicht.setText(df.format(gesamtAusgaben));
+        gesamtAusgabenUebersicht.setText(df.format(gesamtAusgaben) + " €");
 
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
-        gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen));
+        gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen) + " €");
     }
 
     @FXML

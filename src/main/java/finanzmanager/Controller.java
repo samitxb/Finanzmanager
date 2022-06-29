@@ -491,6 +491,8 @@ public class Controller implements Initializable {
         LocalDate localDate = dauerauftragDate.getValue();
         System.out.println(localDate);
 
+        boolean dauerauftrag_einnahme_ausgabe;
+
         boolean istdouble;
         istdouble = NurNummern.isDouble(dauerauftragBetrag.getText());
 
@@ -506,9 +508,13 @@ public class Controller implements Initializable {
             labelDauerauftraege.setText("Keine Zahl!");
         }else {
 
+            dauerauftrag_einnahme_ausgabe = !dauerauftragAusgabe.isSelected();
+
+
             labelDauerauftraege.setText("Gespeichert!");
 
-            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
+
+            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText(), dauerauftrag_einnahme_ausgabe);
 
 
             dauerauftragBetrag.clear();

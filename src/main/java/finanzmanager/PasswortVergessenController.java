@@ -23,6 +23,7 @@ import java.sql.SQLException;
 
 public class PasswortVergessenController {
 
+    ResultSet rs;
     @FXML
     private TextField neuesPasswort;
     @FXML
@@ -37,7 +38,6 @@ public class PasswortVergessenController {
     private Button PasswortVergessenSpeicherBtn;
     @FXML
     private Label neuesPasswortLabel;
-    ResultSet rs;
 
     /**
      * Überprüft, ob die Sicherheitsfrage mit dem angegebenen Benutzer übereinstimmt.

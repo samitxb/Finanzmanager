@@ -18,57 +18,32 @@ import static database.Postgres.*;
  *
  * @author Michael
  * @version 1.0.1
- *
  */
-
 
 
 public class JavaPostgres {
 
 
-    /** Datenbankverbindungsklasse getConnection()
-     *  Nutzt globale Variablen als Referenz für eine Datenbank in PostgreSQL
-     *  Die Datenbank verbindet sich per PostgreSQL-driver mit localhost.
+    /**
+     * Datenbankverbindungsklasse getConnection()
+     * Nutzt globale Variablen als Referenz für eine Datenbank in PostgreSQL
+     * Die Datenbank verbindet sich per PostgreSQL-driver mit localhost.
      */
-
-
 
 
     // Variable databaseConnectionLink stellt Verbindungsinformationen bereit
     public static Connection databaseConnectionLink;
 
-
-    public Connection getConnection() {
-
-
-        try {
-            Class.forName("org.postgresql.Driver");
-            databaseConnectionLink = DriverManager.getConnection(url, userDatabase, passwordDatabase);
-            System.out.println("Successfully Connected.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return databaseConnectionLink;
-    }
-
-
-
-
-
-    /** Datenbankeinträge speichern writeToDatabase()
-     *
-     *  Baut eine Verbindung zur Datenbank auf
-     *  Speichert mit lokalem String query die Daten zur Nutzerregistrierung in die Tabelle userinfo
-     *  Stellt die Daten als Login bereit
-     *
-     *
+    /**
+     * Datenbankeinträge speichern writeToDatabase()
+     * <p>
+     * Baut eine Verbindung zur Datenbank auf
+     * Speichert mit lokalem String query die Daten zur Nutzerregistrierung in die Tabelle userinfo
+     * Stellt die Daten als Login bereit
      */
 
 
-    public static void writeToDatabaseUser(String fullName, String userName, String userPassword, String sicherheitsantwort)
-    {
+    public static void writeToDatabaseUser(String fullName, String userName, String userPassword, String sicherheitsantwort) {
 
         ResultSet resultSet;
         PreparedStatement psCheckUser;
@@ -78,28 +53,21 @@ public class JavaPostgres {
 
 
         try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
-             PreparedStatement pst = con.prepareStatement(queryUser))
-        {
+             PreparedStatement pst = con.prepareStatement(queryUser)) {
             psCheckUser = con.prepareStatement("SELECT * FROM userinfo WHERE username=?");
             psCheckUser.setString(1, userName);
             resultSet = psCheckUser.executeQuery();
 
 
             // Checkt, ob die eingegebenen Registrierungsdaten in der Datenbank vorhanden sind
-            if(resultSet.isBeforeFirst())
-            {
+            if (resultSet.isBeforeFirst()) {
                 System.out.println("Nutzername vergeben");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Nutzername vergeben! Bitte anderen Nutzernamen wählen.");
 
                 // Wirft Fenster mit Fehlermeldung aus
                 alert.show();
-            }
-
-
-
-            else
-            {
+            } else {
                 // Generiert mit dem String salt ein Sicherheitspasswort
                 String salt = PasswordEncryption.getSalt(30);
                 String sicherheitsantwortSalt = PasswordEncryption.getSalt(30);
@@ -134,12 +102,9 @@ public class JavaPostgres {
         }
     }
 
-
-    public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Date einnahmenDatum)
-    {
+    public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Date einnahmenDatum) {
 
         int id = UserLogin.id;
-
 
 
         try {
@@ -171,26 +136,20 @@ public class JavaPostgres {
                 pstEinnahmen.close();
                 rs.close();
             }
-        }
-
-        catch (SQLException ex)
-
-        {
+        } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(JavaPostgres.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
-    public static void writeToDatabaseAusgaben(Float ausgabenBetrag, String ausgabenBezeichnung,  Date ausgabenDatum) throws SQLException
-    {
+    public static void writeToDatabaseAusgaben(Float ausgabenBetrag, String ausgabenBezeichnung, Date ausgabenDatum) throws SQLException {
         int id = UserLogin.id;
 
         PreparedStatement ps;
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
         String SQL = ("SELECT * FROM userinfo LIMIT 1");
 
-        try
-        {
+        try {
 
             ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
@@ -208,25 +167,20 @@ public class JavaPostgres {
             }
             pstAusgaben.close();
             rs.close();
-        }
-        catch (SQLException ex)
-
-        {
+        } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(JavaPostgres.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
-    public static void writeToDatabaseDauerauftrag( Float dauerauftragBetrag, String dauerauftragBezeichnung, Date dauerauftragDatum, String dauerauftragZeitraum) throws SQLException
-    {
+    public static void writeToDatabaseDauerauftrag(Float dauerauftragBetrag, String dauerauftragBezeichnung, Date dauerauftragDatum, String dauerauftragZeitraum) throws SQLException {
         PreparedStatement ps;
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
         String SQL = ("SELECT * FROM userinfo LIMIT 1");
 
         int id = UserLogin.id;
 
-        try
-        {
+        try {
 
             ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
@@ -245,13 +199,25 @@ public class JavaPostgres {
             }
             pstDauerauftrag.close();
             rs.close();
-        }
-        catch (SQLException ex)
-
-        {
+        } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(JavaPostgres.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
+    }
+
+    public Connection getConnection() {
+
+
+        try {
+            Class.forName("org.postgresql.Driver");
+            databaseConnectionLink = DriverManager.getConnection(url, userDatabase, passwordDatabase);
+            System.out.println("Successfully Connected.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return databaseConnectionLink;
     }
 
 

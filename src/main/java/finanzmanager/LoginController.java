@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelclasses.UserLogin;
@@ -30,6 +33,7 @@ import java.util.Objects;
 public class LoginController {
 
 
+    public static int id;
     //--------------Login Register----------------------------------
     @FXML
     private TextField loginName;
@@ -41,9 +45,6 @@ public class LoginController {
     private Button loginOkBtn;
     @FXML
     private Button passwortVergessenBtn;
-
-    public static int id;
-
     //-------------Registration---------------------------------------
     @FXML
     private TextField registrationName;
@@ -57,6 +58,29 @@ public class LoginController {
     private TextField registrationUserQuestion;
 
     //----------------------------------------------------------------
+
+    /**
+     * Beim Aufrufen der Funktion, wird der volle Name des Benutzers aus der Datenbank geholt.
+     *
+     * @return Gibt den vollen Namen des Benutzers zurück.
+     * @throws SQLException -> wirft einen Fehler.
+     */
+    public static String getUserFullname() throws SQLException {
+
+        String nameOfUser = "";
+        int id = UserLogin.id;
+        Connection con = JavaPostgres.databaseConnectionLink;
+
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM userinfo WHERE userid=?");
+        pst.setInt(1, id);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            nameOfUser = rs.getString("fullname");
+        }
+        rs.close();
+
+        return nameOfUser;
+    }
 
     /**
      * Frägt ab, ob die Textfelder leer sind, falls nicht, wird die Funktion validateUserLogin aufgerufen.
@@ -83,29 +107,6 @@ public class LoginController {
      */
     public void setRegistrationData(ActionEvent actionEvent) {
         UserRegistration.setRegistrationData(registrationName, registrationUserName, registrationUserPassword, registrationUserQuestion, regsuccsessfulllabel);
-    }
-
-    /**
-     * Beim Aufrufen der Funktion, wird der volle Name des Benutzers aus der Datenbank geholt.
-     *
-     * @return Gibt den vollen Namen des Benutzers zurück.
-     * @throws SQLException -> wirft einen Fehler.
-     */
-    public static String getUserFullname() throws SQLException {
-
-        String nameOfUser = "";
-        int id = UserLogin.id;
-        Connection con = JavaPostgres.databaseConnectionLink;
-
-        PreparedStatement pst = con.prepareStatement("SELECT * FROM userinfo WHERE userid=?");
-        pst.setInt(1, id);
-        ResultSet rs = pst.executeQuery();
-        if (rs.next()) {
-            nameOfUser = rs.getString("fullname");
-        }
-        rs.close();
-
-        return nameOfUser;
     }
 
     /**

@@ -25,23 +25,19 @@ public class GetPostgresData {
     static JavaPostgres javaPostgres = new JavaPostgres();
 
 
-
     /**
      * Funktion getAusgabenDatabase() nimmt die Daten aus der Datenbank
      * für den jeweiligen User aus der Tabelle Ausgaben
      * Fügt die Daten in die lokale ArrayList und wird in die Tableview übergeben
      */
 
-    public static void getAusgabenDatabase()
-    {
+    public static void getAusgabenDatabase() {
         javaPostgres.getConnection();
 
 
         List<String> getAusgabenListBetrag = new ArrayList<>();
         List<String> getAusgabenListBezeichnung = new ArrayList<>();
         List<String> getAusgabenListDatum = new ArrayList<>();
-
-
 
 
         try {
@@ -79,16 +75,12 @@ public class GetPostgresData {
      */
 
 
-    public static void getEinnahmenDatabase()
-    {
-
+    public static void getEinnahmenDatabase() {
 
 
         List<String> getEinnahmenListBetrag = new ArrayList<>();
         List<String> getEinnahmenListBezeichnung = new ArrayList<>();
         List<String> getEinnahmenListDatum = new ArrayList<>();
-
-
 
 
         try {
@@ -126,9 +118,7 @@ public class GetPostgresData {
      */
 
 
-    public static void getDauerauftragDatabase()
-    {
-
+    public static void getDauerauftragDatabase() {
 
 
         List<String> getDauerauftragListBetrag = new ArrayList<>();
@@ -137,9 +127,7 @@ public class GetPostgresData {
         List<String> getDauerauftragListZeitraum = new ArrayList<>();
 
 
-
-        try
-        {
+        try {
             PreparedStatement pstDauerauftrag;
             Connection con = databaseConnectionLink;
             Statement st = con.createStatement();
@@ -158,15 +146,13 @@ public class GetPostgresData {
                 getDauerauftragListZeitraum.add(rs.getString("dauerauftrag_zeitraum"));
             }
             rs.close();
-            System.out.print("Data Dauerauftrag:\n " + getDauerauftragListBetrag + " \n" + getDauerauftragListBezeichnung + "\n" + getDauerauftragListDatum +  "\n" + "\n\n");
+            System.out.print("Data Dauerauftrag:\n " + getDauerauftragListBetrag + " \n" + getDauerauftragListBezeichnung + "\n" + getDauerauftragListDatum + "\n" + "\n\n");
 
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(GetPostgresData.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
-
-
 
 
 }

@@ -1,17 +1,19 @@
 package finanzmanager;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.sql.*;
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import database.JavaPostgres;
 import modelclasses.Uebersicht;
 import modelclasses.UserLogin;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //import static database.Postgres.*;
 
@@ -61,7 +63,6 @@ public class PDFGenerator {
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
 
 
-
             try {
 
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");        //Welcher User
@@ -74,7 +75,7 @@ public class PDFGenerator {
                 table_ausgaben.setWidthPercentage(100);                               //Breite über die Seite in %
                 table_ausgaben.setSpacingBefore(10f);                                //Abstand vorher
                 table_ausgaben.setSpacingAfter(10f);                                 //Abstand nachher
-                float [] colWidth = {33f, 33f, 33f};                           //Relative Verteilung der Columns auf die Breite
+                float[] colWidth = {33f, 33f, 33f};                           //Relative Verteilung der Columns auf die Breite
                 table_ausgaben.setWidths(colWidth);
 
                 table_ausgaben.addCell("Datum");
@@ -108,7 +109,6 @@ public class PDFGenerator {
                     table_ausgaben.addCell(c);
 
 
-
                 }
                 document.add(table_ausgaben);
 
@@ -126,25 +126,17 @@ public class PDFGenerator {
                 kontostand.add(c_kontostand);
                 document.add(kontostand);
 
-            }
-
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             document.close();
             writer.close();
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-
 
 
     }
@@ -179,12 +171,10 @@ public class PDFGenerator {
             document.add(info);
 
 
-
             //=============================================Datenbank auslesen=============================================
 
             JavaPostgres javaPostgres = new JavaPostgres();
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
-
 
 
             try {
@@ -199,7 +189,7 @@ public class PDFGenerator {
                 table_einnahmen.setWidthPercentage(100);                               //Breite über die Seite in %
                 table_einnahmen.setSpacingBefore(10f);                                //Abstand vorher
                 table_einnahmen.setSpacingAfter(10f);                                 //Abstand nachher
-                float [] colWidth = {33f, 33f, 33f};                           //Relative Verteilung der Columns auf die Breite
+                float[] colWidth = {33f, 33f, 33f};                           //Relative Verteilung der Columns auf die Breite
                 table_einnahmen.setWidths(colWidth);
 
                 table_einnahmen.addCell("Datum");
@@ -233,7 +223,6 @@ public class PDFGenerator {
                     table_einnahmen.addCell(c);
 
 
-
                 }
                 document.add(table_einnahmen);
 
@@ -251,25 +240,17 @@ public class PDFGenerator {
                 kontostand.add(c_kontostand);
                 document.add(kontostand);
 
-            }
-
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             document.close();
             writer.close();
-        }
-        catch (DocumentException e) {
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-
 
 
     }

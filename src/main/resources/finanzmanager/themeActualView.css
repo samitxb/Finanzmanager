@@ -194,6 +194,28 @@
     -fx-border-width: 0;
 }
 
+.button-round {
+    /*-fx-background-radius: 5em;*/
+    -fx-border-radius: 5em;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-text-fill: #d8d8d8;
+}
+
+.button-test1 {
+    -fx-background-color:#1d1d1d, #1d1d1d;
+    -fx-background-radius: 16.4, 15;
+    -fx-background-insets: -1.4, 0;
+    -fx-border-radius: 15;
+    -fx-border-width: 2;
+    -fx-border-color: #d8d8d8;
+    -fx-padding: 0;
+    -fx-font-size: 18;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
 .button:hover {
     /*-fx-background-color: #3a3a3a;*/
     -fx-background-color: -fx-secondary-color;

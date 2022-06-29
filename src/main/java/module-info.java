@@ -12,6 +12,7 @@ module com.example.finanzmanager_java {
     requires java.sql;
     requires itextpdf;
     requires org.postgresql.jdbc;
+    requires org.joda.time;
 
     opens finanzmanager;
     exports finanzmanager;

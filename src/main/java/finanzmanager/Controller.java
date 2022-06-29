@@ -398,7 +398,7 @@ public class Controller implements Initializable {
         System.out.println(localDate);
 
 
-        boolean numerisch;
+        boolean istdouble;
 
         if (Objects.equals(ausgabenBetrag.getText(), "")) {
             labelAusgaben.setText("Kein Betrag!");
@@ -407,10 +407,22 @@ public class Controller implements Initializable {
         } else if (Objects.equals(localDate, null)) {
             labelAusgaben.setText("Kein Datum!");
         } else {
-            labelAusgaben.setText("Gespeichert!");
+            istdouble = NurNummern.isDouble(ausgabenBetrag.getText());
+            if (istdouble){
+                labelAusgaben.setText("Gespeichert!");
+
+                JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
+
+                ausgabenBetrag.clear();
+                ausgabenBezeichnung.clear();
+                ausgabenDate.setValue(null);
+
+                oblistausgaben.clear();
+                ladeDatenAusgaben();
+            }else labelAusgaben.setText("Keine Zahl!");
+          /*  labelAusgaben.setText("Gespeichert!");
 
             JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
-            GetPostgresData.getAusgabenDatabase();
 
             ausgabenBetrag.clear();
             ausgabenBezeichnung.clear();
@@ -418,7 +430,7 @@ public class Controller implements Initializable {
 
             oblistausgaben.clear();
             ladeDatenAusgaben();
-
+*/
         }
 
     }
@@ -453,7 +465,6 @@ public class Controller implements Initializable {
             labelEinnahmen.setText("Gespeichert!");
 
             JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
-            GetPostgresData.getEinnahmenDatabase();
 
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
@@ -500,7 +511,6 @@ public class Controller implements Initializable {
             labelDauerauftraege.setText("Gespeichert!");
 
             JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText());
-            GetPostgresData.getDauerauftragDatabase();
 
 
             dauerauftragBetrag.clear();

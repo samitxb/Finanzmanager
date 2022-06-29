@@ -127,8 +127,6 @@ public class LoginController {
             errorText.setText("Erfolgreich eingeloggt!");
             Stage stage = (Stage) loginOkBtn.getScene().getWindow();
             stage.close();
-            GetPostgresData.getEinnahmenDatabase();
-            GetPostgresData.getDauerauftragDatabase();
             Stage primaryStage = new Stage();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ActualView.fxml")));
             primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + getUserFullname());

@@ -30,5 +30,19 @@ public class NurNummern {
         });
     }
 
+    public static boolean isDouble(String data)
+    {
+        try
+        {
+            Double.parseDouble(data);
+            return true;
+        }
+        catch (NumberFormatException e)
+        {
+            System.out.println("Kein Double");
+            return false;
+        }
+    }
+
 
 }

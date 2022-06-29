@@ -502,11 +502,13 @@ public class Controller implements Initializable {
             labelDauerauftraege.setText("Keine Bezeichnung!");
         } else if (Objects.equals(localDate, null)) {
             labelDauerauftraege.setText("Kein Datum!");
-        } else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
+        } else if (Objects.equals(dauerauftragZeitspanneText.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
         } else if (!istdouble) {
             labelDauerauftraege.setText("Keine Zahl!");
-        }else {
+        } else if (!dauerauftragEinnahme.isSelected() && !dauerauftragAusgabe.isSelected()){
+            labelDauerauftraege.setText("Bitte Einnahme noch Ausgabe auswählen!");
+        } else {
 
             dauerauftrag_einnahme_ausgabe = !dauerauftragAusgabe.isSelected();
 
@@ -519,8 +521,10 @@ public class Controller implements Initializable {
 
             dauerauftragBetrag.clear();
             dauerauftragBezeichnung.clear();
-            einnahmenDate.setValue(null);
+            dauerauftragDate.setValue(null);
             dauerauftragZeitspanneText.clear();
+            dauerauftragAusgabe.setSelected(false);
+            dauerauftragEinnahme.setSelected(false);
 
             oblistdauerauftraege.clear();
             ladeDatenDauerauftrag();
@@ -635,6 +639,11 @@ public class Controller implements Initializable {
                 PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
                 exportLabel.setText("Exportiert!");
             }
+            exportSpeicherort.setText(null);
+            exportAlles.setSelected(false);
+            exportAusgaben.setSelected(false);
+            exportEinnahmen.setSelected(false);
+            exportName.clear();
 
             System.out.println(exportSpeicherort.getText() + "\n" + exportName.getText());
         }
@@ -644,7 +653,7 @@ public class Controller implements Initializable {
      * Überprüft, welche CheckBoxes im Export aktiviert sind. Wenn exportAlles ausgewählt ist, kann man exportAusgaben und exportEinnahmen nicht betätigen.
      * Wenn exportEinnahmen oder exportAusgaben ausgewählt sind und man nun exportAlles auswählt, werden diese beiden deaktiviert.
      */
-    public void checkCheckBoxes() {
+    public void checkCheckBoxesExport() {
         if (exportAlles.isSelected()) {
             exportAusgaben.setSelected(false);
             exportEinnahmen.setSelected(false);
@@ -653,6 +662,28 @@ public class Controller implements Initializable {
         } else {
             exportEinnahmen.setDisable(false);
             exportAusgaben.setDisable(false);
+        }
+    }
+
+    /**
+     * Wenn man Einnahme auswählt, wird Ausgabe deaktiviert.
+     *
+     * @param actionEvent -> wird beim Drücken der Checkbox ausgeführt.
+     */
+    public void checkCheckBoxesDauerauftragE(ActionEvent actionEvent) {
+        if (dauerauftragEinnahme.isSelected()) {
+            dauerauftragAusgabe.setSelected(false);
+        }
+    }
+
+    /**
+     * Wenn man Ausgabe auswählt, wird Einnahme deaktiviert.
+     *
+     * @param actionEvent -> wird beim Drücken der Checkbox ausgeführt.
+     */
+    public void checkCheckBoxesDauerauftragA(ActionEvent actionEvent) {
+        if(dauerauftragAusgabe.isSelected()){
+            dauerauftragEinnahme.setSelected(false);
         }
     }
 
@@ -735,4 +766,6 @@ public class Controller implements Initializable {
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
+
+
 }

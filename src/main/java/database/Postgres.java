@@ -90,7 +90,7 @@ class Postgres {
                     " dauerauftrag_bezeichnung  TEXT, " +
                     " dauerauftrag_datum        DATE, " +
                     " dauerauftrag_zeitraum     TEXT," +
-                    " dauerauftrag_datumabbuchung TEXT, " +
+                    " dauerauftrag_datumabbuchung DATE, " +
                     "dauerauftrag_ausgabe_einnahme BOOLEAN, " +
                     " FOREIGN KEY (user_dauerauftragID)" +
                     " REFERENCES userinfo(userID))";

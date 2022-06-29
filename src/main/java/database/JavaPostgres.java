@@ -186,7 +186,7 @@ public class JavaPostgres {
             ResultSet rs = ps.executeQuery();
 
 
-            String queryDauerauftrag = "INSERT INTO DAUERAUFTRAG(dauerauftrag_betrag  ,dauerauftrag_bezeichnung, dauerauftrag_datum, user_dauerauftragid, dauerauftrag_zeitraum, dauerauftrag_ausgabe_einnahme) VALUES(?, ?, ?, ?, ?, ?)";
+            String queryDauerauftrag = "INSERT INTO DAUERAUFTRAG(dauerauftrag_betrag  ,dauerauftrag_bezeichnung, dauerauftrag_datum, user_dauerauftragid, dauerauftrag_zeitraum, dauerauftrag_datumabbuchung, dauerauftrag_ausgabe_einnahme) VALUES(?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstDauerauftrag = con.prepareStatement(queryDauerauftrag);
 
             while (rs.next()) {
@@ -195,7 +195,8 @@ public class JavaPostgres {
                 pstDauerauftrag.setDate(3, dauerauftragDatum);
                 pstDauerauftrag.setInt(4, id);
                 pstDauerauftrag.setString(5, dauerauftragZeitraum);
-                pstDauerauftrag.setBoolean(6, dauerauftrag_ausgabe_einnahme);
+                pstDauerauftrag.setDate(6, dauerauftragDatum);
+                pstDauerauftrag.setBoolean(7, dauerauftrag_ausgabe_einnahme);
                 pstDauerauftrag.executeUpdate();
             }
             pstDauerauftrag.close();

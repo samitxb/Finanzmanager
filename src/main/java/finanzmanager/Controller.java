@@ -399,6 +399,7 @@ public class Controller implements Initializable {
 
 
         boolean istdouble;
+        istdouble = NurNummern.isDouble(ausgabenBetrag.getText());
 
         if (Objects.equals(ausgabenBetrag.getText(), "")) {
             labelAusgaben.setText("Kein Betrag!");
@@ -406,21 +407,10 @@ public class Controller implements Initializable {
             labelAusgaben.setText("Keine Bezeichnung !");
         } else if (Objects.equals(localDate, null)) {
             labelAusgaben.setText("Kein Datum!");
+        } else if (!istdouble) {
+            labelAusgaben.setText("Keine Zahl!");
         } else {
-            istdouble = NurNummern.isDouble(ausgabenBetrag.getText());
-            if (istdouble){
-                labelAusgaben.setText("Gespeichert!");
-
-                JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
-
-                ausgabenBetrag.clear();
-                ausgabenBezeichnung.clear();
-                ausgabenDate.setValue(null);
-
-                oblistausgaben.clear();
-                ladeDatenAusgaben();
-            }else labelAusgaben.setText("Keine Zahl!");
-          /*  labelAusgaben.setText("Gespeichert!");
+            labelAusgaben.setText("Gespeichert!");
 
             JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
 
@@ -430,8 +420,8 @@ public class Controller implements Initializable {
 
             oblistausgaben.clear();
             ladeDatenAusgaben();
-*/
         }
+
 
     }
 
@@ -453,6 +443,8 @@ public class Controller implements Initializable {
         LocalDate localDate = einnahmenDate.getValue();
         System.out.println(localDate);
 
+        boolean istdouble;
+        istdouble = NurNummern.isDouble(einnahmenBetrag.getText());
 
         if (Objects.equals(einnahmenBetrag.getText(), "")) {
             labelEinnahmen.setText("Kein Betrag!");
@@ -460,6 +452,8 @@ public class Controller implements Initializable {
             labelEinnahmen.setText("Keine Bezeichnung!");
         } else if (Objects.equals(localDate, null)) {
             labelEinnahmen.setText("Kein Datum!");
+        } else if (!istdouble) {
+            labelEinnahmen.setText("Keine Zahl!");
         } else {
 
             labelEinnahmen.setText("Gespeichert!");
@@ -497,6 +491,8 @@ public class Controller implements Initializable {
         LocalDate localDate = dauerauftragDate.getValue();
         System.out.println(localDate);
 
+        boolean istdouble;
+        istdouble = NurNummern.isDouble(dauerauftragBetrag.getText());
 
         if (Objects.equals(dauerauftragBetrag.getText(), "")) {
             labelDauerauftraege.setText("Kein Betrag!");
@@ -506,7 +502,9 @@ public class Controller implements Initializable {
             labelDauerauftraege.setText("Kein Datum!");
         } else if (Objects.equals(menubarZeitspanneDauerauftrag.getText(), "")) {
             labelDauerauftraege.setText("Keine Zeitspanne!");
-        } else {
+        } else if (!istdouble) {
+            labelDauerauftraege.setText("Keine Zahl!");
+        }else {
 
             labelDauerauftraege.setText("Gespeichert!");
 

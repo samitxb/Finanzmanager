@@ -79,11 +79,15 @@ public class SettingsController implements Initializable {
     public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
 
         settingsKontostandLabel.setText(null);
+        boolean istdouble;
+        istdouble = NurNummern.isDouble(kontostand.getText());
 
         if (!Objects.equals(kontostand.getText(), "")) {
-            System.out.println("Kontostand:" + kontostand.getText());
-            setKontostand(Float.valueOf(kontostand.getText()));
-            settingsKontostandLabel.setText("Gespeichert!");
+            if(istdouble){
+                System.out.println("Kontostand:" + kontostand.getText());
+                setKontostand(Float.valueOf(kontostand.getText()));
+                settingsKontostandLabel.setText("Gespeichert!");
+            }else settingsKontostandLabel.setText("Keine Zahl!");
         }
         if (!settingsNutzernameNeu.getText().equals("")) {
             System.out.println("Neuer Username:" + settingsNutzernameNeu.getText());

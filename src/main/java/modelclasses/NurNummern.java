@@ -18,14 +18,9 @@ public class NurNummern {
      * @param textfeld -> String, der betrachtet werden soll.
      */
     public static void numericOnly(final TextField textfeld) {
-        textfeld.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(
-                    ObservableValue<? extends String> observable,
-                    String oldValue, String newValue) {
-                if (!newValue.matches("\\d+\\.\\d+")) {
-                    textfeld.setText(newValue.replaceAll("[^\\d+\\.\\d+]", ""));
-                }
+        textfeld.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d+\\.\\d+")) {
+                textfeld.setText(newValue.replaceAll("[^\\d+.]", ""));
             }
         });
     }
@@ -43,6 +38,20 @@ public class NurNummern {
             return false;
         }
     }
-
+/* Alte Version von numericOnly */
+/*
+    public static void numericOnly(final TextField textfeld) {
+        textfeld.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (!newValue.matches("\\d+\\.\\d+")) {
+                    textfeld.setText(newValue.replaceAll("[^\\d+\\.\\d+]", ""));
+                }
+            }
+        });
+    }
+*/
 
 }

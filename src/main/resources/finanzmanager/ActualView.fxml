@@ -47,7 +47,7 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="ausgabenViewUebersicht" layoutX="8.0" layoutY="66.0" pickOnBounds="false" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                              <TableView fx:id="ausgabenViewUebersicht" layoutX="8.0" layoutY="66.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
                                  <columns>
                                     <TableColumn fx:id="ausgabenListDatumUebersicht" prefWidth="70.0" text="Datum" />
                                     <TableColumn fx:id="ausgabenListBezeichnungUebersicht" prefWidth="152.0" text="Bezeichnung" />
@@ -93,7 +93,7 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="ausgabenDate" layoutX="37.0" layoutY="314.0" prefHeight="25.0" prefWidth="177.0" promptText="Datum" />
+                        <DatePicker fx:id="ausgabenDate" editable="false" layoutX="37.0" layoutY="314.0" prefHeight="25.0" prefWidth="177.0" promptText="Datum" />
                         <Button layoutX="998.0" layoutY="629.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
                         <Label layoutX="37.0" layoutY="14.0" prefHeight="71.0" prefWidth="260.0" styleClass="label-header" text="Meine Ausgaben">
                            <font>
@@ -169,7 +169,7 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="einnahmenDate" layoutX="37.0" layoutY="314.0" prefHeight="25.0" prefWidth="177.0" promptText="Datum" />
+                        <DatePicker fx:id="einnahmenDate" editable="false" layoutX="37.0" layoutY="314.0" prefHeight="25.0" prefWidth="177.0" promptText="Datum" />
                         <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
                         <Button layoutX="37.0" layoutY="385.0" mnemonicParsing="false" onAction="#einnahmeHinzufuegenBtn" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
                         <Label layoutX="37.0" layoutY="198.0" prefHeight="31.0" prefWidth="97.0" text="Bezeichnung:">
@@ -228,7 +228,7 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dauerauftragDate" layoutX="37.0" layoutY="329.0" prefHeight="35.0" prefWidth="177.0" promptText="Ab wann?" />
+                        <DatePicker fx:id="dauerauftragDate" editable="false" layoutX="37.0" layoutY="329.0" prefHeight="35.0" prefWidth="177.0" promptText="Ab wann?" />
                         <Label layoutX="37.0" layoutY="370.0" prefHeight="31.0" prefWidth="79.0" text="Wie oft?">
                            <font>
                               <Font size="19.0" />

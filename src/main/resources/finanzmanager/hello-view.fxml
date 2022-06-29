@@ -23,12 +23,12 @@
                            <font>
                               <Font size="22.0" />
                            </font></Label>
-                        <TextField fx:id="loginName" layoutX="243.0" layoutY="124.0" prefHeight="45.0" prefWidth="172.0" />
+                        <TextField fx:id="loginName" layoutX="243.0" layoutY="124.0" prefHeight="45.0" prefWidth="172.0" promptText="Benutzername" />
                         <Label layoutX="243.0" layoutY="181.0" prefHeight="43.0" prefWidth="177.0" styleClass="label-bright" text="Passwort:">
                            <font>
                               <Font size="22.0" />
                            </font></Label>
-                        <PasswordField fx:id="loginPassword" layoutX="243.0" layoutY="223.0" prefHeight="45.0" prefWidth="172.0" />
+                        <PasswordField fx:id="loginPassword" layoutX="243.0" layoutY="223.0" prefHeight="45.0" prefWidth="172.0" promptText="Passwort" />
                         <Button fx:id="loginOkBtn" layoutX="297.0" layoutY="298.0" mnemonicParsing="false" onAction="#btnOKClicked" prefHeight="36.0" prefWidth="70.0" text="Ok" />
                         <Label fx:id="errorText" alignment="CENTER" layoutX="57.0" layoutY="343.0" prefHeight="32.0" prefWidth="544.0" style="-fx-alignment: Center;" textAlignment="CENTER" textFill="#d71313" textOverrun="CENTER_ELLIPSIS" />
                         <Button fx:id="passwortVergessenBtn" layoutX="462.0" layoutY="418.0" mnemonicParsing="false" onAction="#goToPasswortVergessen" text="Passwort vergessen?" />
@@ -41,15 +41,15 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="230.0" layoutY="49.0" styleClass="label-bright" text="Name:" />
-                        <TextField fx:id="registrationName" layoutX="230.0" layoutY="70.0" />
+                        <TextField fx:id="registrationName" layoutX="230.0" layoutY="70.0" promptText="Voller Name" />
                         <Label layoutX="230.0" layoutY="112.0" styleClass="label-bright" text="Benutzername:" />
-                        <TextField fx:id="registrationUserName" layoutX="230.0" layoutY="133.0" />
+                        <TextField fx:id="registrationUserName" layoutX="230.0" layoutY="133.0" promptText="Benutzername" />
                         <Label layoutX="230.0" layoutY="178.0" styleClass="label-bright" text="Passwort:" />
-                        <TextField fx:id="registrationUserPassword" layoutX="230.0" layoutY="199.0" />
+                        <TextField fx:id="registrationUserPassword" layoutX="230.0" layoutY="199.0" promptText="Passwort" />
                         <Button layoutX="269.0" layoutY="319.0" mnemonicParsing="false" onAction="#setRegistrationData" text="Registrieren" />
                         <Label fx:id="regsuccsessfulllabel" layoutX="83.0" layoutY="363.0" prefHeight="21.0" prefWidth="498.0" style="-fx-alignment: Center;" textAlignment="CENTER" textFill="RED" />
                         <Label layoutX="230.0" layoutY="241.0" styleClass="label-bright" text="Vorname des Vaters:" />
-                        <TextField fx:id="registrationUserQuestion" layoutX="230.0" layoutY="262.0" />
+                        <TextField fx:id="registrationUserQuestion" layoutX="230.0" layoutY="262.0" promptText="Antwort" />
                      </children>
                   </AnchorPane>
             </content>

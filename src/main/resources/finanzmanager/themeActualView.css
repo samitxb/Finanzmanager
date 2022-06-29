@@ -85,6 +85,11 @@
     -fx-text-fill: white;
 }
 
+.table-row-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-background-color: white;
+}
+
 
 /*====================================================Other=======================================*/
 .split-pane:horizontal > .split-pane-divider {

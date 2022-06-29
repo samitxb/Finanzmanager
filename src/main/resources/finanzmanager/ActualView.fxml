@@ -47,7 +47,7 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="ausgabenViewUebersicht" layoutX="8.0" layoutY="66.0" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                              <TableView fx:id="ausgabenViewUebersicht" layoutX="8.0" layoutY="66.0" pickOnBounds="false" prefHeight="537.0" prefWidth="329.0" style="-fx-background-radius: 10;">
                                  <columns>
                                     <TableColumn fx:id="ausgabenListDatumUebersicht" prefWidth="70.0" text="Datum" />
                                     <TableColumn fx:id="ausgabenListBezeichnungUebersicht" prefWidth="152.0" text="Bezeichnung" />
@@ -87,13 +87,13 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="ausgabenBetrag" layoutX="37.0" layoutY="145.0" prefHeight="37.0" prefWidth="177.0" />
+                        <TextField fx:id="ausgabenBetrag" layoutX="37.0" layoutY="145.0" prefHeight="37.0" prefWidth="177.0" promptText="Betrag" />
                         <Label layoutX="37.0" layoutY="283.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="ausgabenDate" layoutX="37.0" layoutY="314.0" prefHeight="25.0" prefWidth="177.0" />
+                        <DatePicker fx:id="ausgabenDate" layoutX="37.0" layoutY="314.0" prefHeight="25.0" prefWidth="177.0" promptText="Datum" />
                         <Button layoutX="998.0" layoutY="629.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
                         <Label layoutX="37.0" layoutY="14.0" prefHeight="71.0" prefWidth="260.0" styleClass="label-header" text="Meine Ausgaben">
                            <font>
@@ -123,7 +123,7 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="ausgabenBezeichnung" layoutX="37.0" layoutY="230.0" prefHeight="37.0" prefWidth="177.0" />
+                        <TextField fx:id="ausgabenBezeichnung" layoutX="37.0" layoutY="230.0" prefHeight="37.0" prefWidth="177.0" promptText="Bezeichnung" />
                         <Label fx:id="labelAusgaben" layoutX="37.0" layoutY="450.0" prefHeight="37.0" prefWidth="293.0" />
                         <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                         <Line endX="463.0" fill="WHITE" layoutX="138.0" layoutY="94.0" startX="-98.0" stroke="WHITE" strokeWidth="1.5" />
@@ -162,14 +162,14 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="einnahmenBetrag" layoutX="37.0" layoutY="145.0" prefHeight="37.0" prefWidth="177.0" />
+                        <TextField fx:id="einnahmenBetrag" layoutX="37.0" layoutY="145.0" prefHeight="37.0" prefWidth="177.0" promptText="Betrag" />
                         <Label fx:id="labelEinnahmen" layoutX="19.0" layoutY="447.0" prefHeight="37.0" prefWidth="293.0" />
                         <Label layoutX="37.0" layoutY="283.0" prefHeight="31.0" prefWidth="66.0" text="Datum:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="einnahmenDate" layoutX="37.0" layoutY="314.0" prefHeight="25.0" prefWidth="177.0" />
+                        <DatePicker fx:id="einnahmenDate" layoutX="37.0" layoutY="314.0" prefHeight="25.0" prefWidth="177.0" promptText="Datum" />
                         <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
                         <Button layoutX="37.0" layoutY="385.0" mnemonicParsing="false" onAction="#einnahmeHinzufuegenBtn" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
                         <Label layoutX="37.0" layoutY="198.0" prefHeight="31.0" prefWidth="97.0" text="Bezeichnung:">
@@ -177,7 +177,7 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="einnahmenBezeichnung" layoutX="37.0" layoutY="230.0" prefHeight="37.0" prefWidth="177.0" />
+                        <TextField fx:id="einnahmenBezeichnung" layoutX="37.0" layoutY="230.0" prefHeight="37.0" prefWidth="177.0" promptText="Bezeichnung" />
                         <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                         <Line endX="463.0" fill="WHITE" layoutX="138.0" layoutY="94.0" startX="-98.0" stroke="WHITE" strokeWidth="1.5" />
                         <Line endX="944.0" endY="-6.0" layoutX="129.0" layoutY="631.0" startX="-119.0" startY="-6.0" stroke="#ffffff2f" />
@@ -208,13 +208,13 @@
                            </children>
                         </AnchorPane>
                         <Button layoutX="37.0" layoutY="501.0" mnemonicParsing="false" onAction="#dauerauftragHinzufuegenBtn" prefHeight="42.0" prefWidth="177.0" text="Hinzufügen" />
-                        <TextField fx:id="dauerauftragBezeichnung" layoutX="37.0" layoutY="257.0" prefHeight="37.0" prefWidth="177.0" />
+                        <TextField fx:id="dauerauftragBezeichnung" layoutX="37.0" layoutY="257.0" prefHeight="37.0" prefWidth="177.0" promptText="Bezeichnung" />
                         <Label layoutX="37.0" layoutY="113.0" prefHeight="31.0" prefWidth="59.0" text="Betrag:">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="dauerauftragBetrag" layoutX="37.0" layoutY="145.0" prefHeight="37.0" prefWidth="177.0" />
+                        <TextField fx:id="dauerauftragBetrag" layoutX="37.0" layoutY="145.0" prefHeight="37.0" prefWidth="177.0" promptText="Betrag" />
                         <Button layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
                         <Label layoutX="37.0" layoutY="14.0" prefHeight="71.0" prefWidth="497.0" styleClass="label-header" text="Neuen Dauerauftrag anlegen">
                            <font>
@@ -228,7 +228,7 @@
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dauerauftragDate" layoutX="37.0" layoutY="329.0" prefHeight="35.0" prefWidth="177.0" />
+                        <DatePicker fx:id="dauerauftragDate" layoutX="37.0" layoutY="329.0" prefHeight="35.0" prefWidth="177.0" promptText="Ab wann?" />
                         <Label layoutX="37.0" layoutY="370.0" prefHeight="31.0" prefWidth="79.0" text="Wie oft?">
                            <font>
                               <Font size="19.0" />
@@ -242,7 +242,7 @@
                               <MenuItem mnemonicParsing="false" onAction="#jaehrlich" text="Jährlich" />
                            </items>
                         </MenuButton>
-                        <TextField fx:id="dauerauftragZeitspanneText" editable="false" layoutX="37.0" layoutY="436.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0">
+                        <TextField fx:id="dauerauftragZeitspanneText" editable="false" layoutX="37.0" layoutY="436.0" mouseTransparent="true" prefHeight="37.0" prefWidth="177.0" promptText="Zeitspanne">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -283,7 +283,7 @@
                         <CheckBox fx:id="exportAlles" layoutX="37.0" layoutY="208.0" mnemonicParsing="false" onAction="#checkCheckBoxes" prefHeight="26.0" prefWidth="121.0" text="Alles" />
                         <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                         <Label layoutX="37.0" layoutY="247.0" text="Name:" />
-                        <TextField fx:id="exportName" layoutX="37.0" layoutY="268.0" />
+                        <TextField fx:id="exportName" layoutX="37.0" layoutY="268.0" promptText="Name" />
                         <Button fx:id="exportWo" layoutX="37.0" layoutY="319.0" mnemonicParsing="false" onAction="#exportierenWoBtnPressed" text="Wo?" />
                         <Label fx:id="exportSpeicherort" layoutX="37.0" layoutY="365.0" prefHeight="33.0" prefWidth="569.0" />
                         <Line endX="944.0" endY="-6.0" layoutX="129.0" layoutY="631.0" startX="-119.0" startY="-6.0" stroke="#ffffff2f" />

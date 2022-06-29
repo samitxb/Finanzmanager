@@ -528,8 +528,6 @@ public class Controller implements Initializable {
         LocalDate localDate = dauerauftragDate.getValue();
         System.out.println(localDate);
 
-        boolean numerisch;
-
 
         if (Objects.equals(dauerauftragBetrag.getText(), "")) {
             labelDauerauftraege.setText("Kein Betrag!");
@@ -728,7 +726,6 @@ public class Controller implements Initializable {
         ladeDatenAusgaben();
         ladeDatenEinnahmen();
         ladeDatenDauerauftrag();
-        ladeKontodaten();
     }
 
     /**

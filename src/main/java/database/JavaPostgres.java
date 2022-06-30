@@ -1,3 +1,6 @@
+/*
+ * Klasse beinhaltet Funktionen, um auf die Datenbank zu schreiben
+ */
 package database;
 
 import javafx.scene.control.Alert;
@@ -19,18 +22,13 @@ import static database.Postgres.*;
  * @author Michael
  * @version 1.0.1
  */
-
-
 public class JavaPostgres {
-
 
     /**
      * Datenbankverbindungsklasse getConnection()
      * Nutzt globale Variablen als Referenz für eine Datenbank in PostgreSQL
      * Die Datenbank verbindet sich per PostgreSQL-driver mit localhost.
      */
-
-
     // Variable databaseConnectionLink stellt Verbindungsinformationen bereit
     public static Connection databaseConnectionLink;
 
@@ -41,23 +39,18 @@ public class JavaPostgres {
      * Speichert mit lokalem String query die Daten zur Nutzerregistrierung in die Tabelle userinfo
      * Stellt die Daten als Login bereit
      */
-
-
     public static void writeToDatabaseUser(String fullName, String userName, String userPassword, String sicherheitsantwort) {
+        float kontostand = 0;
 
         ResultSet resultSet;
         PreparedStatement psCheckUser;
 
-
         String queryUser = "INSERT INTO USERINFO(Fullname ,Username, Password, Passwordsalt, Kontostand, Sicherheitsantwort, Sicherheitsantwort_salt) VALUES(?, ?, ?, ?,?, ?,?)";
-
-
         try (Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
              PreparedStatement pst = con.prepareStatement(queryUser)) {
             psCheckUser = con.prepareStatement("SELECT * FROM userinfo WHERE username=?");
             psCheckUser.setString(1, userName);
             resultSet = psCheckUser.executeQuery();
-
 
             // Checkt, ob die eingegebenen Registrierungsdaten in der Datenbank vorhanden sind
             if (resultSet.isBeforeFirst()) {
@@ -75,8 +68,6 @@ public class JavaPostgres {
                 userPassword = PasswordEncryption.generateSecurePassword(userPassword, salt);
                 sicherheitsantwort = PasswordEncryption.generateSecurePassword(sicherheitsantwort, sicherheitsantwortSalt);
 
-                float kontostand = 0;
-
                 // Aktualisiert in der Tabelle userinfo die Einträge fullName, userName, userPassword und salt
                 pst.setString(1, fullName);
                 pst.setString(2, userName);
@@ -88,27 +79,20 @@ public class JavaPostgres {
                 pst.executeUpdate();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Erfolgreich Registriert!");
-
-                // Wirft Fenster mit Fehlermeldung aus
                 alert.show();
             }
             resultSet.close();
-
             // Wirft Fehlermeldung bei fehlgeschlagener Datenbankverbindung aus
         } catch (SQLException ex) {
-
             Logger lgr = Logger.getLogger(JavaPostgres.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
     public static void writeToDatabaseEinnahmen(Float einnahmenBetrag, String einnahmenBezeichnung, Date einnahmenDatum) {
-
         int id = UserLogin.id;
 
-
         try {
-
             PreparedStatement ps;
             Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
 
@@ -119,9 +103,7 @@ public class JavaPostgres {
 
             String queryEinnahmen = "INSERT INTO EINNAHMEN(einnahmen_betrag  ,einnahmen_bezeichnung, einnahmen_datum, user_einnahmenid) VALUES(?, ?, ?, ?)";
             PreparedStatement pstEinnahmen = con.prepareStatement(queryEinnahmen);
-
             boolean hasResults = rs.next();
-
 
             if (hasResults) {
                 do {
@@ -150,10 +132,8 @@ public class JavaPostgres {
         String SQL = ("SELECT * FROM userinfo LIMIT 1");
 
         try {
-
             ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-
 
             String queryAusgaben = "INSERT INTO AUSGABEN(ausgaben_betrag  ,ausgaben_bezeichnung, ausgaben_datum, user_ausgabenid) VALUES(?, ?, ?, ?)";
             PreparedStatement pstAusgaben = con.prepareStatement(queryAusgaben);
@@ -174,18 +154,16 @@ public class JavaPostgres {
     }
 
     public static void writeToDatabaseDauerauftrag(Float dauerauftragBetrag, String dauerauftragBezeichnung, Date dauerauftragDatum, String dauerauftragZeitraum, Boolean dauerauftrag_ausgabe_einnahme) throws SQLException {
+        int id = UserLogin.id;
+
         PreparedStatement ps;
         Connection con = DriverManager.getConnection(url, userDatabase, passwordDatabase);
         String SQL = ("SELECT * FROM userinfo LIMIT 1");
-
-        int id = UserLogin.id;
 
         try {
 
             ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-
-
             String queryDauerauftrag = "INSERT INTO DAUERAUFTRAG(dauerauftrag_betrag  ,dauerauftrag_bezeichnung, dauerauftrag_datum, user_dauerauftragid, dauerauftrag_zeitraum, dauerauftrag_datumabbuchung, dauerauftrag_ausgabe_einnahme) VALUES(?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstDauerauftrag = con.prepareStatement(queryDauerauftrag);
 
@@ -208,8 +186,6 @@ public class JavaPostgres {
     }
 
     public Connection getConnection() {
-
-
         try {
             Class.forName("org.postgresql.Driver");
             databaseConnectionLink = DriverManager.getConnection(url, userDatabase, passwordDatabase);
@@ -218,9 +194,7 @@ public class JavaPostgres {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return databaseConnectionLink;
     }
-
 
 }

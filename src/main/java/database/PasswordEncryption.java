@@ -1,3 +1,6 @@
+/*
+ * Klasse dient zum Passwort verschlüsseln
+ */
 package database;
 
 import javax.crypto.SecretKeyFactory;
@@ -9,7 +12,12 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
 
-
+/**
+ * Klasse zur Verschlüsselung des Passwortes
+ *
+ * @author Michael
+ * @version 1.0.1
+ */
 public class PasswordEncryption {
 
     //Generiert zufälligen Wert für salt
@@ -30,7 +38,6 @@ public class PasswordEncryption {
      *
      * @return returnValue
      */
-
     public static String getSalt(int length) {
         StringBuilder returnValue = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -39,12 +46,10 @@ public class PasswordEncryption {
         return new String(returnValue);
     }
 
-
     /**
      * Funktion hash(char[] password, byte[] salt) greift auf die final-Variablen ITERATIONS und KEY_LENGTH zu
      * Mittels des PBE-Schlüsselgenerator wird das Passwort mit PBKDF2-generierten hashes kodiert
      */
-
     public static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
@@ -63,11 +68,10 @@ public class PasswordEncryption {
      * und salt das verschlüsselte Passwort
      * Es wird dabei erst mit der hash-Funktion erfasst und per Base64 verschlüsselt
      *
-     * @param password -    Erster Wert für Userpasswort
-     * @param salt     -    Zweiter Wert zur Verschlüsselung des Userpasswort
+     * @param password -Erster Wert für Userpasswort
+     * @param salt     -Zweiter Wert zur Verschlüsselung des Userpasswort
      * @return returnValue
      */
-
     public static String generateSecurePassword(String password, String salt) {
         String returnValue;
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
@@ -77,6 +81,12 @@ public class PasswordEncryption {
         return returnValue;
     }
 
+    /**
+     * @param providedPassword
+     * @param securedPassword
+     * @param salt
+     * @return
+     */
     public static boolean verifyUserPassword(String providedPassword,
                                              String securedPassword, String salt) {
         boolean returnValue;

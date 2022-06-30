@@ -1,3 +1,6 @@
+/*
+ * Klasse für Ausgaben
+ */
 package finanzmanager;
 
 /**
@@ -15,7 +18,7 @@ public class Ausgaben {
     private final int ausgabenId;
 
     /**
-     * Constructor für die Ausgaben.
+     * Konstruktor für die Ausgaben.
      *
      * @param ausgabenListBezeichnung Bezeichnung der Ausgabe.
      * @param ausgabenListBetrag      Betrag der Ausgabe.

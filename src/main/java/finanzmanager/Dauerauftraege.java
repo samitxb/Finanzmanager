@@ -1,3 +1,6 @@
+/*
+ * Klasse für Daueraufträge
+ */
 package finanzmanager;
 
 
@@ -16,7 +19,7 @@ public class Dauerauftraege {
     private final int dauerauftraegeId;
 
     /**
-     * Constructor der Daueraufträge.
+     * Konstruktor der Daueraufträge.
      *
      * @param dauerauftraegeListBezeichnung Bezeichnung des Dauerauftrags.
      * @param dauerauftraegeListBetrag      Betrag des Dauerauftrags.

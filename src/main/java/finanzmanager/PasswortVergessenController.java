@@ -1,3 +1,6 @@
+/*
+ * Klasse dient als Controller für das Passwort-vergessen Fenster
+ */
 package finanzmanager;
 
 import database.JavaPostgres;
@@ -20,9 +23,7 @@ import java.sql.SQLException;
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
  */
-
 public class PasswortVergessenController {
-
     ResultSet rs;
     @FXML
     private TextField neuesPasswort;
@@ -39,6 +40,7 @@ public class PasswortVergessenController {
     @FXML
     private Label neuesPasswortLabel;
 
+
     /**
      * Überprüft, ob die Sicherheitsfrage mit dem angegebenen Benutzer übereinstimmt.
      * Falls ja, kann man sein neues Passwort eingeben.
@@ -46,18 +48,14 @@ public class PasswortVergessenController {
      * @return true, falls es übereinstimmt.
      */
     public boolean checkSicherheitsfrage() {
-
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
-
         try {
 
             PreparedStatement ps = conDb.prepareStatement("SELECT * FROM userinfo WHERE username=?");
             ps.setString(1, passwortVergessenBenutzername.getText());
 
             rs = ps.executeQuery();
-
-
             boolean hasResults = rs.next();
 
             if (hasResults) {
@@ -70,7 +68,6 @@ public class PasswortVergessenController {
 
                     // Salt value stored in database
                     String sicherheitsSalt = rs.getString("sicherheitsantwort_salt");
-
 
                     boolean sicherheitsfrageMatch = PasswordEncryption.verifyUserPassword(providedAntwort, secureAntwort, sicherheitsSalt);
                     System.out.println(sicherheitsfrageMatch);
@@ -85,13 +82,10 @@ public class PasswortVergessenController {
 
                         return true;
                     }
-
                 } while (rs.next());
-
             } else {
                 System.out.println("Falsche Eingabe");
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -101,7 +95,7 @@ public class PasswortVergessenController {
     /**
      * Schließt das Fenster PasswortVergessen.
      *
-     * @param event -> wird beim Drücken des Knopfes ausgeführt.
+     * @param event → wird beim Drücken des Knopfes ausgeführt.
      */
     @FXML
     void quitPasswortVergessen(ActionEvent event) {
@@ -112,25 +106,21 @@ public class PasswortVergessenController {
     /**
      * Speichert das neue Passwort in die Datenbank.
      *
-     * @param event -> wird beim Drücken des Knopfes ausgeführt.
-     * @throws SQLException -> wirft einen Fehler.
+     * @param event → wird beim Drücken des Knopfes ausgeführt.
+     * @throws SQLException → wirft einen Fehler.
      */
     @FXML
     void speicherPasswort(ActionEvent event) throws SQLException {
-
         boolean match = checkSicherheitsfrage();
+
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
-
         if (match) {
-
             String neuesPasswortt = neuesPasswort.getText();
             String securePasswordSalt = PasswordEncryption.getSalt(30);
 
-
             PreparedStatement psNewPassword = conDb.prepareStatement("Update userinfo set password=?, passwordsalt=? WHERE userid=?");
             psNewPassword.setInt(3, rs.getInt(1));
-
 
             String securePassword = PasswordEncryption.generateSecurePassword(neuesPasswortt, securePasswordSalt);
 
@@ -143,9 +133,9 @@ public class PasswortVergessenController {
     }
 
     /**
-     * Wenn die Textfelder nicht leer sind, wird die Funktion checkSicherheitsfrage() ausgeführt.
+     * Überprüft, ob die Textfelder leer sind. Falls nicht, wird die Funktion checkSicherheitsfrage() ausgeführt.
      *
-     * @param event -> wird beim Drücken des Knopfes ausgeführt.
+     * @param event → wird beim Drücken des Knopfes ausgeführt.
      */
     @FXML
     void okBtnPressed(ActionEvent event) {

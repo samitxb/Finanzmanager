@@ -1,3 +1,6 @@
+/*
+ * Klasse dient zum Holen von Daten aus der Datenbank
+ */
 package database;
 
 import modelclasses.UserLogin;

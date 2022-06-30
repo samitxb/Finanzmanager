@@ -1,3 +1,6 @@
+/*
+ * Klasse generiert ein PDF Dokument entsprechend den Eingaben
+ */
 package finanzmanager;
 
 import com.itextpdf.text.*;
@@ -15,23 +18,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//import static database.Postgres.*;
-
 
 /**
  * Zum erstellen des PDF Dokuments wird iText (vers. 5.5.13.2) verwendet.
+ *
+ * @author Sami Taeib
+ * @version 1.0
  */
-
-
 public class PDFGenerator {
     //public static void main(String[] args)
     public static void pdfGenAusgaben(String speicherort, String name) throws SQLException {
-
         int id = UserLogin.id;                                                //Holt user ID für DB
 
-
         try {
-
 
             //=============================================Dokument spezifizieren=============================================
             Document document = new Document(PageSize.A4);
@@ -49,19 +48,16 @@ public class PDFGenerator {
 
             //=============================================Infos über den Auszug=============================================
 
-
             Paragraph info = new Paragraph();
             info.setFont(new Font(Font.FontFamily.COURIER, 10));
             Chunk c_info = new Chunk("Ausgaben von: " + LoginController.getUserFullname());
             info.add(c_info);
             document.add(info);
 
-
             //=============================================Datenbank auslesen=============================================
 
             JavaPostgres javaPostgres = new JavaPostgres();
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
-
 
             try {
 
@@ -107,8 +103,6 @@ public class PDFGenerator {
                     bezeichnung.add(c_bezeichnung);
                     c = new PdfPCell(bezeichnung);
                     table_ausgaben.addCell(c);
-
-
                 }
                 document.add(table_ausgaben);
 
@@ -129,7 +123,6 @@ public class PDFGenerator {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
             document.close();
             writer.close();
         } catch (DocumentException e) {
@@ -137,16 +130,12 @@ public class PDFGenerator {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static void pdfGenEinnahmen(String speicherort, String name) throws SQLException {
-
         int id = UserLogin.id;                                                //Holt user ID für DB
 
         try {
-
             //=============================================Dokument spezifizieren=============================================
             Document document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(speicherort + "\\" + name + ".pdf"));
@@ -163,14 +152,11 @@ public class PDFGenerator {
 
             //=============================================Infos über den Auszug=============================================
 
-
             Paragraph info = new Paragraph();
             info.setFont(new Font(Font.FontFamily.COURIER, 10));
             Chunk c_info = new Chunk("Einnahmen von: " + LoginController.getUserFullname());
             info.add(c_info);
             document.add(info);
-
-
             //=============================================Datenbank auslesen=============================================
 
             JavaPostgres javaPostgres = new JavaPostgres();
@@ -178,7 +164,6 @@ public class PDFGenerator {
 
 
             try {
-
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");        //Welcher User
                 statement.setInt(1, id);
                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM einnahmen");
@@ -221,8 +206,6 @@ public class PDFGenerator {
                     bezeichnung.add(c_bezeichnung);
                     c = new PdfPCell(bezeichnung);
                     table_einnahmen.addCell(c);
-
-
                 }
                 document.add(table_einnahmen);
 
@@ -239,11 +222,9 @@ public class PDFGenerator {
                 Chunk c_kontostand = new Chunk("Aktueller Kontostand: " + Uebersicht.aktuellerKontostandZusammen() + "€");
                 kontostand.add(c_kontostand);
                 document.add(kontostand);
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
             document.close();
             writer.close();
         } catch (DocumentException e) {
@@ -251,8 +232,6 @@ public class PDFGenerator {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-
     }
 
 }

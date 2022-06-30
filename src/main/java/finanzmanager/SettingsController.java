@@ -1,3 +1,7 @@
+/*
+ * Diese Klasse dient als Controller für das Einstellungsfenster
+ */
+
 package finanzmanager;
 
 import database.JavaPostgres;
@@ -22,13 +26,13 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+
 /**
- * Klasse SettingsController ist der Controller für das Einstellungs-Fenster.
+ * Klasse SettingsController ist der Controller für das Einstellungsfenster.
  *
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
  */
-
 public class SettingsController implements Initializable {
     @FXML
     private TextField kontostand;
@@ -77,17 +81,17 @@ public class SettingsController implements Initializable {
      * @throws SQLException -> wirft einen Fehler.
      */
     public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
-
-        settingsKontostandLabel.setText(null);
         boolean istdouble;
         istdouble = NurNummern.isDouble(kontostand.getText());
 
+        settingsKontostandLabel.setText(null);
+
         if (!Objects.equals(kontostand.getText(), "")) {
-            if(istdouble){
+            if (istdouble) {
                 System.out.println("Kontostand:" + kontostand.getText());
                 setKontostand(Float.valueOf(kontostand.getText()));
                 settingsKontostandLabel.setText("Gespeichert!");
-            }else settingsKontostandLabel.setText("Keine Zahl!");
+            } else settingsKontostandLabel.setText("Keine Zahl!");
         }
         if (!settingsNutzernameNeu.getText().equals("")) {
             System.out.println("Neuer Username:" + settingsNutzernameNeu.getText());
@@ -105,30 +109,24 @@ public class SettingsController implements Initializable {
      * @param neuUserName übergibt den gewünschten Benutzernamen.
      * @throws SQLException -> wirft einen Fehler.
      */
-    public void neuerUserName(String neuUserName) throws SQLException//, String neuUserPassword)
-    {
+    public void neuerUserName(String neuUserName) throws SQLException {
         int id = UserLogin.id;
-
 
         PreparedStatement ps;
         PreparedStatement psCheckUser;
         ResultSet resultSet;
-
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
-
 
         psCheckUser = conDb.prepareStatement("SELECT * FROM userinfo WHERE username=?");
         psCheckUser.setString(1, neuUserName);
         resultSet = psCheckUser.executeQuery();
-
         try {
             // Checkt, ob der neue Username in der Datenbank existiert
             if (resultSet.isBeforeFirst()) {
                 System.out.println("Nutzername vergeben");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Nutzername vergeben! Bitte anderen Nutzernamen wählen.");
-
                 // Wirft Fenster mit Fehlermeldung aus
                 alert.show();
                 settingsNutzernameLabel.setTextFill(Color.color(1, 0, 0));
@@ -155,10 +153,8 @@ public class SettingsController implements Initializable {
         int id = UserLogin.id;
 
         PreparedStatement ps;
-
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
-
         try {
             String salt = PasswordEncryption.getSalt(30);
             neuUserPasswort = PasswordEncryption.generateSecurePassword(neuUserPasswort, salt);
@@ -169,7 +165,6 @@ public class SettingsController implements Initializable {
 
             ps.executeUpdate();
             settingsPasswortLabel.setText("Gespeichert!");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -183,13 +178,8 @@ public class SettingsController implements Initializable {
     public void setKontostand(Float eingabeKontostand) {
         int id = UserLogin.id;
 
-
-        System.out.println(eingabeKontostand);
-        System.out.println("method: " + kontostand.getText());
-
         JavaPostgres connectNow = new JavaPostgres();
         Connection conDb = connectNow.getConnection();
-
         try {
             PreparedStatement psKontostand;
 
@@ -202,5 +192,4 @@ public class SettingsController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }

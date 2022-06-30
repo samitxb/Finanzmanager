@@ -1,3 +1,6 @@
+/*
+ * Klasse verwaltet den User-Login
+ */
 package modelclasses;
 
 import database.JavaPostgres;
@@ -19,6 +22,7 @@ import java.sql.ResultSet;
 public class UserLogin {
     public static int id;
 
+
     /**
      * Überprüft, ob Benutzername und Passwort übereinstimmen.
      *
@@ -28,7 +32,6 @@ public class UserLogin {
      * @return true, falls Passwort und Benutzername übereinstimmen
      */
     public static boolean validateUserLogin(TextField loginName, TextField loginPassword, Label errorText) {
-
         PreparedStatement preparedStatement;
         ResultSet rs;
 
@@ -39,9 +42,7 @@ public class UserLogin {
             preparedStatement.setString(1, loginName.getText());
 
             rs = preparedStatement.executeQuery();
-
             boolean hasResults = rs.next();
-
             if (hasResults) {
 
                 do {
@@ -57,14 +58,11 @@ public class UserLogin {
                     boolean passwordMatch = PasswordEncryption.verifyUserPassword(providedPassword, securePassword, salt);
 
                     if (passwordMatch) {
-
                         id = (rs.getInt(1));
                         System.out.println("ID: " + id);
-
                         System.out.println("Login success");
 
                         return true;
-
                     } else {
                         System.out.println("Login failed");
                         errorText.setText("Falsches Password!");

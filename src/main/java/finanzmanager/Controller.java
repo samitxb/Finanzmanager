@@ -39,7 +39,7 @@ import static database.JavaPostgres.databaseConnectionLink;
 /**
  * Klasse Controller ist der Controller für die ActualView.fxml
  *
- * @author Max Weichselgartner, Michael Irlmeier
+ * @author Max Weichselgartner
  * @version 1.0
  */
 public class Controller implements Initializable {
@@ -306,13 +306,13 @@ public class Controller implements Initializable {
 
     @FXML
     /**
-     * Bei Betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
+     * Beim Betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
      */
     void quitApp(ActionEvent event) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
         stage.close();
         Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginView.fxml")));
         primaryStage.setTitle("User Login");
         primaryStage.setScene(new Scene(root, 657, 532));
         primaryStage.setResizable(false);
@@ -320,9 +320,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Beim Drücken des Buttons Settings, öffnet sich das Fenster mit den Einstellungen
+     * Beim Drücken des Buttons Settings öffnet sich das Fenster mit den Einstellungen
      *
-     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      * @throws IOException → wirft einen Fehler.
      */
     @FXML
@@ -460,6 +460,15 @@ public class Controller implements Initializable {
 
             JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText(), dauerauftrag_einnahme_ausgabe);
 
+            // Führt die erste Zahlung durch
+            if (localDate.isBefore(LocalDate.now())) {
+                if (dauerauftrag_einnahme_ausgabe) {
+                    JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
+                    ladeDatenNeu(actionEvent);
+                } else
+                    JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
+                ladeDatenNeu(actionEvent);
+            }
             dauerauftragBetrag.clear();
             dauerauftragBezeichnung.clear();
             dauerauftragDate.setValue(null);
@@ -469,16 +478,6 @@ public class Controller implements Initializable {
 
             oblistDauerauftraege.clear();
             ladeDatenDauerauftrag();
-
-            if (localDate.isBefore(LocalDate.now())){
-                if (dauerauftrag_einnahme_ausgabe) {
-                    JavaPostgres.writeToDatabaseEinnahmen(Float.parseFloat(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
-                } else
-                    JavaPostgres.writeToDatabaseAusgaben(Float.parseFloat(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
-            }
-
-
-
         }
     }
 

@@ -1,3 +1,6 @@
+/*
+ * Diese Klasse stellt die Daten für die Übersicht zur Verfügung
+ */
 package modelclasses;
 
 import database.JavaPostgres;
@@ -8,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Klasse Übersicht wird benötigt für berechnung des gesamtEinnahmen, gesamtAusgaben und des aktuellen Kontostands.
+ * Klasse Übersicht wird benötigt für die Berechnung der gesamtEinnahmen, gesamtAusgaben und des aktuellen Kontostands.
  *
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
@@ -17,8 +20,6 @@ public class Uebersicht {
     protected static float gesamtAusgaben;
     protected static float gesamtEinnahmen;
     protected static float aktuellerKontostand;
-
-
     static JavaPostgres javaPostgres = new JavaPostgres();
     static Connection con = javaPostgres.getConnection();
 
@@ -28,7 +29,6 @@ public class Uebersicht {
      * @return gesamtAusgaben des eingeloggten Benutzers.
      */
     public static float ausgabenZusammenRechnen() {
-
         int id = UserLogin.id;
 
         try {
@@ -51,7 +51,6 @@ public class Uebersicht {
      * @return gesamtEinnahmen des eingeloggten Benutzers.
      */
     public static float einnahmenZusammenRechnen() {
-
         int id = UserLogin.id;
 
         try {
@@ -74,11 +73,10 @@ public class Uebersicht {
      * @return aktuellenKontostand des eingeloggten Benutzers.
      */
     public static float aktuellerKontostandZusammen() {
-
         int id = UserLogin.id;
+
         JavaPostgres javaPostgres = new JavaPostgres();
         Connection con = javaPostgres.getConnection();
-
         try {
             PreparedStatement pst = con.prepareStatement("SELECT kontostand FROM userinfo where userid=?");
             pst.setInt(1, id);
@@ -93,10 +91,7 @@ public class Uebersicht {
 
         gesamtEinnahmen = einnahmenZusammenRechnen();
         gesamtAusgaben = ausgabenZusammenRechnen();
-
         aktuellerKontostand = aktuellerKontostand - gesamtAusgaben + gesamtEinnahmen;
-
         return aktuellerKontostand;
-
     }
 }

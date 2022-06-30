@@ -1,3 +1,6 @@
+/*
+ * Klasse für Einnahmen
+ */
 package finanzmanager;
 
 
@@ -16,7 +19,7 @@ public class Einnahmen {
     private final int einnahmenId;
 
     /**
-     * Constructor der Einnahmen.
+     * Konstruktor der Einnahmen.
      *
      * @param einnahmenListBezeichnung Bezeichnung der Einnahme.
      * @param einnahmenListBetrag      Betrag der Einnahme.

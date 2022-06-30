@@ -3,14 +3,20 @@
 }
 
 {
-    -fx-primary-color: #383838;
-    -fx-secondary-color: #2095F3;
-    -fx-light-grey-color: #d1d1d1;
-    -fx-dark-grey-color: #1d1d1d;
+    -fx-primary-color: #383838
+;
+    -fx-secondary-color: #2095F3
+;
+    -fx-light-grey-color: #d1d1d1
+;
+    -fx-dark-grey-color: #1d1d1d
+;
 
-    -fx-focus-color: -fx-secondary-color;
+    -fx-focus-color: -fx-secondary-color
+;
 }
 
+/*==========================================Labels==========================================*/
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -44,7 +50,7 @@
 
 }
 
-/*==============================================Table View====================================*/
+/*==========================================Table View==========================================*/
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #383838; /*#1d1d1d;*/
@@ -64,11 +70,7 @@
     -fx-text-fill: white;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
-    -fx-border-color:
-            transparent
-            transparent
-            derive(-fx-base, 80%)
-            transparent;
+    -fx-border-color: transparent transparent derive(-fx-base, 80%) transparent;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -90,11 +92,10 @@
     -fx-text-background-color: white;
 }
 
-
-/*====================================================Other=======================================*/
+/*==========================================Others==========================================*/
 .split-pane:horizontal > .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d,20%);
+    -fx-background-color: transparent, derive(#1d1d1d, 20%);
 }
 
 .split-pane {
@@ -102,11 +103,11 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d,20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d,50%);
+    -fx-background-color: derive(#1d1d1d, 50%);
 }
 
 .menu-bar .label {
@@ -120,26 +121,21 @@
     -fx-background-color: black;
 }
 
+/*==========================================Textfield==========================================*/
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
 }
 
-.text-field-dark{
-    -fx-background-color: #515355 ;
+.text-field-dark {
+    -fx-background-color: #515355;
     -fx-font-size: 12pt;
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI Semibold";
 }
 
-.radio-button {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-opacity: 0.6;
-}
-
-.check-box{
+/*==========================================Check/ComboBox==========================================*/
+.check-box {
     -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
@@ -170,7 +166,7 @@
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
-/* =======================================Buttons===========================================*/
+/*==========================================Buttons==========================================*/
 .button {
     -fx-padding: 5 22 5 22;
     -fx-border-color: #e2e2e2;
@@ -189,7 +185,7 @@
 }
 
 .button-delete {
-    -fx-background-color:#515355;
+    -fx-background-color: #515355;
     -fx-border-color: null;
     -fx-border-width: 0;
 }
@@ -204,8 +200,8 @@
     -fx-text-fill: #d8d8d8;
 }
 
-.button-test1 {
-    -fx-background-color:#1d1d1d, #1d1d1d;
+.button-round2 {
+    -fx-background-color: #1d1d1d, #1d1d1d;
     -fx-background-radius: 16.4, 15;
     -fx-background-insets: -1.4, 0;
     -fx-border-radius: 15;
@@ -215,6 +211,7 @@
     -fx-font-size: 18;
     -fx-font-family: "Segoe UI Semibold";
 }
+
 
 .button:hover {
     /*-fx-background-color: #3a3a3a;*/
@@ -230,7 +227,7 @@
 .button:focused {
     -fx-border-color: white, white;
     -fx-border-width: 1, 1;
-//-fx-border-style: solid, segments(1, 1);
+/* -fx-border-style: solid, segments(1, 1);*/
     -fx-border-radius: 0, 0;
     -fx-border-insets: 1 1 1 1, 0;
 }
@@ -247,10 +244,17 @@
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color,30%);
+    -fx-background-color: derive(-fx-focus-color, 30%);
 }
 
-/*  =============================For Tab Pane Blue and Black ===================================*/
+.radio-button {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 0.6;
+}
+
+/*==========================================TabBar==========================================*/
 
 .tab-pane > .tab-header-area {
     -fx-padding: 0;
@@ -267,7 +271,7 @@
     -fx-padding: 1.5em 1em;
 }
 
-.tab-pane > .tab-header-area > .headers-region > .tab >.tab-container >.tab-label {
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
     -fx-text-fill: #63B5F6;
 }
 
@@ -276,22 +280,23 @@
     -fx-background-insets: 0, 0 0 2px 0;
 }
 
-.tab-pane > .tab-header-area > .headers-region > .tab:selected >.tab-container >.tab-label {
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
     -fx-text-fill: #2095F3;
 }
 
-.tab-pane > .tab-header-area > .headers-region > .tab:selected >.tab-container >.focus-indicator {
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .focus-indicator {
     -fx-opacity: 0;
 }
-/*=========================================================================================================*/
 
-/* Test for MenuButton */
+/*==========================================MenuButtons==========================================*/
+
 .menu-button {
     -fx-background-color: #383838;
 }
 
 .menu-button .label {
-    -fx-background-color: #383838; }
+    -fx-background-color: #383838;
+}
 
 .menu-item .label {
     -fx-text-fill: white;
@@ -312,53 +317,64 @@
     -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
 }
 
-/*==========================================datepicker==================================*/
+/*==========================================Datepicker==========================================*/
 
 .date-picker .arrow-button {
     -fx-background-color: -fx-primary-color;
     -fx-background-radius: 0;
 }
+
 .date-picker .arrow-button:hover {
     -fx-background-color: -fx-secondary-color;
 }
+
 .date-picker .arrow-button .arrow {
     -fx-background-color: white;
 }
+
 .date-picker .cell {
     -fx-background-color: white;
 }
+
 .date-picker .cell:hover {
     -fx-background-color: -fx-light-grey-color;
 }
+
 .date-picker .cell:focused {
     -fx-background-color: -fx-light-grey-color;
 }
+
 .date-picker .selected {
     -fx-background-color: -fx-primary-color;
     -fx-text-fill: white;
 }
+
 .date-picker .selected:focused {
     -fx-background-color: -fx-primary-color;
     -fx-text-fill: white;
 }
-.date-picker-popup  {
+
+.date-picker-popup {
     -fx-border-color: transparent;
 }
+
 .date-picker-popup .month-year-pane {
     -fx-background-color: -fx-primary-color;
 }
+
 .date-picker-popup .month-year-pane .label {
     -fx-text-fill: white;
 }
+
 .date-picker-popup .week-number-cell {
     -fx-text-fill: -fx-secondary-color;
 }
+
 .date-picker-popup .spinner .button .left-arrow,
 .date-picker-popup .spinner .button .right-arrow {
     -fx-background-color: white;
 }
 
-/*=============================================================================================*/
 
 
 

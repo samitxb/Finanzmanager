@@ -256,9 +256,9 @@
                         <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                         <Line endX="463.0" fill="WHITE" layoutX="138.0" layoutY="94.0" startX="-98.0" stroke="WHITE" strokeWidth="1.5" />
                         <Line endX="944.0" endY="-6.0" layoutX="129.0" layoutY="631.0" startX="-119.0" startY="-6.0" stroke="#ffffff2f" />
-                        <Button layoutX="512.0" layoutY="36.0" maxHeight="28.0" maxWidth="41.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="30.0" styleClass="button-test1" text="i">
+                        <Button layoutX="512.0" layoutY="36.0" maxHeight="28.0" maxWidth="41.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="30.0" styleClass="button-round2" text="i">
                            <tooltip>
-                              <Tooltip text="Daueraufträge werden nur Informativ angezeigt. Eine automatische Ausführung ist nicht vorhanden!" />
+                              <Tooltip text="Wenn man eine Einnahme/Ausgabe löschen will, muss der komplette Dauerauftrag gelöscht werden!" />
                            </tooltip>
                         </Button>
                      </children></AnchorPane>

@@ -1,3 +1,6 @@
+/*
+ * Klasse dient zur Erstellung der Datenbank
+ */
 package database;
 
 import java.sql.Connection;
@@ -12,10 +15,7 @@ import java.sql.Statement;
  * @author Michael
  * @version 1.0.1
  */
-
-
 class Postgres {
-
 
     // Url der Datenbank FinanzmanagerDb
     static String url = "jdbc:postgresql://localhost:5432/FinanzmanagerDb";
@@ -30,14 +30,11 @@ class Postgres {
     /**
      * Bei Ausführung der main()-Funktion wird die Tabelle userinfo angelegt
      */
-
     public static void main(String[] args) {
-
 
         Connection connectionDb;
         Statement statementDb;
         try {
-
             Class.forName("org.postgresql.Driver");
             connectionDb = DriverManager
                     .getConnection(url, userDatabase, passwordDatabase);
@@ -95,24 +92,19 @@ class Postgres {
                     " FOREIGN KEY (user_dauerauftragID)" +
                     " REFERENCES userinfo(userID))";
 
-
             statementDb.executeUpdate(sqlUser);
             statementDb.executeUpdate(sqlEinnahmen);
             statementDb.executeUpdate(sqlAusgaben);
             statementDb.executeUpdate(sqlDauerauftrag);
 
-
             statementDb.close();
             connectionDb.close();
-
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         System.out.println("Tabellen wurde erstellt");
-
-
     }
 
 }

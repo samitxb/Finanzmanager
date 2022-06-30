@@ -1,3 +1,7 @@
+/*
+ * Diese Klasse dient zur Überprüfung von Zahlen
+ */
+
 package modelclasses;
 
 import javafx.beans.value.ChangeListener;
@@ -25,20 +29,23 @@ public class NurNummern {
         });
     }
 
-    public static boolean isDouble(String data)
-    {
-        try
-        {
+    /**
+     * Funktion überprüft, ob der Wert ein Double ist
+     *
+     * @param data ist der zu überprüfende String
+     * @return true, falls der Wert ein Double ist
+     */
+    public static boolean isDouble(String data) {
+        try {
             Double.parseDouble(data);
             return true;
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             System.out.println("Kein Double");
             return false;
         }
     }
-/* Alte Version von numericOnly */
+
+//Alte Version von numericOnly
 /*
     public static void numericOnly(final TextField textfeld) {
         textfeld.textProperty().addListener(new ChangeListener<String>() {

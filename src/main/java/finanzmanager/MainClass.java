@@ -1,3 +1,6 @@
+/*
+ * Klasse wird zur Erstellung der .jar Datei benötigt
+ */
 package finanzmanager;
 
 

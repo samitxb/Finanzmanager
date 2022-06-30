@@ -31,7 +31,6 @@ public class DauerauftragLogik {
 
                 float betrag = rs.getFloat("dauerauftrag_betrag");
 
-
                 String zeitraum = rs.getString("dauerauftrag_zeitraum");
 
                 Date letztesDatumBuchung = rs.getDate("dauerauftrag_datumabbuchung");

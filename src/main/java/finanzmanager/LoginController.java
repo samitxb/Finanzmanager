@@ -1,6 +1,9 @@
+/*
+ * Klasse dient als Controller für das Login/Registrations Fenster
+ */
+
 package finanzmanager;
 
-import database.GetPostgresData;
 import database.JavaPostgres;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,17 +27,15 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- * Klasse LoginController ist der Controller für die hello-view.fxml. Also für das Login & Registrations Fenster.
+ * Klasse LoginController ist der Controller für die LoginView.fxml. Also für das Login & Registrations Fenster.
  *
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
  */
-
 public class LoginController {
 
-
     public static int id;
-    //--------------Login Register----------------------------------
+    /*=======================================Login=======================================*/
     @FXML
     private TextField loginName;
     @FXML
@@ -45,7 +46,7 @@ public class LoginController {
     private Button loginOkBtn;
     @FXML
     private Button passwortVergessenBtn;
-    //-------------Registration---------------------------------------
+    /*=======================================Registrieren=======================================*/
     @FXML
     private TextField registrationName;
     @FXML
@@ -57,16 +58,14 @@ public class LoginController {
     @FXML
     private TextField registrationUserQuestion;
 
-    //----------------------------------------------------------------
 
     /**
-     * Beim Aufrufen der Funktion, wird der volle Name des Benutzers aus der Datenbank geholt.
+     * Beim Aufrufen der Funktion wird der volle Name des Benutzers aus der Datenbank geholt.
      *
      * @return Gibt den vollen Namen des Benutzers zurück.
      * @throws SQLException -> wirft einen Fehler.
      */
     public static String getUserFullname() throws SQLException {
-
         String nameOfUser = "";
         int id = UserLogin.id;
         Connection con = JavaPostgres.databaseConnectionLink;
@@ -78,14 +77,13 @@ public class LoginController {
             nameOfUser = rs.getString("fullname");
         }
         rs.close();
-
         return nameOfUser;
     }
 
     /**
-     * Frägt ab, ob die Textfelder leer sind, falls nicht, wird die Funktion validateUserLogin aufgerufen.
+     * Fragt ab, ob die Textfelder leer sind, falls nicht, wird die Funktion validateUserLogin aufgerufen.
      *
-     * @param event -> Funktion wird beim drücken des Knopfes ausgeführt.
+     * @param event -> Funktion wird beim Drücken des Knopfes ausgeführt.
      * @throws IOException -> wirft einen Fehler.
      */
     @FXML
@@ -115,22 +113,18 @@ public class LoginController {
      * @throws IOException -> wirft einen Fehler.
      */
     public void validateUserLogin() throws IOException, SQLException {
-
         boolean match;
 
         match = UserLogin.validateUserLogin(loginName, loginPassword, errorText);
 
         if (match) {
             System.out.println(match);
-
-
             errorText.setText("Erfolgreich eingeloggt!");
             Stage stage = (Stage) loginOkBtn.getScene().getWindow();
             stage.close();
             Stage primaryStage = new Stage();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ActualView.fxml")));
             primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + getUserFullname());
-            //primaryStage.setScene(new Scene(root, 1082, 726));
             primaryStage.setScene(new Scene(root, 1082, 737));
             primaryStage.setResizable(false);
             primaryStage.show();
@@ -138,7 +132,7 @@ public class LoginController {
     }
 
     /**
-     * Öfnet das Fenster, in der ein Benutzer sein Passwort zurücksetzten kann.
+     * Öffnet das Fenster, in der ein Benutzer sein Passwort zurücksetzten kann.
      *
      * @param actionEvent -> Funktion wird beim Drücken des Knopfes ausgeführt.
      * @throws IOException -> wirft einen Fehler.
@@ -152,6 +146,4 @@ public class LoginController {
         passwortStage.initModality(Modality.APPLICATION_MODAL);
         passwortStage.show();
     }
-
 }
-

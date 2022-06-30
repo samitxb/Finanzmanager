@@ -1,3 +1,6 @@
+/*
+ * Klasse verwaltet die User Registration
+ */
 package modelclasses;
 
 import database.JavaPostgres;
@@ -7,7 +10,7 @@ import javafx.scene.control.TextField;
 import java.util.Objects;
 
 /**
- * Klasse UserRegistration setzt die Registration Data
+ * Klasse UserRegistration setzt die Registration Daten
  *
  * @author Max Weichselgartner
  * @version 1.0
@@ -15,16 +18,15 @@ import java.util.Objects;
 public class UserRegistration {
 
     /**
-     * Die Übergebenen Parameter werden überprüft, ob sie leer sind, falls nicht werden die Daten an die Datenbank weitergegeben.
+     * Die übergebenen Parameter werden überprüft, ob sie leer sind, falls nicht, werden die Daten an die Datenbank weitergegeben.
      *
      * @param registrationName         ist der vollständige Name
      * @param registrationUserName     ist der Benutzername
      * @param registrationUserPassword ist das Passwort
-     * @param registrationUserQuestion ist die Sicherheitsfragenantwort
+     * @param registrationUserQuestion ist die Sicherheitsfragen Antwort
      * @param regsuccsessfulllabel     ist das Label
      */
     public static void setRegistrationData(TextField registrationName, TextField registrationUserName, TextField registrationUserPassword, TextField registrationUserQuestion, Label regsuccsessfulllabel) {
-
         System.out.println(registrationUserName.getText());
         System.out.println(registrationUserPassword.getText());
 
@@ -42,6 +44,7 @@ public class UserRegistration {
             regsuccsessfulllabel.setText("Keine Sicherheitsantwort!");
         } else {
             JavaPostgres.writeToDatabaseUser(registrationName.getText(), registrationUserName.getText(), registrationUserPassword.getText(), registrationUserQuestion.getText());
+
             registrationName.clear();
             registrationUserName.clear();
             registrationUserPassword.clear();

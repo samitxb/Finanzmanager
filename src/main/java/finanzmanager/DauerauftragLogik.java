@@ -7,7 +7,7 @@ import java.time.*;
 
 public class DauerauftragLogik {
 
-    public static void main(String[] args) throws SQLException {
+    public void dauerauftragAbbuchung() throws SQLException {
 
         int id = UserLogin.id;
 

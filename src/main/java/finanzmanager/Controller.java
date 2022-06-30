@@ -191,6 +191,12 @@ public class Controller implements Initializable {
         ladeDatenEinnahmen();
         ladeDatenDauerauftrag();
 
+        try {
+            DauerauftragLogik.dauerauftragKontrolle();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         NurNummern.numericOnly(ausgabenBetrag);
         NurNummern.numericOnly(einnahmenBetrag);
         NurNummern.numericOnly(dauerauftragBetrag);

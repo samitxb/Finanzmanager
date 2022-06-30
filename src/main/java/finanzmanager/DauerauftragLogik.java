@@ -7,7 +7,7 @@ import java.time.*;
 
 public class DauerauftragLogik {
 
-    public void dauerauftragKontrolle() throws SQLException {
+    public static void dauerauftragKontrolle() throws SQLException {
 
         int id = UserLogin.id;
 
@@ -22,7 +22,6 @@ public class DauerauftragLogik {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
-
 
             while(rs.next())
             {
@@ -106,12 +105,6 @@ public class DauerauftragLogik {
                     }
                 }
             }
-
-
-
-
-
-
 
         } catch (SQLException e) {
             e.printStackTrace();

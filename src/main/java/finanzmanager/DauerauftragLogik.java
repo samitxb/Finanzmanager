@@ -15,10 +15,9 @@ import java.time.temporal.ChronoUnit;
 
 public class DauerauftragLogik {
 
-    public void test() throws SQLException {
+    public static void main(String[] args) throws SQLException {
 
         int id = UserLogin.id;
-
 
         //==========================================Datenbank Connection==========================================
         JavaPostgres javaPostgres = new JavaPostgres();
@@ -28,21 +27,27 @@ public class DauerauftragLogik {
 
             //==========================================Datenbank abfrage ==========================================
 
-            PreparedStatement statement = connection.prepareStatement("SELECT dauerauftragid, dauerauftrag_zeitraum, dauerauftrag_datumabbuchung, dauerauftrag_ausgabe_einnahme FROM dauerauftrag WHERE user_dauerauftragid=?");
-            statement.setInt(1, id);
-            ResultSet res = statement.executeQuery();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
+            statement.setInt(1, 1);
+            ResultSet rs = statement.executeQuery();
 
-            while (res.next()){
-                int dauerauftragid = res.getInt("dauerauftragid");
-                String zeitraum = res.getString("dauerauftrag_zeitraum");
 
-                Date letztesDatumAbbuchung = res.getDate("dauerauftrag_datumabbuchung");
-                Instant i_letztesDatumAbbuchung = letztesDatumAbbuchung.toInstant();
+            while(rs.next())
+            {
+                int dauerauftragid = rs.getInt("dauerauftragid");
 
-                boolean einnahme_ausgabe = res.getBoolean("dauerauftrag_ausgabe_einnahme");                     //1 bedeutet Einnahme, 0 bedeutet Ausgabe
+
+                String zeitraum = rs.getString("dauerauftrag_zeitraum");
+
+                Date letztesDatumAbbuchung = rs.getDate("dauerauftrag_datumabbuchung");
+
+                boolean einnahme_ausgabe = rs.getBoolean("dauerauftrag_ausgabe_einnahme");                     //1 bedeutet Einnahme, 0 bedeutet Ausgabe
+
+                System.out.println("TEST: " + zeitraum+ letztesDatumAbbuchung+  einnahme_ausgabe);
 
                 Date heute = Date.valueOf(LocalDate.now());
-                Instant i_heute = heute.toInstant();
+
+                System.out.println("TEST: " + zeitraum+ letztesDatumAbbuchung+ einnahme_ausgabe+ heute);
 
                 //==========================================Check des Zeitraumes==========================================
                 long zeitraumTage = 0;
@@ -63,15 +68,18 @@ public class DauerauftragLogik {
 
                 //========================================== Eigentliche Logik==========================================
                 //==========================================Logik EInnahme==========================================
-                if (einnahme_ausgabe){
-                    long tageDazwischen = ChronoUnit.DAYS.between(i_letztesDatumAbbuchung, i_heute);
-
-                    //int test = tageDazwischen / zeitraumTage;
-
-                }
 
 
+                System.out.println("TEST: " + dauerauftragid + " " + zeitraum +" " + letztesDatumAbbuchung+ " " + einnahme_ausgabe + " " + zeitraumTage);
 
+                letztesDatumAbbuchung = Date.valueOf(letztesDatumAbbuchung.toLocalDate().plusDays(zeitraumTage));
+
+                System.out.println("Test Tage " + letztesDatumAbbuchung);
+
+                PreparedStatement pst = connection.prepareStatement("UPDATE Dauerauftrag SET dauerauftrag_datumabbuchung = ? WHERE user_dauerauftragid = ?");
+                pst.setDate(1, letztesDatumAbbuchung);
+                pst.setInt(2, 1);
+                pst.executeUpdate();
 
 
             }

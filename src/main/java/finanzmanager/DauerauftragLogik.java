@@ -7,7 +7,7 @@ import java.time.*;
 
 public class DauerauftragLogik {
 
-    public void dauerauftragAbbuchung() throws SQLException {
+    public void dauerauftragKontrolle() throws SQLException {
 
         int id = UserLogin.id;
 
@@ -20,7 +20,7 @@ public class DauerauftragLogik {
             //==========================================Datenbank abfrage ==========================================
 
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
-            statement.setInt(1, 1);
+            statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
 
@@ -77,7 +77,7 @@ public class DauerauftragLogik {
 
                         if (zwischenDate.before(heute)){
                             pst.setDate(1, zwischenDate);
-                            pst.setInt(2, 1);
+                            pst.setInt(2, id);
                             pst.executeUpdate();
 
                             JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
@@ -98,7 +98,7 @@ public class DauerauftragLogik {
 
                         if (zwischenDate.before(heute)){
                             pst.setDate(1, zwischenDate);
-                            pst.setInt(2, 1);
+                            pst.setInt(2, id);
                             pst.executeUpdate();
 
                             JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);

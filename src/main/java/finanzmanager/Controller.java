@@ -340,7 +340,7 @@ public class Controller implements Initializable {
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
      *
-     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      * @throws SQLException → wirft einen Fehler.
      */
     @FXML
@@ -380,8 +380,8 @@ public class Controller implements Initializable {
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
      *
-     * @param event -> wird beim drücken des Knopfes ausgeführt.
-     * @throws SQLException -> wirft einen Fehler
+     * @param event → wird beim Drücken des Knopfes ausgeführt.
+     * @throws SQLException → wirft einen Fehler
      */
     @FXML
     void einnahmeHinzufuegenBtn(ActionEvent event) throws SQLException {
@@ -455,7 +455,6 @@ public class Controller implements Initializable {
             labelDauerauftraege.setText("Bitte Einnahme noch Ausgabe auswählen!");
         } else {
             dauerauftrag_einnahme_ausgabe = !dauerauftragAusgabe.isSelected();
-
             labelDauerauftraege.setText("Gespeichert!");
 
             JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText(), dauerauftrag_einnahme_ausgabe);
@@ -485,7 +484,7 @@ public class Controller implements Initializable {
      * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
      * als auch in der Datenbank gelöscht.
      *
-     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      * @throws SQLException → wirft einen Fehler
      */
     public void ausgabenListLoeschen(ActionEvent actionEvent) throws SQLException {

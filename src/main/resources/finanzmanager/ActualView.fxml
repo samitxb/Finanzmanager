@@ -200,8 +200,8 @@
                                  <columns>
                                     <TableColumn fx:id="dauerauftraegeListDatum" prefWidth="78.0" text="Datum" />
                                     <TableColumn fx:id="dauerauftraegeListBezeichnung" prefWidth="95.0" text="Bezeichnung" />
-                                    <TableColumn fx:id="dauerauftraegeListBetrag" prefWidth="76.0" text="Betrag in €" />
-                                    <TableColumn fx:id="dauerauftraegeListDauer" prefWidth="60.0" text="Dauer" />
+                                    <TableColumn fx:id="dauerauftraegeListBetrag" prefWidth="64.0" text="Betrag in €" />
+                                    <TableColumn fx:id="dauerauftraegeListDauer" prefWidth="72.0" text="Dauer" />
                                  </columns>
                               </TableView>
                               <Button fx:id="dauerauftragListLoeschenBtn" layoutX="212.0" layoutY="24.0" mnemonicParsing="false" onAction="#dauerauftragListLoeschen" styleClass="button-delete" text="Löschen" />

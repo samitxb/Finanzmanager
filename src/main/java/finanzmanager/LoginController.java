@@ -124,7 +124,7 @@ public class LoginController {
             stage.close();
             Stage primaryStage = new Stage();
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ActualView.fxml")));
-            primaryStage.setTitle("FINANZMANAGER - " + loginName.getText() + " - " + getUserFullname());
+            primaryStage.setTitle("FINANZMANAGER - " + getUserFullname());
             primaryStage.setScene(new Scene(root, 1082, 737));
             primaryStage.setResizable(false);
             primaryStage.show();

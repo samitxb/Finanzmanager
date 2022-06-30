@@ -1,17 +1,9 @@
 package finanzmanager;
-
 import database.JavaPostgres;
 import modelclasses.UserLogin;
-import org.joda.time.Days;
-
 import java.sql.*;
-
 import java.time.*;
-import java.time.temporal.ChronoUnit;
 
-//import java.util.Date;
-
-//import java.time.temporal.ChronoUnit;
 
 public class DauerauftragLogik {
 
@@ -36,18 +28,22 @@ public class DauerauftragLogik {
             {
                 int dauerauftragid = rs.getInt("dauerauftragid");
 
+                String bezeichnung = rs.getString("dauerauftrag_bezeichnung");
+
+                float betrag = rs.getFloat("dauerauftrag_betrag");
+
 
                 String zeitraum = rs.getString("dauerauftrag_zeitraum");
 
-                Date letztesDatumAbbuchung = rs.getDate("dauerauftrag_datumabbuchung");
+                Date letztesDatumBuchung = rs.getDate("dauerauftrag_datumabbuchung");
 
                 boolean einnahme_ausgabe = rs.getBoolean("dauerauftrag_ausgabe_einnahme");                     //1 bedeutet Einnahme, 0 bedeutet Ausgabe
 
-                System.out.println("TEST: " + zeitraum+ letztesDatumAbbuchung+  einnahme_ausgabe);
+                System.out.println("TEST: " + zeitraum+ letztesDatumBuchung+  einnahme_ausgabe);
 
                 Date heute = Date.valueOf(LocalDate.now());
 
-                System.out.println("TEST: " + zeitraum+ letztesDatumAbbuchung+ einnahme_ausgabe+ heute);
+                System.out.println("TEST: " + zeitraum+ letztesDatumBuchung+ einnahme_ausgabe+ heute);
 
                 //==========================================Check des Zeitraumes==========================================
                 long zeitraumTage = 0;
@@ -67,21 +63,48 @@ public class DauerauftragLogik {
                 }
 
                 //========================================== Eigentliche Logik==========================================
-                //==========================================Logik EInnahme==========================================
+                //==========================================Logik Einnahme==========================================
 
+                if (einnahme_ausgabe) {
 
-                System.out.println("TEST: " + dauerauftragid + " " + zeitraum +" " + letztesDatumAbbuchung+ " " + einnahme_ausgabe + " " + zeitraumTage);
+                    PreparedStatement pst = connection.prepareStatement("UPDATE Dauerauftrag SET dauerauftrag_datumabbuchung = ? WHERE user_dauerauftragid = ?");
 
-                letztesDatumAbbuchung = Date.valueOf(letztesDatumAbbuchung.toLocalDate().plusDays(zeitraumTage));
+                    Date zwischenDate = letztesDatumBuchung;
 
-                System.out.println("Test Tage " + letztesDatumAbbuchung);
+                    while(zwischenDate.before(heute)) {
 
-                PreparedStatement pst = connection.prepareStatement("UPDATE Dauerauftrag SET dauerauftrag_datumabbuchung = ? WHERE user_dauerauftragid = ?");
-                pst.setDate(1, letztesDatumAbbuchung);
-                pst.setInt(2, 1);
-                pst.executeUpdate();
+                        zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusDays(zeitraumTage));
 
+                        if (zwischenDate.before(heute)){
+                            pst.setDate(1, zwischenDate);
+                            pst.setInt(2, 1);
+                            pst.executeUpdate();
 
+                            JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
+                        }
+                    }
+                }
+
+                //==========================================Logik Ausgabe==========================================
+
+                else {
+                    PreparedStatement pst = connection.prepareStatement("UPDATE Dauerauftrag SET dauerauftrag_datumabbuchung = ? WHERE user_dauerauftragid = ?");
+
+                    Date zwischenDate = letztesDatumBuchung;
+
+                    while(zwischenDate.before(heute)) {
+
+                        zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusDays(zeitraumTage));
+
+                        if (zwischenDate.before(heute)){
+                            pst.setDate(1, zwischenDate);
+                            pst.setInt(2, 1);
+                            pst.executeUpdate();
+
+                            JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);
+                        }
+                    }
+                }
             }
 
 
@@ -95,16 +118,3 @@ public class DauerauftragLogik {
         }
     }
 }
-
-
-/**
- *              writeToDatebaseEinnahmen(betrag, bezeichnung, )
- *
- *
- *
- *
- *
- *
- *
- *
- */

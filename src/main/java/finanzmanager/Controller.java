@@ -187,21 +187,20 @@ public class Controller implements Initializable {
      * @param resourceBundle .
      */
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ladeDatenAusgaben();
-        ladeDatenEinnahmen();
-        ladeDatenDauerauftrag();
-
         try {
             DauerauftragLogik.dauerauftragKontrolle();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        ladeDatenAusgaben();
+        ladeDatenEinnahmen();
+        ladeDatenDauerauftrag();
+
         NurNummern.numericOnly(ausgabenBetrag);
         NurNummern.numericOnly(einnahmenBetrag);
         NurNummern.numericOnly(dauerauftragBetrag);
     }
-
 
     /**
      * Beim Ausführen der Funktion, werden alle Ausgabendaten in eine ObservableList geladen, und dann in den Tableviews angezeigt
@@ -235,7 +234,6 @@ public class Controller implements Initializable {
         ladeKontodaten();
     }
 
-
     /**
      * Beim Ausführen der Funktion, werden alle Einnahmendaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
      */
@@ -266,7 +264,6 @@ public class Controller implements Initializable {
         einnahmenViewUebersicht.setItems(oblistEinnahmen);
         ladeKontodaten();
     }
-
 
     /**
      * Beim Ausführen der Funktion, werden alle Dauerauftragsdaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
@@ -425,7 +422,7 @@ public class Controller implements Initializable {
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
      *
-     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt
      * @throws SQLException → wirft einen Fehler
      */
     @FXML
@@ -572,6 +569,23 @@ public class Controller implements Initializable {
     }
 
     /**
+     * Beim Drücken des Knopfes öffnet sich ein Fenster, in dem man den Speicherort der PDFDatei festlegen kann.
+     *
+     * @param event → wird beim Drücken des Knopfes ausgeführt.
+     */
+    @FXML
+    void exportierenWoBtnPressed(ActionEvent event) {
+        Stage stage = (Stage) exportWo.getScene().getWindow();
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        if (selectedDirectory != null) {
+            System.out.println(selectedDirectory.getAbsolutePath());
+            exportSpeicherort.setText(String.valueOf(selectedDirectory));
+        }
+
+    }
+
+    /**
      * Überprüft, welche CheckBoxes im Export aktiviert sind. Wenn exportAlles ausgewählt ist, kann man exportAusgaben und exportEinnahmen nicht betätigen.
      * Wenn exportEinnahmen oder exportAusgaben ausgewählt sind und man nun exportAlles auswählt, werden diese beiden deaktiviert.
      */
@@ -609,22 +623,6 @@ public class Controller implements Initializable {
         }
     }
 
-    /**
-     * Beim Drücken des Knopfes öffnet sich ein Fenster, in dem man den Speicherort der PDFDatei festlegen kann.
-     *
-     * @param event → wird beim Drücken des Knopfes ausgeführt.
-     */
-    @FXML
-    void exportierenWoBtnPressed(ActionEvent event) {
-        Stage stage = (Stage) exportWo.getScene().getWindow();
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedDirectory = directoryChooser.showDialog(stage);
-        if (selectedDirectory != null) {
-            System.out.println(selectedDirectory.getAbsolutePath());
-            exportSpeicherort.setText(String.valueOf(selectedDirectory));
-        }
-
-    }
 
     /**
      * Beim Wechseln des Tabs werden alle Labels auf leer gesetzt.
@@ -644,6 +642,12 @@ public class Controller implements Initializable {
      * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      */
     public void ladeDatenNeu(ActionEvent actionEvent) {
+        try {
+            DauerauftragLogik.dauerauftragKontrolle();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         oblistAusgaben.clear();
         oblistDauerauftraege.clear();
         oblistEinnahmen.clear();

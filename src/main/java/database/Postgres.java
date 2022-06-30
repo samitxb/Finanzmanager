@@ -50,13 +50,13 @@ class Postgres {
 
             String sqlUser = "CREATE TABLE USERINFO " +
                     "(userID                  INT      GENERATED ALWAYS AS IDENTITY NOT NULL," +
-                    " fullname                TEXT     NOT NULL," +
-                    " username                TEXT     NOT NULL," +
-                    " password                TEXT     NOT NULL," +
-                    " passwordSalt            TEXT     NOT NULL," +
+                    " fullname                VARCHAR(100)     NOT NULL," +
+                    " username                VARCHAR(100)     NOT NULL," +
+                    " password                VARCHAR(100)     NOT NULL," +
+                    " passwordSalt            VARCHAR(100)     NOT NULL," +
                     " kontostand              FLOAT     ," +
-                    " sicherheitsantwort      TEXT      NOT NULL, " +
-                    " sicherheitsantwort_salt TEXT      NOT NULL," +
+                    " sicherheitsantwort      VARCHAR(100)      NOT NULL, " +
+                    " sicherheitsantwort_salt VARCHAR(100)      NOT NULL," +
                     " PRIMARY KEY (userID))";
 
 
@@ -64,7 +64,7 @@ class Postgres {
                     "(einnahmenID           INT     GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                     " user_einnahmenID      INT     NOT NULL ," +
                     " einnahmen_betrag      FLOAT," +
-                    " einnahmen_bezeichnung TEXT, " +
+                    " einnahmen_bezeichnung VARCHAR(100), " +
                     " einnahmen_datum       DATE, " +
                     " FOREIGN KEY (user_einnahmenID)" +
                     " REFERENCES userinfo(userID))";
@@ -74,7 +74,7 @@ class Postgres {
                     "(ausgabenID            INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                     " user_ausgabenID       INT   NOT NULL ," +
                     " ausgaben_betrag       FLOAT," +
-                    " ausgaben_bezeichnung  TEXT, " +
+                    " ausgaben_bezeichnung  VARCHAR(100), " +
                     " ausgaben_datum        DATE," +
                     " FOREIGN KEY (user_ausgabenID  )" +
                     " REFERENCES userinfo(userID))";
@@ -84,11 +84,11 @@ class Postgres {
                     "(dauerauftragID            INT  GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                     " user_dauerauftragID       INT  NOT NULL ," +
                     " dauerauftrag_betrag       FLOAT," +
-                    " dauerauftrag_bezeichnung  TEXT, " +
+                    " dauerauftrag_bezeichnung  VARCHAR(100), " +
                     " dauerauftrag_datum        DATE, " +
-                    " dauerauftrag_zeitraum     TEXT," +
+                    " dauerauftrag_zeitraum     VARCHAR(100)," +
                     " dauerauftrag_datumabbuchung DATE, " +
-                    "dauerauftrag_ausgabe_einnahme BOOLEAN, " +
+                    " dauerauftrag_ausgabe_einnahme BOOLEAN, " +
                     " FOREIGN KEY (user_dauerauftragID)" +
                     " REFERENCES userinfo(userID))";
 

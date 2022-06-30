@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 import static database.JavaPostgres.databaseConnectionLink;
 
 /**
- * Klasse GetPostgresData umfasst alle benötigte Funktionen, um die Einträge aus den Datenbanktabellen zu holen
- * und in der GUI anzuzeigen
+ * Testklasse GetPostgresData umfasst alle benötigte Funktionen, um die Einträge aus den
+ * Datenbanktabellen zu holen und anzuzeigen
  *
  * @author Michael
  * @version 1.0.1
@@ -25,7 +25,6 @@ import static database.JavaPostgres.databaseConnectionLink;
 public class GetPostgresData {
 
     static int id = UserLogin.id;
-    static JavaPostgres javaPostgres = new JavaPostgres();
 
 
     /**
@@ -35,7 +34,7 @@ public class GetPostgresData {
      */
 
     public static void getAusgabenDatabase() {
-        javaPostgres.getConnection();
+
 
 
         List<String> getAusgabenListBetrag = new ArrayList<>();
@@ -122,6 +121,7 @@ public class GetPostgresData {
 
 
     public static void getDauerauftragDatabase() {
+
 
 
         List<String> getDauerauftragListBetrag = new ArrayList<>();

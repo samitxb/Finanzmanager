@@ -7,7 +7,7 @@ import java.time.*;
 
 public class DauerauftragLogik {
 
-    public static void main(String[] args) throws SQLException {
+    public static void dauerauftragKontrolle() throws SQLException {
 
         int id = UserLogin.id;
 
@@ -20,7 +20,7 @@ public class DauerauftragLogik {
             //==========================================Datenbank abfrage ==========================================
 
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
-            statement.setInt(1, 1);
+            statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
 
@@ -39,11 +39,8 @@ public class DauerauftragLogik {
 
                 boolean einnahme_ausgabe = rs.getBoolean("dauerauftrag_ausgabe_einnahme");                     //1 bedeutet Einnahme, 0 bedeutet Ausgabe
 
-                System.out.println("TEST: " + zeitraum+ letztesDatumBuchung+  einnahme_ausgabe);
-
                 Date heute = Date.valueOf(LocalDate.now());
 
-                System.out.println("TEST: " + zeitraum+ letztesDatumBuchung+ einnahme_ausgabe+ heute);
 
                 //==========================================Check des Zeitraumes==========================================
                 long zeitraumTage = 0;
@@ -77,7 +74,7 @@ public class DauerauftragLogik {
 
                         if (zwischenDate.before(heute)){
                             pst.setDate(1, zwischenDate);
-                            pst.setInt(2, 1);
+                            pst.setInt(2, id);
                             pst.executeUpdate();
 
                             JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
@@ -98,7 +95,7 @@ public class DauerauftragLogik {
 
                         if (zwischenDate.before(heute)){
                             pst.setDate(1, zwischenDate);
-                            pst.setInt(2, 1);
+                            pst.setInt(2, id);
                             pst.executeUpdate();
 
                             JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);

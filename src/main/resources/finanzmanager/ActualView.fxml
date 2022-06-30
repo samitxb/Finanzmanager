@@ -283,9 +283,9 @@
                               <Tooltip text="Hier kannst du auswählen, welche Daten du Exportieren willst!" />
                            </tooltip>
                         </Label>
-                        <CheckBox fx:id="exportEinnahmen" layoutX="37.0" layoutY="139.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="121.0" text="Einnahmen" />
-                        <CheckBox fx:id="exportAusgaben" layoutX="37.0" layoutY="173.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="121.0" text="Ausgaben" />
-                        <CheckBox fx:id="exportAlles" layoutX="37.0" layoutY="208.0" mnemonicParsing="false" onAction="#checkCheckBoxesExport" prefHeight="26.0" prefWidth="121.0" text="Alles" />
+                        <CheckBox fx:id="exportEinnahmen" layoutX="37.0" layoutY="139.0" mnemonicParsing="false" onAction="#checkCheckBoxesExportEinnahmen" prefHeight="26.0" prefWidth="121.0" text="Einnahmen" />
+                        <CheckBox fx:id="exportAusgaben" layoutX="37.0" layoutY="173.0" mnemonicParsing="false" onAction="#checkCheckBoxesExportAusgaben" prefHeight="26.0" prefWidth="121.0" text="Ausgaben" />
+                        <CheckBox fx:id="exportDauerauftraege" layoutX="37.0" layoutY="208.0" mnemonicParsing="false" onAction="#checkCheckBoxesExportDauerauftraege" prefHeight="26.0" prefWidth="121.0" text="Daueraufträge" />
                         <Button layoutX="849.0" layoutY="629.0" mnemonicParsing="false" onAction="#enterSettings" prefHeight="33.0" prefWidth="138.0" styleClass="button-quit" text="Einstellungen" />
                         <Label layoutX="37.0" layoutY="247.0" text="Name:" />
                         <TextField fx:id="exportName" layoutX="37.0" layoutY="268.0" promptText="Name" />

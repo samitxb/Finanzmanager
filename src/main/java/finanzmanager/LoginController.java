@@ -88,7 +88,6 @@ public class LoginController {
      */
     @FXML
     void btnOKClicked(ActionEvent event) throws IOException, SQLException {
-
         if (!loginName.getText().isBlank() && !loginPassword.getText().isBlank()) {
             System.out.println("Login...");
             validateUserLogin();

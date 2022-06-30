@@ -163,7 +163,7 @@ public class Controller implements Initializable {
 
     /*=======================================Export=======================================*/
     @FXML
-    private CheckBox exportAlles;
+    private CheckBox exportDauerauftraege;
     @FXML
     private CheckBox exportAusgaben;
     @FXML
@@ -328,7 +328,7 @@ public class Controller implements Initializable {
     @FXML
     public void enterSettings(ActionEvent actionEvent) throws IOException {
         Stage secondaryStage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Settings.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SettingsView.fxml")));
         secondaryStage.setTitle("Einstellungen");
         secondaryStage.setScene(new Scene(root, 400, 500));
         secondaryStage.setResizable(false);
@@ -546,7 +546,7 @@ public class Controller implements Initializable {
      */
     @FXML
     void exportierenBtnPressed(ActionEvent event) throws SQLException {
-        if (!exportAlles.isSelected() && !exportEinnahmen.isSelected() && !exportAusgaben.isSelected()) {
+        if (!exportDauerauftraege.isSelected() && !exportEinnahmen.isSelected() && !exportAusgaben.isSelected()) {
             labelExport.setText("Keine Daten ausgewählt!");
         } else if (exportSpeicherort.getText().equals("")) {
             labelExport.setText("Kein Speicherort ausgewählt!");
@@ -561,13 +561,12 @@ public class Controller implements Initializable {
                 PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
                 labelExport.setText("Exportiert!");
             }
-            if (exportAlles.isSelected()) {
-                PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
-                PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
+            if (exportDauerauftraege.isSelected()) {
+                PDFGenerator.pdfGenDauerauftrag(exportSpeicherort.getText(), exportName.getText());
                 labelExport.setText("Exportiert!");
             }
             exportSpeicherort.setText(null);
-            exportAlles.setSelected(false);
+            exportDauerauftraege.setSelected(false);
             exportAusgaben.setSelected(false);
             exportEinnahmen.setSelected(false);
             exportName.clear();
@@ -590,25 +589,38 @@ public class Controller implements Initializable {
             System.out.println(selectedDirectory.getAbsolutePath());
             exportSpeicherort.setText(String.valueOf(selectedDirectory));
         }
-
     }
 
     /**
-     * Überprüft, welche CheckBoxes im Export aktiviert sind. Wenn exportAlles ausgewählt ist, kann man exportAusgaben und exportEinnahmen nicht betätigen.
-     * Wenn exportEinnahmen oder exportAusgaben ausgewählt sind und man nun exportAlles auswählt, werden diese beiden deaktiviert.
+     * Wenn Ausgaben ausgewählt wird, werden beide anderen Checkboxes abgewählt
      */
-    public void checkCheckBoxesExport() {
-        if (exportAlles.isSelected()) {
-            exportAusgaben.setSelected(false);
+    @FXML
+    void checkCheckBoxesExportAusgaben(ActionEvent event) {
+        if (exportAusgaben.isSelected()) {
+            exportDauerauftraege.setSelected(false);
             exportEinnahmen.setSelected(false);
-            exportEinnahmen.setDisable(true);
-            exportAusgaben.setDisable(true);
-        } else {
-            exportEinnahmen.setDisable(false);
-            exportAusgaben.setDisable(false);
         }
     }
-
+    /**
+     * Wenn Daueraufträge ausgewählt wird, werden beide anderen Checkboxes abgewählt
+     */
+    @FXML
+    void checkCheckBoxesExportDauerauftraege(ActionEvent event) {
+        if (exportDauerauftraege.isSelected()) {
+            exportAusgaben.setSelected(false);
+            exportEinnahmen.setSelected(false);
+        }
+    }
+    /**
+     * Wenn Einnahmen ausgewählt wird, werden beide anderen Checkboxes abgewählt
+     */
+    @FXML
+    void checkCheckBoxesExportEinnahmen(ActionEvent event) {
+        if (exportEinnahmen.isSelected()) {
+            exportAusgaben.setSelected(false);
+            exportDauerauftraege.setSelected(false);
+        }
+    }
     /**
      * Wenn man Einnahme auswählt, wird Ausgabe deaktiviert.
      *

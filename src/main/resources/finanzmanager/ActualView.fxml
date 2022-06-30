@@ -68,7 +68,7 @@
                               <Label layoutX="18.0" layoutY="161.0" text="Gesamtausgaben:" />
                               <TextField fx:id="gesamtAusgabenUebersicht" editable="false" layoutX="18.0" layoutY="189.0" styleClass="text-field-dark" />
                               <Label layoutX="18.0" layoutY="241.0" text="Gesamteinnahmen:" />
-                              <TextField fx:id="gesamteinnahmenUebersicht" editable="false" layoutX="18.0" layoutY="269.0" styleClass="text-field-dark" />
+                              <TextField fx:id="gesamtEinnahmenUebersicht" editable="false" layoutX="18.0" layoutY="269.0" styleClass="text-field-dark" />
                            </children>
                         </AnchorPane>
                         <Button fx:id="quitBtn" layoutX="998.0" layoutY="629.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="33.0" prefWidth="78.0" styleClass="button-quit" text="Quit" />
@@ -78,7 +78,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab onSelectionChanged="#clearlabels" text="Ausgaben">
+          <Tab onSelectionChanged="#clearLabels" text="Ausgaben">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -131,7 +131,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab onSelectionChanged="#clearlabels" text="Einnahmen">
+            <Tab onSelectionChanged="#clearLabels" text="Einnahmen">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -185,7 +185,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab onSelectionChanged="#clearlabels" text="Daueraufträge">
+            <Tab onSelectionChanged="#clearLabels" text="Daueraufträge">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -293,7 +293,7 @@
                         <Label fx:id="exportSpeicherort" layoutX="37.0" layoutY="365.0" prefHeight="33.0" prefWidth="569.0" />
                         <Line endX="944.0" endY="-6.0" layoutX="129.0" layoutY="631.0" startX="-119.0" startY="-6.0" stroke="#ffffff2f" />
                         <Line endX="463.0" fill="WHITE" layoutX="138.0" layoutY="94.0" startX="-98.0" stroke="WHITE" strokeWidth="1.5" />
-                        <Label fx:id="exportLabel" layoutX="37.0" layoutY="464.0" prefHeight="21.0" prefWidth="286.0" />
+                        <Label fx:id="labelExport" layoutX="37.0" layoutY="464.0" prefHeight="21.0" prefWidth="286.0" />
                      </children></AnchorPane>
               </content>
             </Tab>

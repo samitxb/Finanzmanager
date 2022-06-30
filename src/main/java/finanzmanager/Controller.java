@@ -1,6 +1,8 @@
+/*
+ *  Diese Klasse dient als Controller für die ActualView
+ */
 package finanzmanager;
 
-import database.GetPostgresData;
 import database.JavaPostgres;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,32 +42,27 @@ import static database.JavaPostgres.databaseConnectionLink;
  * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
  */
-
 public class Controller implements Initializable {
-
-
     private static final DecimalFormat df = new DecimalFormat("0.00");
     public Float kontostand;
     public Float gesamtAusgaben;
     public Float gesamtEinnahmen;
 
-    //------------------------------------------------------------------
-    ObservableList<Ausgaben> oblistausgaben = FXCollections.observableArrayList();
+    // UserLogin Id zur Abfrage, welche Daten aus der Datenbank geholt werden sollen
     int id = UserLogin.id;
-    ObservableList<Dauerauftraege> oblistdauerauftraege = FXCollections.observableArrayList();
-    ObservableList<Einnahmen> oblisteinnahmen = FXCollections.observableArrayList();
-    //-----------------Ausgaben Reiter--------------------------------
+
+    /*=======================================ObservableList=======================================*/
+    ObservableList<Ausgaben> oblistAusgaben = FXCollections.observableArrayList();
+    ObservableList<Dauerauftraege> oblistDauerauftraege = FXCollections.observableArrayList();
+    ObservableList<Einnahmen> oblistEinnahmen = FXCollections.observableArrayList();
+
+    /*=======================================Ausgaben=======================================*/
     @FXML
     private TextField ausgabenBetrag;
     @FXML
-    /**
-     * Textfeld zur Eingabe vom Datum der Ausgabe
-     */
     private DatePicker ausgabenDate;
     @FXML
     private TextField ausgabenBezeichnung;
-
-    //----------------------------------------------------------------
     @FXML
     private Label labelAusgaben;
     @FXML
@@ -77,11 +74,19 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<Ausgaben, String> ausgabenListDatum;
     @FXML
+    private TableView<Ausgaben> ausgabenViewUebersicht;
+    @FXML
+    private TableColumn<Ausgaben, Float> ausgabenListBetragUebersicht;
+    @FXML
+    private TableColumn<Ausgaben, String> ausgabenListBezeichnungUebersicht;
+    @FXML
+    private TableColumn<Ausgaben, String> ausgabenListDatumUebersicht;
+    @FXML
     private Button ausgabenListLoeschenBtn;
+
+    /*=======================================Daueraufträge=======================================*/
     @FXML
     private TableColumn<Dauerauftraege, Float> dauerauftraegeListBetrag;
-
-    //----------------------------------------------------------------
     @FXML
     private TableColumn<Dauerauftraege, String> dauerauftraegeListBezeichnung;
     @FXML
@@ -92,6 +97,16 @@ public class Controller implements Initializable {
     private TableColumn<Dauerauftraege, String> dauerauftraegeListDauer;
     @FXML
     private Button dauerauftragListLoeschenBtn;
+
+    /*=======================================Einnahmen=======================================*/
+    @FXML
+    private TableView<Einnahmen> einnahmenViewUebersicht;
+    @FXML
+    private TableColumn<Einnahmen, Float> einnahmenListBetragUebersicht;
+    @FXML
+    private TableColumn<Einnahmen, String> einnahmenListBezeichnungUebersicht;
+    @FXML
+    private TableColumn<Einnahmen, String> einnahmenListDatumUebersicht;
     @FXML
     private TableColumn<Einnahmen, Float> einnahmenListBetrag;
     @FXML
@@ -102,29 +117,6 @@ public class Controller implements Initializable {
     private TableView<Einnahmen> einnahmenView;
     @FXML
     private Button einnahmenListLoeschenBtn;
-    //----------------------------------------------------------------
-    @FXML
-    private TableView<Ausgaben> ausgabenViewUebersicht;
-    @FXML
-    private TableColumn<Ausgaben, Float> ausgabenListBetragUebersicht;
-    @FXML
-    private TableColumn<Ausgaben, String> ausgabenListBezeichnungUebersicht;
-    @FXML
-    private TableColumn<Ausgaben, String> ausgabenListDatumUebersicht;
-
-
-    //-----------------Einnahmen Reiter--------------------------------
-    //----------------------------------------------------------------
-    @FXML
-    private TableView<Einnahmen> einnahmenViewUebersicht;
-    @FXML
-    private TableColumn<Einnahmen, Float> einnahmenListBetragUebersicht;
-    @FXML
-    private TableColumn<Einnahmen, String> einnahmenListBezeichnungUebersicht;
-    @FXML
-    private TableColumn<Einnahmen, String> einnahmenListDatumUebersicht;
-
-    //----------------------------------------------------------------
     @FXML
     private TextField einnahmenBetrag;
     @FXML
@@ -138,8 +130,9 @@ public class Controller implements Initializable {
     @FXML
     private TextField gesamtAusgabenUebersicht;
     @FXML
-    private TextField gesamteinnahmenUebersicht;
-    //--------------------Daueraufträge ------------------------------
+    private TextField gesamtEinnahmenUebersicht;
+
+    /*=======================================Daueraufträge=======================================*/
     @FXML
     private MenuButton menubarZeitspanneDauerauftrag;
 
@@ -164,37 +157,28 @@ public class Controller implements Initializable {
     @FXML
     private Label labelDauerauftraege;
 
-    //----------------------------------------------------------------
-
+    /*=======================================Quit=======================================*/
     @FXML
     private Button quitBtn;
 
-    //----------------------------------------------------------------
-
+    /*=======================================Export=======================================*/
     @FXML
     private CheckBox exportAlles;
-
     @FXML
     private CheckBox exportAusgaben;
-
     @FXML
     private CheckBox exportEinnahmen;
-
     @FXML
     private Button exportExportierenBtn;
-
     @FXML
     private TextField exportName;
-
     @FXML
     private Label exportSpeicherort;
-
     @FXML
     private Button exportWo;
-
     @FXML
-    private Label exportLabel;
-    //--------------------------------------------------------------------------
+    private Label labelExport;
+
 
     /**
      * Beim start des Controllers werden diese Funktionen ausgeführt.
@@ -203,7 +187,6 @@ public class Controller implements Initializable {
      * @param resourceBundle .
      */
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         ladeDatenAusgaben();
         ladeDatenEinnahmen();
         ladeDatenDauerauftrag();
@@ -213,13 +196,13 @@ public class Controller implements Initializable {
         NurNummern.numericOnly(dauerauftragBetrag);
     }
 
+
     /**
      * Beim Ausführen der Funktion, werden alle Ausgabendaten in eine ObservableList geladen, und dann in den Tableviews angezeigt
      */
     public void ladeDatenAusgaben() {
         JavaPostgres javaPostgres = new JavaPostgres();
         javaPostgres.getConnection();
-
 
         try {
             Connection con = databaseConnectionLink;
@@ -228,20 +211,11 @@ public class Controller implements Initializable {
             ResultSet rs = pstAusgaben.executeQuery();
 
             while (rs.next()) {
-                oblistausgaben.add(
-                        new Ausgaben(
-                                rs.getString("ausgaben_bezeichnung"),
-                                rs.getFloat("ausgaben_betrag"),
-                                rs.getString("ausgaben_datum"),
-                                rs.getInt("ausgabenid")
-                        )
-                );
+                oblistAusgaben.add(new Ausgaben(rs.getString("ausgaben_bezeichnung"), rs.getFloat("ausgaben_betrag"), rs.getString("ausgaben_datum"), rs.getInt("ausgabenid")));
             }
         } catch (SQLException exception) {
             Logger.getLogger(Ausgaben.class.getName()).log(Level.SEVERE, null, exception);
         }
-
-
         ausgabenListDatum.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListDatum"));
         ausgabenListBezeichnung.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
         ausgabenListBetrag.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
@@ -250,13 +224,11 @@ public class Controller implements Initializable {
         ausgabenListBezeichnungUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, String>("ausgabenListBezeichnung"));
         ausgabenListBetragUebersicht.setCellValueFactory(new PropertyValueFactory<Ausgaben, Float>("ausgabenListBetrag"));
 
-
-        ausgabenView.setItems(oblistausgaben);
-        ausgabenViewUebersicht.setItems(oblistausgaben);
-
+        ausgabenView.setItems(oblistAusgaben);
+        ausgabenViewUebersicht.setItems(oblistAusgaben);
         ladeKontodaten();
-
     }
+
 
     /**
      * Beim Ausführen der Funktion, werden alle Einnahmendaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
@@ -271,14 +243,7 @@ public class Controller implements Initializable {
             ResultSet rs = pstEinnahmen.executeQuery();
 
             while (rs.next()) {
-                oblisteinnahmen.add(
-                        new Einnahmen(
-                                rs.getString("einnahmen_bezeichnung"),
-                                rs.getFloat("einnahmen_betrag"),
-                                rs.getString("einnahmen_datum"),
-                                rs.getInt("einnahmenid")
-                        )
-                );
+                oblistEinnahmen.add(new Einnahmen(rs.getString("einnahmen_bezeichnung"), rs.getFloat("einnahmen_betrag"), rs.getString("einnahmen_datum"), rs.getInt("einnahmenid")));
             }
         } catch (SQLException exception) {
             Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
@@ -291,14 +256,14 @@ public class Controller implements Initializable {
         einnahmenListBezeichnungUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, String>("einnahmenListBezeichnung"));
         einnahmenListBetragUebersicht.setCellValueFactory(new PropertyValueFactory<Einnahmen, Float>("einnahmenListBetrag"));
 
-        einnahmenView.setItems(oblisteinnahmen);
-        einnahmenViewUebersicht.setItems(oblisteinnahmen);
-
+        einnahmenView.setItems(oblistEinnahmen);
+        einnahmenViewUebersicht.setItems(oblistEinnahmen);
         ladeKontodaten();
     }
 
+
     /**
-     * Beim ausführen der Funktion, werden alle Dauerauftragdaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
+     * Beim Ausführen der Funktion, werden alle Dauerauftragsdaten in eine ObservableList geladen, und dann in den Tableviews angezeigt.
      */
     public void ladeDatenDauerauftrag() {
         try {
@@ -308,17 +273,8 @@ public class Controller implements Initializable {
             ResultSet rs = pstDauerauftrag.executeQuery();
 
             while (rs.next()) {
-                oblistdauerauftraege.add(
-                        new Dauerauftraege(
-                                rs.getString("dauerauftrag_bezeichnung"),
-                                rs.getFloat("dauerauftrag_betrag"),
-                                rs.getString("dauerauftrag_datum"),
-                                rs.getString("dauerauftrag_zeitraum"),
-                                rs.getInt("dauerauftragid")
-                        )
-                );
+                oblistDauerauftraege.add(new Dauerauftraege(rs.getString("dauerauftrag_bezeichnung"), rs.getFloat("dauerauftrag_betrag"), rs.getString("dauerauftrag_datum"), rs.getString("dauerauftrag_zeitraum"), rs.getInt("dauerauftragid")));
             }
-
         } catch (SQLException exception) {
             Logger.getLogger(Einnahmen.class.getName()).log(Level.SEVERE, null, exception);
         }
@@ -327,10 +283,8 @@ public class Controller implements Initializable {
         dauerauftraegeListBetrag.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, Float>("dauerauftraegeListBetrag"));
         dauerauftraegeListDauer.setCellValueFactory(new PropertyValueFactory<Dauerauftraege, String>("dauerauftraegeListDauer"));
 
-        dauerauftraegeView.setItems(oblistdauerauftraege);
-
+        dauerauftraegeView.setItems(oblistDauerauftraege);
         ladeKontodaten();
-
     }
 
     /**
@@ -344,7 +298,7 @@ public class Controller implements Initializable {
         gesamtAusgabenUebersicht.setText(df.format(gesamtAusgaben) + " €");
 
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
-        gesamteinnahmenUebersicht.setText(df.format(gesamtEinnahmen) + " €");
+        gesamtEinnahmenUebersicht.setText(df.format(gesamtEinnahmen) + " €");
     }
 
     @FXML
@@ -365,8 +319,8 @@ public class Controller implements Initializable {
     /**
      * Beim Drücken des Buttons Settings, öffnet sich das Fenster mit den Einstellungen
      *
-     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
-     * @throws IOException -> wirft einen Fehler.
+     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @throws IOException → wirft einen Fehler.
      */
     @FXML
     public void enterSettings(ActionEvent actionEvent) throws IOException {
@@ -383,22 +337,19 @@ public class Controller implements Initializable {
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
      *
-     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
-     * @throws SQLException -> wirft einen Fehler.
+     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException → wirft einen Fehler.
      */
     @FXML
     public void ausgabeHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
-
+        boolean istdouble;
 
         System.out.println(ausgabenBetrag.getText());
         System.out.println(ausgabenBezeichnung.getText());
 
-
         LocalDate localDate = ausgabenDate.getValue();
         System.out.println(localDate);
 
-
-        boolean istdouble;
         istdouble = NurNummern.isDouble(ausgabenBetrag.getText());
 
         if (Objects.equals(ausgabenBetrag.getText(), "")) {
@@ -410,19 +361,16 @@ public class Controller implements Initializable {
         } else if (!istdouble) {
             labelAusgaben.setText("Keine Zahl!");
         } else {
-            labelAusgaben.setText("Gespeichert!");
-
             JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
 
+            labelAusgaben.setText("Gespeichert!");
             ausgabenBetrag.clear();
             ausgabenBezeichnung.clear();
             ausgabenDate.setValue(null);
 
-            oblistausgaben.clear();
+            oblistAusgaben.clear();
             ladeDatenAusgaben();
         }
-
-
     }
 
     /**
@@ -434,6 +382,7 @@ public class Controller implements Initializable {
      */
     @FXML
     void einnahmeHinzufuegenBtn(ActionEvent event) throws SQLException {
+        boolean istdouble;
 
         labelEinnahmen.setText(null);
 
@@ -443,7 +392,6 @@ public class Controller implements Initializable {
         LocalDate localDate = einnahmenDate.getValue();
         System.out.println(localDate);
 
-        boolean istdouble;
         istdouble = NurNummern.isDouble(einnahmenBetrag.getText());
 
         if (Objects.equals(einnahmenBetrag.getText(), "")) {
@@ -455,32 +403,29 @@ public class Controller implements Initializable {
         } else if (!istdouble) {
             labelEinnahmen.setText("Keine Zahl!");
         } else {
-
-            labelEinnahmen.setText("Gespeichert!");
-
             JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
 
+            labelEinnahmen.setText("Gespeichert!");
             einnahmenBetrag.clear();
             einnahmenBezeichnung.clear();
             einnahmenDate.setValue(null);
 
-            oblisteinnahmen.clear();
+            oblistEinnahmen.clear();
             ladeDatenEinnahmen();
-
         }
-
     }
 
     /**
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten in die Datenbank geschrieben und danach direkt in den Tableviews angezeigt.
      *
-     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
-     * @throws SQLException -> wirft einen Fehler
+     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException → wirft einen Fehler
      */
     @FXML
     public void dauerauftragHinzufuegenBtn(ActionEvent actionEvent) throws SQLException {
-
+        boolean dauerauftrag_einnahme_ausgabe;
+        boolean istdouble;
 
         labelDauerauftraege.setText(null);
 
@@ -491,9 +436,6 @@ public class Controller implements Initializable {
         LocalDate localDate = dauerauftragDate.getValue();
         System.out.println(localDate);
 
-        boolean dauerauftrag_einnahme_ausgabe;
-
-        boolean istdouble;
         istdouble = NurNummern.isDouble(dauerauftragBetrag.getText());
 
         if (Objects.equals(dauerauftragBetrag.getText(), "")) {
@@ -506,18 +448,14 @@ public class Controller implements Initializable {
             labelDauerauftraege.setText("Keine Zeitspanne!");
         } else if (!istdouble) {
             labelDauerauftraege.setText("Keine Zahl!");
-        } else if (!dauerauftragEinnahme.isSelected() && !dauerauftragAusgabe.isSelected()){
+        } else if (!dauerauftragEinnahme.isSelected() && !dauerauftragAusgabe.isSelected()) {
             labelDauerauftraege.setText("Bitte Einnahme noch Ausgabe auswählen!");
         } else {
-
             dauerauftrag_einnahme_ausgabe = !dauerauftragAusgabe.isSelected();
-
 
             labelDauerauftraege.setText("Gespeichert!");
 
-
             JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText(), dauerauftrag_einnahme_ausgabe);
-
 
             dauerauftragBetrag.clear();
             dauerauftragBezeichnung.clear();
@@ -526,7 +464,7 @@ public class Controller implements Initializable {
             dauerauftragAusgabe.setSelected(false);
             dauerauftragEinnahme.setSelected(false);
 
-            oblistdauerauftraege.clear();
+            oblistDauerauftraege.clear();
             ladeDatenDauerauftrag();
         }
     }
@@ -535,109 +473,87 @@ public class Controller implements Initializable {
      * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
      * als auch in der Datenbank gelöscht.
      *
-     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
-     * @throws SQLException -> wirft einen Fehler
+     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException → wirft einen Fehler
      */
     public void ausgabenListLoeschen(ActionEvent actionEvent) throws SQLException {
-
         Connection con = databaseConnectionLink;
-
         Ausgaben selectedItem = ausgabenView.getSelectionModel().getSelectedItem();
-
-
         PreparedStatement pst = con.prepareStatement("DELETE FROM ausgaben WHERE ausgabenid=?");
         pst.setInt(1, selectedItem.getAusgabenId());
         pst.executeUpdate();
 
         System.out.println(selectedItem.getAusgabenId());
-
         ausgabenView.getItems().remove(selectedItem);
-
         ladeKontodaten();
-
     }
 
     /**
      * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
      * als auch in der Datenbank gelöscht.
      *
-     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
-     * @throws SQLException -> wirft einen Fehler
+     * @param actionEvent → wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException → wirft einen Fehler
      */
     public void einnahmenListLoeschen(ActionEvent actionEvent) throws SQLException {
-
         Connection con = databaseConnectionLink;
-
         Einnahmen selectedItem = einnahmenView.getSelectionModel().getSelectedItem();
-
-
         PreparedStatement pst = con.prepareStatement("DELETE FROM einnahmen WHERE einnahmenid=?");
         pst.setInt(1, selectedItem.getEinnahmenId());
         pst.executeUpdate();
 
         System.out.println(selectedItem.getEinnahmenId());
-
         einnahmenView.getItems().remove(selectedItem);
-
         ladeKontodaten();
-
     }
 
     /**
      * Wenn man einen Eintrag aus der Tableview auswählt und auf Löschen drückt, wird der Eintrag sowohl in der Tableview,
      * als auch in der Datenbank gelöscht.
      *
-     * @param actionEvent -> wird beim drücken des Knopfes ausgeführt.
-     * @throws SQLException -> wirft einen Fehler
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
+     * @throws SQLException → wirft einen Fehler
      */
     public void dauerauftragListLoeschen(ActionEvent actionEvent) throws SQLException {
-
         Connection con = databaseConnectionLink;
-
         Dauerauftraege selectedItem = dauerauftraegeView.getSelectionModel().getSelectedItem();
-
         PreparedStatement pst = con.prepareStatement("DELETE FROM dauerauftrag WHERE dauerauftragid=?");
         pst.setInt(1, selectedItem.getDauerauftraegeId());
         pst.executeUpdate();
 
         System.out.println(selectedItem.getDauerauftraegeId());
-
         dauerauftraegeView.getItems().remove(selectedItem);
-
         ladeKontodaten();
-
-
     }
 
     /**
      * Beim Drücken des Knopfes, wird abgefragt, ob alle Textfelder leer sind. Falls nicht,
      * werden die eingegebenen Daten zu unserem PDFGenerator übergeben.
      *
-     * @param event -> wird beim drücken des Knopfes ausgeführt.
-     * @throws SQLException -> wirft einen Fehler
+     * @param event → wird beim drücken des Knopfes ausgeführt.
+     * @throws SQLException → wirft einen Fehler
      */
     @FXML
     void exportierenBtnPressed(ActionEvent event) throws SQLException {
-
         if (!exportAlles.isSelected() && !exportEinnahmen.isSelected() && !exportAusgaben.isSelected()) {
-            exportLabel.setText("Keine Daten ausgewählt!");
+            labelExport.setText("Keine Daten ausgewählt!");
         } else if (exportSpeicherort.getText().equals("")) {
-            exportLabel.setText("Kein Speicherort ausgewählt!");
+            labelExport.setText("Kein Speicherort ausgewählt!");
         } else if (exportName.getText().equals("")) {
-            exportLabel.setText("Kein Name angegeben!");
+            labelExport.setText("Kein Name angegeben!");
         } else {
             if (exportAusgaben.isSelected()) {
                 PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
-                exportLabel.setText("Exportiert!");
+                labelExport.setText("Exportiert!");
             }
             if (exportEinnahmen.isSelected()) {
                 PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
-                exportLabel.setText("Exportiert!");
+                labelExport.setText("Exportiert!");
             }
             if (exportAlles.isSelected()) {
                 PDFGenerator.pdfGenAusgaben(exportSpeicherort.getText(), exportName.getText());
                 PDFGenerator.pdfGenEinnahmen(exportSpeicherort.getText(), exportName.getText());
-                exportLabel.setText("Exportiert!");
+                labelExport.setText("Exportiert!");
             }
             exportSpeicherort.setText(null);
             exportAlles.setSelected(false);
@@ -668,7 +584,7 @@ public class Controller implements Initializable {
     /**
      * Wenn man Einnahme auswählt, wird Ausgabe deaktiviert.
      *
-     * @param actionEvent -> wird beim Drücken der Checkbox ausgeführt.
+     * @param actionEvent → wird beim Drücken der Checkbox ausgeführt.
      */
     public void checkCheckBoxesDauerauftragE(ActionEvent actionEvent) {
         if (dauerauftragEinnahme.isSelected()) {
@@ -679,10 +595,10 @@ public class Controller implements Initializable {
     /**
      * Wenn man Ausgabe auswählt, wird Einnahme deaktiviert.
      *
-     * @param actionEvent -> wird beim Drücken der Checkbox ausgeführt.
+     * @param actionEvent → wird beim Drücken der Checkbox ausgeführt.
      */
     public void checkCheckBoxesDauerauftragA(ActionEvent actionEvent) {
-        if(dauerauftragAusgabe.isSelected()){
+        if (dauerauftragAusgabe.isSelected()) {
             dauerauftragEinnahme.setSelected(false);
         }
     }
@@ -690,7 +606,7 @@ public class Controller implements Initializable {
     /**
      * Beim Drücken des Knopfes öffnet sich ein Fenster, in dem man den Speicherort der PDFDatei festlegen kann.
      *
-     * @param event -> wird beim Drücken des Knopfes ausgeführt.
+     * @param event → wird beim Drücken des Knopfes ausgeführt.
      */
     @FXML
     void exportierenWoBtnPressed(ActionEvent event) {
@@ -707,25 +623,24 @@ public class Controller implements Initializable {
     /**
      * Beim Wechseln des Tabs werden alle Labels auf leer gesetzt.
      *
-     * @param event -> wird beim Drücken des Tabs ausgeführt.
+     * @param event → wird beim Drücken des Tabs ausgeführt.
      */
-    public void clearlabels(Event event) {
+    public void clearLabels(Event event) {
         labelEinnahmen.setText(null);
         labelAusgaben.setText(null);
         labelDauerauftraege.setText(null);
-        exportLabel.setText(null);
+        labelExport.setText(null);
     }
-
 
     /**
      * Beim Drücken des Reload-Buttons lädt es alle Anzeigen(Tableviews), sowie Kontodaten neu.
      *
-     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      */
     public void ladeDatenNeu(ActionEvent actionEvent) {
-        oblistausgaben.clear();
-        oblistdauerauftraege.clear();
-        oblisteinnahmen.clear();
+        oblistAusgaben.clear();
+        oblistDauerauftraege.clear();
+        oblistEinnahmen.clear();
         ladeDatenAusgaben();
         ladeDatenEinnahmen();
         ladeDatenDauerauftrag();
@@ -734,7 +649,7 @@ public class Controller implements Initializable {
     /**
      * Wenn Täglich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
      *
-     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      */
     public void taeglich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Täglich");
@@ -743,7 +658,7 @@ public class Controller implements Initializable {
     /**
      * Wenn Wöchentlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
      *
-     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      */
     public void woechentlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Wöchentlich");
@@ -752,7 +667,7 @@ public class Controller implements Initializable {
     /**
      * Wenn Monatlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
      *
-     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      */
     public void monatlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Monatlich");
@@ -761,11 +676,10 @@ public class Controller implements Initializable {
     /**
      * Wenn Jährlich ausgewählt ist, setzt es den Text darunter auf diesen Wert.
      *
-     * @param actionEvent -> wird beim Drücken des Knopfes ausgeführt.
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
      */
     public void jaehrlich(ActionEvent actionEvent) {
         dauerauftragZeitspanneText.setText("Jährlich");
     }
-
 
 }

@@ -25,7 +25,7 @@ public class DauerauftragLogik {
 
             while(rs.next())
             {
-                int dauerauftragid = rs.getInt("dauerauftragid");
+                //int dauerauftragid = rs.getInt("dauerauftragid");
 
                 String bezeichnung = rs.getString("dauerauftrag_bezeichnung");
 
@@ -38,11 +38,7 @@ public class DauerauftragLogik {
 
                 boolean einnahme_ausgabe = rs.getBoolean("dauerauftrag_ausgabe_einnahme");                     //1 bedeutet Einnahme, 0 bedeutet Ausgabe
 
-                System.out.println("TEST: " + zeitraum+ letztesDatumBuchung+  einnahme_ausgabe);
-
                 Date heute = Date.valueOf(LocalDate.now());
-
-                System.out.println("TEST: " + zeitraum+ letztesDatumBuchung+ einnahme_ausgabe+ heute);
 
                 //==========================================Check des Zeitraumes==========================================
                 long zeitraumTage = 0;

@@ -469,6 +469,16 @@ public class Controller implements Initializable {
 
             oblistDauerauftraege.clear();
             ladeDatenDauerauftrag();
+
+            if (localDate.isBefore(LocalDate.now())){
+                if (dauerauftrag_einnahme_ausgabe) {
+                    JavaPostgres.writeToDatabaseEinnahmen(Float.parseFloat(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
+                } else
+                    JavaPostgres.writeToDatabaseAusgaben(Float.parseFloat(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
+            }
+
+
+
         }
     }
 

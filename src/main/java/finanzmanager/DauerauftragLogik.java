@@ -1,5 +1,6 @@
 /*
-Diese Klasse dient ...
+Diese Klasse wurde hauptsächlich erstellt, um die Arbeitsaufteilung etwas ansehnlicher für den Prüfer zu machen. Dieser
+Code hätte auch in eine andere Klasse eingefügt werden können.
  */
 
 package finanzmanager;
@@ -49,21 +50,13 @@ public class DauerauftragLogik {
                  */
                 long zeitraumTage = 0;
                 boolean monatlich = false;
-                boolean jährlich = false;
+                boolean jaehrlich = false;
 
                 switch (zeitraum) {
-                    case "Täglich" -> {
-                        zeitraumTage = 1;
-                    }
-                    case "Wöchentlich" -> {
-                        zeitraumTage = 7;
-                    }
-                    case "Monatlich" -> {
-                        monatlich = true;
-                    }
-                    case "Jährlich" -> {
-                        jährlich = true;
-                    }
+                    case "Täglich" -> zeitraumTage = 1;
+                    case "Wöchentlich" -> zeitraumTage = 7;
+                    case "Monatlich" -> monatlich = true;
+                    case "Jährlich" -> jaehrlich = true;
                 }
 
                 //Ab hier beginnt die eigentliche Logik der Daueraufträge als Einnahme
@@ -86,7 +79,7 @@ public class DauerauftragLogik {
                                 JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
                             }
                         }
-                    } else if (jährlich) {
+                    } else if (jaehrlich) {
                         while (zwischenDate.before(heute)) {
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusYears(1));
 
@@ -128,7 +121,7 @@ public class DauerauftragLogik {
                             }
                         }
 
-                    } else if (jährlich) {
+                    } else if (jaehrlich) {
                         while (zwischenDate.before(heute)) {
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusYears(1));
 

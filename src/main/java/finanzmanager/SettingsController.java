@@ -26,6 +26,8 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static modelclasses.NurNummern.round;
+
 
 /**
  * Klasse SettingsController ist der Controller für das Einstellungsfenster.
@@ -89,7 +91,7 @@ public class SettingsController implements Initializable {
         if (!Objects.equals(kontostand.getText(), "")) {
             if (istdouble) {
                 System.out.println("Kontostand:" + kontostand.getText());
-                setKontostand(Float.valueOf(kontostand.getText()));
+                setKontostand(round(Float.parseFloat(kontostand.getText()), 2));
                 settingsKontostandLabel.setText("Gespeichert!");
             } else settingsKontostandLabel.setText("Keine Zahl!");
         }

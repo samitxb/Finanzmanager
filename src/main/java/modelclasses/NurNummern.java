@@ -8,6 +8,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Klasse NurNummer wird benötigt für die überprüfung und Ersetzung von ausschließlich numerischen Textfeldern.
  *
@@ -27,6 +30,14 @@ public class NurNummern {
                 textfeld.setText(newValue.replaceAll("[^\\d+.]", ""));
             }
         });
+    }
+
+    public static float round(float value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.floatValue();
     }
 
     /**

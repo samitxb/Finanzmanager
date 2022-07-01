@@ -65,8 +65,7 @@ public class PDFGenerator {
                 System.out.println("TEST: " + id);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");        //Welcher User
                 statement.setInt(1, id);
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ausgaben ");
-                ResultSet res = preparedStatement.executeQuery();
+                ResultSet res = statement.executeQuery();
 
                 //=============================================Table formatieren=============================================
                 PdfPTable table_ausgaben = new PdfPTable(3);

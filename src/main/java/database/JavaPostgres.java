@@ -151,6 +151,7 @@ public class JavaPostgres {
             Logger lgr = Logger.getLogger(JavaPostgres.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
         }
+        con.close();
     }
 
     public static void writeToDatabaseDauerauftrag(Float dauerauftragBetrag, String dauerauftragBezeichnung, Date dauerauftragDatum, String dauerauftragZeitraum, Boolean dauerauftrag_ausgabe_einnahme) throws SQLException {

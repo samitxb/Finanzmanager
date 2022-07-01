@@ -1,3 +1,7 @@
+/*
+Diese Klasse dient ...
+ */
+
 package finanzmanager;
 
 import database.JavaPostgres;
@@ -6,39 +10,43 @@ import modelclasses.UserLogin;
 import java.sql.*;
 import java.time.*;
 
-
+/**
+ * Datum: 01.07.2022
+ *
+ * @author Sami Taieb
+ * @version 1.6.3
+ */
 public class DauerauftragLogik {
 
     public static void dauerauftragKontrolle() throws SQLException {
 
         int id = UserLogin.id;
 
-        //==========================================Datenbank Connection==========================================
+        //Stellt Verbindung zur Datenbank her mithilfe der Klasse JavaPostgres
         JavaPostgres javaPostgres = new JavaPostgres();
         Connection connection = javaPostgres.getConnection();
 
         try {
-            //==========================================Datenbank abfrage ==========================================
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                //int dauerauftragid = rs.getInt("dauerauftragid");
-
                 String bezeichnung = rs.getString("dauerauftrag_bezeichnung");
-
                 float betrag = rs.getFloat("dauerauftrag_betrag");
-
                 String zeitraum = rs.getString("dauerauftrag_zeitraum");
-
                 Date letztesDatumBuchung = rs.getDate("dauerauftrag_datumabbuchung");
-
-                boolean einnahme_ausgabe = rs.getBoolean("dauerauftrag_ausgabe_einnahme");                     //1 bedeutet Einnahme, 0 bedeutet Ausgabe
-
                 Date heute = Date.valueOf(LocalDate.now());
+                /*
+                Um eine Einnahme von eine Ausgabe zu unterscheiden, wird ein boolscher Ausdruck verwendet, wobei
+                TRUE für eine Einnahme und FALSE für eine Ausgabe steht. Dies wird später noch berücksichtigt
+                 */
+                boolean einnahmeAusgabe = rs.getBoolean("dauerauftrag_ausgabe_einnahme");
 
-                //==========================================Check des Zeitraumes==========================================
+                /*
+                Da Monate und Jahre nicht immer den selben Abstand haben, wird hier schon vorher abgefragt um welches
+                Intervall es sich hierbei handelt, um später die Daten richtig zu verarbeiten
+                 */
                 long zeitraumTage = 0;
                 boolean monatlich = false;
                 boolean jährlich = false;
@@ -58,108 +66,87 @@ public class DauerauftragLogik {
                     }
                 }
 
-                //========================================== Eigentliche Logik==========================================
-                //==========================================Logik Einnahme==========================================
+                //Ab hier beginnt die eigentliche Logik der Daueraufträge als Einnahme
 
-                if (einnahme_ausgabe) {
+                if (einnahmeAusgabe) {
 
                     PreparedStatement pst = connection.prepareStatement("UPDATE Dauerauftrag SET dauerauftrag_datumabbuchung = ? WHERE user_dauerauftragid = ?");
 
                     Date zwischenDate = letztesDatumBuchung;
 
-                    //===========================Monatlich zum selben Tag=====================================
+                    //Check ob monatlich, jährlich oder sonstiger Fall
                     if (monatlich) {
                         while (zwischenDate.before(heute)) {
-
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusMonths(1));
 
                             if (zwischenDate.before(heute)) {
                                 pst.setDate(1, zwischenDate);
                                 pst.setInt(2, id);
                                 pst.executeUpdate();
-
                                 JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
                             }
                         }
-
                     } else if (jährlich) {
                         while (zwischenDate.before(heute)) {
-
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusYears(1));
 
                             if (zwischenDate.before(heute)) {
                                 pst.setDate(1, zwischenDate);
                                 pst.setInt(2, id);
                                 pst.executeUpdate();
-
                                 JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
                             }
                         }
-
                     } else {
                         while (zwischenDate.before(heute)) {
-
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusDays(zeitraumTage));
-
                             if (zwischenDate.before(heute)) {
                                 pst.setDate(1, zwischenDate);
                                 pst.setInt(2, id);
                                 pst.executeUpdate();
-
                                 JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
                             }
                         }
                     }
                 }
 
-                //==========================================Logik Ausgabe==========================================
-
+                //Ab hier beginnt die eigentliche Logik der Daueraufträge als Einnahme
                 else {
                     PreparedStatement pst = connection.prepareStatement("UPDATE Dauerauftrag SET dauerauftrag_datumabbuchung = ? WHERE user_dauerauftragid = ?");
-
                     Date zwischenDate = letztesDatumBuchung;
 
-                    //===========================Monatlich zum selben Tag=====================================
+                    //Check ob monatlich, jährlich oder sonstiger Fall
                     if (monatlich) {
                         while (zwischenDate.before(heute)) {
-
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusMonths(1));
 
                             if (zwischenDate.before(heute)) {
                                 pst.setDate(1, zwischenDate);
                                 pst.setInt(2, id);
                                 pst.executeUpdate();
-
                                 JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);
                             }
                         }
 
-                    }
-                    //===========================Jährlich zum selben Tag=====================================
-
-                    else if (jährlich) {
+                    } else if (jährlich) {
                         while (zwischenDate.before(heute)) {
-
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusYears(1));
 
                             if (zwischenDate.before(heute)) {
                                 pst.setDate(1, zwischenDate);
                                 pst.setInt(2, id);
                                 pst.executeUpdate();
-
                                 JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);
                             }
                         }
                     } else {
                         while (zwischenDate.before(heute)) {
-
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusDays(zeitraumTage));
 
                             if (zwischenDate.before(heute)) {
                                 pst.setDate(1, zwischenDate);
                                 pst.setInt(2, id);
                                 pst.executeUpdate();
-
                                 JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);
                             }
                         }

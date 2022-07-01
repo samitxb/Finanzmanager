@@ -20,27 +20,27 @@ import java.sql.SQLException;
 
 
 /**
- * Zum erstellen des PDF Dokuments wird iText (vers. 5.5.13.2) verwendet.
+ * Datum: 01.07.2022
  *
- * @author Sami Taeib
- * @version 1.0
+ * @author Sami Taieb
+ * @version 1.7.2
+ *
+ * Zum erstellen des PDF Dokuments wird iText (vers. 5.5.13.2) verwendet.
  */
 public class PDFGenerator {
-    //public static void main(String[] args)
     public static void pdfGenAusgaben(String speicherort, String name) throws SQLException {
-        int id = UserLogin.id;                                                //Holt user ID für DB
-
-
+        //User id, damit auch nur die Daten EINES Nutzers abgefragt und weiterverarbeitet werden
+        int id = UserLogin.id;
 
         try {
             System.out.println("TEST: " + id);
-            //=============================================Dokument spezifizieren=============================================
+            //spezifizieren der Dokumenteigenschaften
             Document document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(speicherort + "\\" + name + ".pdf"));
             writer.setPdfVersion(PdfWriter.VERSION_1_7);
             document.open();
 
-            //=============================================Überschrift=============================================
+            //Informationen, rest dient hauptsächlich der Kosmetik
             Paragraph ueberschrift = new Paragraph();
             ueberschrift.setFont(new Font(Font.FontFamily.HELVETICA, 20));
             Chunk c_ueberschrift = new Chunk("Finanzmanager 2022 - Übersicht: Ausgaben");
@@ -48,31 +48,29 @@ public class PDFGenerator {
             ueberschrift.setSpacingBefore(10f);
             document.add(ueberschrift);
 
-            //=============================================Infos über den Auszug=============================================
-
             Paragraph info = new Paragraph();
             info.setFont(new Font(Font.FontFamily.COURIER, 10));
             Chunk c_info = new Chunk("Ausgaben von: " + LoginController.getUserFullname());
             info.add(c_info);
             document.add(info);
 
-            //=============================================Datenbank auslesen=============================================
+            //Datenbankverbindung aufbauen
 
             JavaPostgres javaPostgres = new JavaPostgres();
-            Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
+            Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden
 
             try {
                 System.out.println("TEST: " + id);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");        //Welcher User
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
 
-                //=============================================Table formatieren=============================================
+                //Formatieren des Tables in der PDF File
                 PdfPTable table_ausgaben = new PdfPTable(3);
-                table_ausgaben.setWidthPercentage(100);                               //Breite über die Seite in %
+                table_ausgaben.setWidthPercentage(100);                              //Breite über die Seite in %
                 table_ausgaben.setSpacingBefore(10f);                                //Abstand vorher
                 table_ausgaben.setSpacingAfter(10f);                                 //Abstand nachher
-                float[] colWidth = {33f, 33f, 33f};                           //Relative Verteilung der Columns auf die Breite
+                float[] colWidth = {33f, 33f, 33f};                                  //Relative Verteilung der Columns auf die Breite
                 table_ausgaben.setWidths(colWidth);
 
                 table_ausgaben.addCell("Datum");
@@ -107,8 +105,6 @@ public class PDFGenerator {
                 }
                 document.add(table_ausgaben);
 
-                //======================================Kontostand und Gesamt========================================
-
                 Paragraph ausgaben = new Paragraph();
                 ausgaben.setFont(new Font(Font.FontFamily.COURIER, 10));
                 Chunk c_ausgaben = new Chunk("Gesamte Ausgaben: " + Uebersicht.ausgabenZusammenRechnen() + "€");
@@ -134,17 +130,18 @@ public class PDFGenerator {
     }
 
     public static void pdfGenDauerauftrag(String speicherort, String name) throws SQLException {
-        int id = UserLogin.id;                                                //Holt user ID für DB
+        //User id, damit auch nur die Daten EINES Nutzers abgefragt und weiterverarbeitet werden
+        int id = UserLogin.id;
 
         try {
 
-            //=============================================Dokument spezifizieren=============================================
+            //spezifizieren der Dokumenteigenschaften
             Document document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(speicherort + "\\" + name + ".pdf"));
             writer.setPdfVersion(PdfWriter.VERSION_1_7);
             document.open();
 
-            //=============================================Überschrift=============================================
+            //Informationen, rest dient hauptsächlich der Kosmetik
             Paragraph ueberschrift = new Paragraph();
             ueberschrift.setFont(new Font(Font.FontFamily.HELVETICA, 20));
             Chunk c_ueberschrift = new Chunk("Finanzmanager 2022 - Übersicht: Daueraufträge");
@@ -152,33 +149,31 @@ public class PDFGenerator {
             ueberschrift.setSpacingBefore(10f);
             document.add(ueberschrift);
 
-            //=============================================Infos über den Auszug=============================================
-
             Paragraph info = new Paragraph();
             info.setFont(new Font(Font.FontFamily.COURIER, 10));
             Chunk c_info = new Chunk("Daueraufträge von: " + LoginController.getUserFullname());
             info.add(c_info);
             document.add(info);
 
-            //=============================================Datenbank auslesen=============================================
+            //Datenbankverbindung aufbauen
 
             JavaPostgres javaPostgres = new JavaPostgres();
-            Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
+            Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden
 
             try {
                 System.out.println("TEST: " + id);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");        //Welcher User
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
 
 
 
-                //=============================================Table formatieren=============================================
+                //Formatieren des Tables in der PDF File
                 PdfPTable table_ausgaben = new PdfPTable(4);
                 table_ausgaben.setWidthPercentage(100);                               //Breite über die Seite in %
-                table_ausgaben.setSpacingBefore(10f);                                //Abstand vorher
-                table_ausgaben.setSpacingAfter(10f);                                 //Abstand nachher
-                float[] colWidth = {25f, 25f, 25f, 25f};                           //Relative Verteilung der Columns auf die Breite
+                table_ausgaben.setSpacingBefore(10f);                                 //Abstand vorher
+                table_ausgaben.setSpacingAfter(10f);                                  //Abstand nachher
+                float[] colWidth = {25f, 25f, 25f, 25f};                              //Relative Verteilung der Columns auf die Breite
                 table_ausgaben.setWidths(colWidth);
 
                 table_ausgaben.addCell("Erste Ausführung");
@@ -231,8 +226,6 @@ public class PDFGenerator {
                 }
                 document.add(table_ausgaben);
 
-                //======================================Kontostand und Gesamt========================================
-
                 Paragraph kontostand = new Paragraph();
                 kontostand.setFont(new Font(Font.FontFamily.COURIER, 10));
                 Chunk c_kontostand = new Chunk("Aktueller Kontostand: " + Uebersicht.aktuellerKontostandZusammen() + "€");
@@ -256,13 +249,13 @@ public class PDFGenerator {
 
         try {
 
-            //=============================================Dokument spezifizieren=============================================
+            //spezifizieren der Dokumenteigenschaften
             Document document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(speicherort + "\\" + name + ".pdf"));
             writer.setPdfVersion(PdfWriter.VERSION_1_7);
             document.open();
 
-            //=============================================Überschrift=============================================
+            //Informationen, rest dient hauptsächlich der Kosmetik
             Paragraph ueberschrift = new Paragraph();
             ueberschrift.setFont(new Font(Font.FontFamily.HELVETICA, 20));
             Chunk c_ueberschrift = new Chunk("Finanzmanager 2022 - Übersicht: Einnahmen");
@@ -270,15 +263,13 @@ public class PDFGenerator {
             ueberschrift.setSpacingBefore(10f);
             document.add(ueberschrift);
 
-            //=============================================Infos über den Auszug=============================================
-
             Paragraph info = new Paragraph();
             info.setFont(new Font(Font.FontFamily.COURIER, 10));
             Chunk c_info = new Chunk("Einnahmen von: " + LoginController.getUserFullname());
             info.add(c_info);
             document.add(info);
 
-            //=============================================Datenbank auslesen=============================================
+            //Datenbankverbindung aufbauen
 
             JavaPostgres javaPostgres = new JavaPostgres();
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
@@ -289,7 +280,7 @@ public class PDFGenerator {
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
 
-                //=============================================Table formatieren=============================================
+                //Formatieren des Tables in der PDF File
                 PdfPTable table_ausgaben = new PdfPTable(3);
                 table_ausgaben.setWidthPercentage(100);                               //Breite über die Seite in %
                 table_ausgaben.setSpacingBefore(10f);                                //Abstand vorher
@@ -328,8 +319,6 @@ public class PDFGenerator {
                     table_ausgaben.addCell(c);
                 }
                 document.add(table_ausgaben);
-
-                //======================================Kontostand und Gesamt========================================
 
                 Paragraph ausgaben = new Paragraph();
                 ausgaben.setFont(new Font(Font.FontFamily.COURIER, 10));

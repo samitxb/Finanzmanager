@@ -26,7 +26,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static modelclasses.NurNummern.round;
+import static modelclasses.NurNummern.runden;
 
 
 /**
@@ -84,14 +84,14 @@ public class SettingsController implements Initializable {
      */
     public void einstellungenSpeichern(ActionEvent actionEvent) throws SQLException {
         boolean istdouble;
-        istdouble = NurNummern.isDouble(kontostand.getText());
+        istdouble = NurNummern.istDouble(kontostand.getText());
 
         settingsKontostandLabel.setText(null);
 
         if (!Objects.equals(kontostand.getText(), "")) {
             if (istdouble) {
                 System.out.println("Kontostand:" + kontostand.getText());
-                setKontostand(round(Float.parseFloat(kontostand.getText()), 2));
+                setKontostand(runden(Float.parseFloat(kontostand.getText()), 2));
                 settingsKontostandLabel.setText("Gespeichert!");
             } else settingsKontostandLabel.setText("Keine Zahl!");
         }

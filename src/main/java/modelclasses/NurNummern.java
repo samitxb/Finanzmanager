@@ -4,8 +4,6 @@
 
 package modelclasses;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
 import java.math.BigDecimal;
@@ -32,11 +30,11 @@ public class NurNummern {
         });
     }
 
-    public static float round(float value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
+    public static float runden(float wert, int stellen) {
+        if (stellen < 0) throw new IllegalArgumentException();
 
-        BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        BigDecimal bd = BigDecimal.valueOf(wert);
+        bd = bd.setScale(stellen, RoundingMode.HALF_UP);
         return bd.floatValue();
     }
 
@@ -46,7 +44,7 @@ public class NurNummern {
      * @param data ist der zu überprüfende String
      * @return true, falls der Wert ein Double ist
      */
-    public static boolean isDouble(String data) {
+    public static boolean istDouble(String data) {
         try {
             Double.parseDouble(data);
             return true;

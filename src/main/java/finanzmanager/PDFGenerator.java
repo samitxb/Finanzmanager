@@ -63,7 +63,7 @@ public class PDFGenerator {
 
             try {
                 System.out.println("TEST: " + id);
-                PreparedStatement statement = connection.prepareStatement("SELECT ROUND(ausgaben_betrag, 2),* FROM ausgaben WHERE user_ausgabenid=?");        //Welcher User
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");        //Welcher User
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
 
@@ -265,7 +265,7 @@ public class PDFGenerator {
 
             try {
                 System.out.println("TEST: " + id);
-                PreparedStatement statement = connection.prepareStatement("SELECT Round(einnahmen_betrag, 2), * FROM einnahmen WHERE user_einnahmenid=?");        //Welcher User
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");        //Welcher User
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
 

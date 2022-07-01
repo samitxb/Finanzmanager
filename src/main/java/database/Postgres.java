@@ -54,7 +54,7 @@ class Postgres {
                     " username                VARCHAR(100)     NOT NULL," +
                     " password                VARCHAR(100)     NOT NULL," +
                     " passwordSalt            VARCHAR(100)     NOT NULL," +
-                    " kontostand              FLOAT     ," +
+                    " kontostand              NUMERIC     ," +
                     " sicherheitsantwort      VARCHAR(100)      NOT NULL, " +
                     " sicherheitsantwort_salt VARCHAR(100)      NOT NULL," +
                     " PRIMARY KEY (userID))";
@@ -63,7 +63,7 @@ class Postgres {
             String sqlEinnahmen = "CREATE TABLE EINNAHMEN" +
                     "(einnahmenID           INT     GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                     " user_einnahmenID      INT     NOT NULL ," +
-                    " einnahmen_betrag      FLOAT," +
+                    " einnahmen_betrag      NUMERIC," +
                     " einnahmen_bezeichnung VARCHAR(100), " +
                     " einnahmen_datum       DATE, " +
                     " FOREIGN KEY (user_einnahmenID)" +
@@ -73,7 +73,7 @@ class Postgres {
             String sqlAusgaben = "CREATE TABLE AUSGABEN" +
                     "(ausgabenID            INT   GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                     " user_ausgabenID       INT   NOT NULL ," +
-                    " ausgaben_betrag       FLOAT," +
+                    " ausgaben_betrag       NUMERIC," +
                     " ausgaben_bezeichnung  VARCHAR(100), " +
                     " ausgaben_datum        DATE," +
                     " FOREIGN KEY (user_ausgabenID  )" +
@@ -83,7 +83,7 @@ class Postgres {
             String sqlDauerauftrag = "CREATE TABLE DAUERAUFTRAG " +
                     "(dauerauftragID            INT  GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY," +
                     " user_dauerauftragID       INT  NOT NULL ," +
-                    " dauerauftrag_betrag       FLOAT," +
+                    " dauerauftrag_betrag       NUMERIC," +
                     " dauerauftrag_bezeichnung  VARCHAR(100), " +
                     " dauerauftrag_datum        DATE, " +
                     " dauerauftrag_zeitraum     VARCHAR(100)," +

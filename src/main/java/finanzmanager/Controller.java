@@ -34,6 +34,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static database.JavaPostgres.databaseConnectionLink;
+import static modelclasses.NurNummern.runden;
 
 
 /**
@@ -353,7 +354,7 @@ public class Controller implements Initializable {
         LocalDate localDate = ausgabenDate.getValue();
         System.out.println(localDate);
 
-        istdouble = NurNummern.isDouble(ausgabenBetrag.getText());
+        istdouble = NurNummern.istDouble(ausgabenBetrag.getText());
 
         if (Objects.equals(ausgabenBetrag.getText(), "")) {
             labelAusgaben.setText("Kein Betrag!");
@@ -364,7 +365,7 @@ public class Controller implements Initializable {
         } else if (!istdouble) {
             labelAusgaben.setText("Keine Zahl!");
         } else {
-            JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(ausgabenBetrag.getText()), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
+            JavaPostgres.writeToDatabaseAusgaben(runden(Float.parseFloat(ausgabenBetrag.getText()), 2), ausgabenBezeichnung.getText(), Date.valueOf(localDate));
 
             labelAusgaben.setText("Gespeichert!");
             ausgabenBetrag.clear();
@@ -395,7 +396,7 @@ public class Controller implements Initializable {
         LocalDate localDate = einnahmenDate.getValue();
         System.out.println(localDate);
 
-        istdouble = NurNummern.isDouble(einnahmenBetrag.getText());
+        istdouble = NurNummern.istDouble(einnahmenBetrag.getText());
 
         if (Objects.equals(einnahmenBetrag.getText(), "")) {
             labelEinnahmen.setText("Kein Betrag!");
@@ -406,7 +407,7 @@ public class Controller implements Initializable {
         } else if (!istdouble) {
             labelEinnahmen.setText("Keine Zahl!");
         } else {
-            JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(einnahmenBetrag.getText()), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
+            JavaPostgres.writeToDatabaseEinnahmen(runden(Float.parseFloat(einnahmenBetrag.getText()), 2), einnahmenBezeichnung.getText(), Date.valueOf(localDate));
 
             labelEinnahmen.setText("Gespeichert!");
             einnahmenBetrag.clear();
@@ -439,7 +440,7 @@ public class Controller implements Initializable {
         LocalDate localDate = dauerauftragDate.getValue();
         System.out.println(localDate);
 
-        istdouble = NurNummern.isDouble(dauerauftragBetrag.getText());
+        istdouble = NurNummern.istDouble(dauerauftragBetrag.getText());
 
         if (Objects.equals(dauerauftragBetrag.getText(), "")) {
             labelDauerauftraege.setText("Kein Betrag!");
@@ -457,15 +458,15 @@ public class Controller implements Initializable {
             dauerauftrag_einnahme_ausgabe = !dauerauftragAusgabe.isSelected();
             labelDauerauftraege.setText("Gespeichert!");
 
-            JavaPostgres.writeToDatabaseDauerauftrag(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText(), dauerauftrag_einnahme_ausgabe);
+            JavaPostgres.writeToDatabaseDauerauftrag(runden(Float.parseFloat(dauerauftragBetrag.getText()), 2), dauerauftragBezeichnung.getText(), Date.valueOf(localDate), dauerauftragZeitspanneText.getText(), dauerauftrag_einnahme_ausgabe);
 
             // Führt die erste Zahlung durch
             if (localDate.isBefore(LocalDate.now())) {
                 if (dauerauftrag_einnahme_ausgabe) {
-                    JavaPostgres.writeToDatabaseEinnahmen(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
+                    JavaPostgres.writeToDatabaseEinnahmen(runden(Float.parseFloat(dauerauftragBetrag.getText()), 2), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
                     ladeDatenNeu(actionEvent);
                 } else
-                    JavaPostgres.writeToDatabaseAusgaben(Float.valueOf(dauerauftragBetrag.getText()), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
+                    JavaPostgres.writeToDatabaseAusgaben(runden(Float.parseFloat(dauerauftragBetrag.getText()), 2), dauerauftragBezeichnung.getText(), Date.valueOf(localDate));
                 ladeDatenNeu(actionEvent);
             }
             dauerauftragBetrag.clear();

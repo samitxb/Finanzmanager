@@ -17,7 +17,7 @@ import static database.JavaPostgres.databaseConnectionLink;
  * Testklasse GetPostgresData umfasst alle benötigte Funktionen, um die Einträge aus den
  * Datenbanktabellen zu holen und anzuzeigen
  *
- * @author Michael
+ * @author Michael Irlmeier
  * @version 1.0.1
  */
 

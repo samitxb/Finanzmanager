@@ -12,7 +12,7 @@ import java.sql.Statement;
  * Klasse Postgres ist eine Vorkonfigurationsklasse für die Datenbank FinanzmanagerDb
  * Bei Ausführung wird die Datenbank vorkonfiguriert
  *
- * @author Michael
+ * @author Michael Irlmeier
  * @version 1.0.1
  */
 class Postgres {

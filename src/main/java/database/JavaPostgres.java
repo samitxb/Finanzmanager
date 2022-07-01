@@ -19,7 +19,7 @@ import static database.Postgres.*;
  * sowie die Klasse writetoDatabase() die für die Übergabe von Eingabedaten des
  * Nutzers zuständig ist. Umfasst die Logindaten der Nutzer
  *
- * @author Michael
+ * @author Michael Irlmeier
  * @version 1.0.1
  */
 public class JavaPostgres {

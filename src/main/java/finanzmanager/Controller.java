@@ -39,7 +39,7 @@ import static database.JavaPostgres.databaseConnectionLink;
 /**
  * Klasse Controller ist der Controller für die ActualView.fxml
  *
- * @author Max Weichselgartner
+ * @author Max Weichselgartner, Michael Irlmeier
  * @version 1.0
  */
 public class Controller implements Initializable {

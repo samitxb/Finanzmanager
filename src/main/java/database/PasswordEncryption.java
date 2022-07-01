@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Klasse zur Verschlüsselung des Passwortes
  *
- * @author Michael
+ * @author Michael Irlmeier
  * @version 1.0.1
  */
 public class PasswordEncryption {

@@ -9,7 +9,7 @@ package finanzmanager;
  * Es wird eine zusätzliche main ausgeführt, da in der Klasse Programm extends Application zu Fehler
  * bei der Erstellung der .jar Datei führt
  *
- * @author Michael  Irlmeier
+ * @author Michael Irlmeier
  * @version 1.0.0
  */
 

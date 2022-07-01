@@ -30,8 +30,10 @@ public class PDFGenerator {
     public static void pdfGenAusgaben(String speicherort, String name) throws SQLException {
         int id = UserLogin.id;                                                //Holt user ID für DB
 
-        try {
 
+
+        try {
+            System.out.println("TEST: " + id);
             //=============================================Dokument spezifizieren=============================================
             Document document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(speicherort + "\\" + name + ".pdf"));
@@ -60,7 +62,7 @@ public class PDFGenerator {
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
 
             try {
-
+                System.out.println("TEST: " + id);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");        //Welcher User
                 statement.setInt(1, id);
                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ausgaben ");
@@ -165,11 +167,10 @@ public class PDFGenerator {
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
 
             try {
-
+                System.out.println("TEST: " + id);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");        //Welcher User
                 statement.setInt(1, id);
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM dauerauftrag");
-                ResultSet res = preparedStatement.executeQuery();
+                ResultSet res = statement.executeQuery();
 
                 //=============================================Table formatieren=============================================
                 PdfPTable table_ausgaben = new PdfPTable(3);
@@ -264,11 +265,10 @@ public class PDFGenerator {
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
 
             try {
-
+                System.out.println("TEST: " + id);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");        //Welcher User
                 statement.setInt(1, id);
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM einnahmen ");
-                ResultSet res = preparedStatement.executeQuery();
+                ResultSet res = statement.executeQuery();
 
                 //=============================================Table formatieren=============================================
                 PdfPTable table_ausgaben = new PdfPTable(3);

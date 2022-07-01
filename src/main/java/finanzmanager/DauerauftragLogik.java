@@ -1,6 +1,8 @@
 package finanzmanager;
+
 import database.JavaPostgres;
 import modelclasses.UserLogin;
+
 import java.sql.*;
 import java.time.*;
 
@@ -16,15 +18,12 @@ public class DauerauftragLogik {
         Connection connection = javaPostgres.getConnection();
 
         try {
-
             //==========================================Datenbank abfrage ==========================================
-
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
-            while(rs.next())
-            {
+            while (rs.next()) {
                 //int dauerauftragid = rs.getInt("dauerauftragid");
 
                 String bezeichnung = rs.getString("dauerauftrag_bezeichnung");
@@ -41,24 +40,21 @@ public class DauerauftragLogik {
 
                 //==========================================Check des Zeitraumes==========================================
                 long zeitraumTage = 0;
-                boolean tageZählen = false;
+                boolean monatlich = false;
+                boolean jährlich = false;
 
                 switch (zeitraum) {
                     case "Täglich" -> {
                         zeitraumTage = 1;
-                        tageZählen = true;
                     }
                     case "Wöchentlich" -> {
                         zeitraumTage = 7;
-                        tageZählen = true;
                     }
                     case "Monatlich" -> {
-                        zeitraumTage = 31;
-                        tageZählen = false;
+                        monatlich = true;
                     }
                     case "Jährlich" -> {
-                        zeitraumTage = 365;
-                        tageZählen = true;
+                        jährlich = true;
                     }
                 }
 
@@ -71,24 +67,8 @@ public class DauerauftragLogik {
 
                     Date zwischenDate = letztesDatumBuchung;
 
-
-                    if (tageZählen){
-                        while (zwischenDate.before(heute)) {
-
-                            zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusDays(zeitraumTage));
-
-                            if (zwischenDate.before(heute)) {
-                                pst.setDate(1, zwischenDate);
-                                pst.setInt(2, id);
-                                pst.executeUpdate();
-
-                                JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
-                            }
-                        }
-
-                    }
-                    //===========================Monatlich und Jährlich im zum selben Tag=====================================
-                    else {
+                    //===========================Monatlich zum selben Tag=====================================
+                    if (monatlich) {
                         while (zwischenDate.before(heute)) {
 
                             zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusMonths(1));
@@ -101,9 +81,35 @@ public class DauerauftragLogik {
                                 JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
                             }
                         }
+
+                    } else if (jährlich) {
+                        while (zwischenDate.before(heute)) {
+
+                            zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusYears(1));
+
+                            if (zwischenDate.before(heute)) {
+                                pst.setDate(1, zwischenDate);
+                                pst.setInt(2, id);
+                                pst.executeUpdate();
+
+                                JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
+                            }
+                        }
+
+                    } else {
+                        while (zwischenDate.before(heute)) {
+
+                            zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusDays(zeitraumTage));
+
+                            if (zwischenDate.before(heute)) {
+                                pst.setDate(1, zwischenDate);
+                                pst.setInt(2, id);
+                                pst.executeUpdate();
+
+                                JavaPostgres.writeToDatabaseEinnahmen(betrag, bezeichnung, zwischenDate);
+                            }
+                        }
                     }
-
-
                 }
 
                 //==========================================Logik Ausgabe==========================================
@@ -113,21 +119,53 @@ public class DauerauftragLogik {
 
                     Date zwischenDate = letztesDatumBuchung;
 
-                    while(zwischenDate.before(heute)) {
+                    //===========================Monatlich zum selben Tag=====================================
+                    if (monatlich) {
+                        while (zwischenDate.before(heute)) {
 
-                        zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusDays(zeitraumTage));
+                            zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusMonths(1));
 
-                        if (zwischenDate.before(heute)){
-                            pst.setDate(1, zwischenDate);
-                            pst.setInt(2, id);
-                            pst.executeUpdate();
+                            if (zwischenDate.before(heute)) {
+                                pst.setDate(1, zwischenDate);
+                                pst.setInt(2, id);
+                                pst.executeUpdate();
 
-                            JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);
+                                JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);
+                            }
+                        }
+
+                    }
+                    //===========================Jährlich zum selben Tag=====================================
+
+                    else if (jährlich) {
+                        while (zwischenDate.before(heute)) {
+
+                            zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusYears(1));
+
+                            if (zwischenDate.before(heute)) {
+                                pst.setDate(1, zwischenDate);
+                                pst.setInt(2, id);
+                                pst.executeUpdate();
+
+                                JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);
+                            }
+                        }
+                    } else {
+                        while (zwischenDate.before(heute)) {
+
+                            zwischenDate = Date.valueOf(zwischenDate.toLocalDate().plusDays(zeitraumTage));
+
+                            if (zwischenDate.before(heute)) {
+                                pst.setDate(1, zwischenDate);
+                                pst.setInt(2, id);
+                                pst.executeUpdate();
+
+                                JavaPostgres.writeToDatabaseAusgaben(betrag, bezeichnung, zwischenDate);
+                            }
                         }
                     }
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

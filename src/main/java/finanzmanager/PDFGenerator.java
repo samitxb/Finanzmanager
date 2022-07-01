@@ -1,5 +1,5 @@
 /*
- * Klasse generiert ein PDF Dokument entsprechend den Eingaben
+ * Klasse beinhaltet Methoden zum Erstellen von PDF-Files für den Export
  */
 package finanzmanager;
 
@@ -78,14 +78,11 @@ public class PDFGenerator {
                 table_ausgaben.addCell("Bezeichnung");
 
                 while (res.next()) {
-
-                    PdfPCell c = new PdfPCell();
-
                     Paragraph datum = new Paragraph();
                     datum.setFont(new Font(Font.FontFamily.COURIER, 9));
                     Chunk c_datum = new Chunk(res.getString("ausgaben_datum"));
                     datum.add(c_datum);
-                    c = new PdfPCell(datum);
+                    PdfPCell c = new PdfPCell(datum);
                     table_ausgaben.addCell(c);
 
 
@@ -122,9 +119,7 @@ public class PDFGenerator {
             }
             document.close();
             writer.close();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -182,16 +177,13 @@ public class PDFGenerator {
                 table_ausgaben.addCell("Einnahme/Ausgabe");
 
                 while (res.next()) {
-
-                    PdfPCell c = new PdfPCell();
-
                     boolean einnahme_ausgabe = res.getBoolean("dauerauftrag_ausgabe_einnahme");
 
                     Paragraph datum = new Paragraph();
                     datum.setFont(new Font(Font.FontFamily.COURIER, 9));
                     Chunk c_datum = new Chunk(res.getString("dauerauftrag_datum"));
                     datum.add(c_datum);
-                    c = new PdfPCell(datum);
+                    PdfPCell c = new PdfPCell(datum);
                     table_ausgaben.addCell(c);
 
 
@@ -237,9 +229,7 @@ public class PDFGenerator {
             }
             document.close();
             writer.close();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -294,13 +284,11 @@ public class PDFGenerator {
 
                 while (res.next()) {
 
-                    PdfPCell c = new PdfPCell();
-
                     Paragraph datum = new Paragraph();
                     datum.setFont(new Font(Font.FontFamily.COURIER, 9));
                     Chunk c_datum = new Chunk(res.getString("einnahmen_datum"));
                     datum.add(c_datum);
-                    c = new PdfPCell(datum);
+                    PdfPCell c = new PdfPCell(datum);
                     table_ausgaben.addCell(c);
 
 
@@ -337,9 +325,7 @@ public class PDFGenerator {
             }
             document.close();
             writer.close();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }

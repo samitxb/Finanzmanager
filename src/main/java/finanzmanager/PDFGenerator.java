@@ -171,21 +171,26 @@ public class PDFGenerator {
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
 
+
+
                 //=============================================Table formatieren=============================================
-                PdfPTable table_ausgaben = new PdfPTable(3);
+                PdfPTable table_ausgaben = new PdfPTable(4);
                 table_ausgaben.setWidthPercentage(100);                               //Breite über die Seite in %
                 table_ausgaben.setSpacingBefore(10f);                                //Abstand vorher
                 table_ausgaben.setSpacingAfter(10f);                                 //Abstand nachher
-                float[] colWidth = {33f, 33f, 33f};                           //Relative Verteilung der Columns auf die Breite
+                float[] colWidth = {25f, 25f, 25f, 25f};                           //Relative Verteilung der Columns auf die Breite
                 table_ausgaben.setWidths(colWidth);
 
                 table_ausgaben.addCell("Erste Ausführung");
                 table_ausgaben.addCell("Ausgaben in €");
                 table_ausgaben.addCell("Bezeichnung");
+                table_ausgaben.addCell("Einnahme/Ausgabe");
 
                 while (res.next()) {
 
                     PdfPCell c = new PdfPCell();
+
+                    boolean einnahme_ausgabe = res.getBoolean("dauerauftrag_ausgabe_einnahme");
 
                     Paragraph datum = new Paragraph();
                     datum.setFont(new Font(Font.FontFamily.COURIER, 9));
@@ -208,6 +213,21 @@ public class PDFGenerator {
                     bezeichnung.add(c_bezeichnung);
                     c = new PdfPCell(bezeichnung);
                     table_ausgaben.addCell(c);
+
+                    Paragraph einAus = new Paragraph();
+                    einAus.setFont(new Font(Font.FontFamily.COURIER, 9));
+
+                    Chunk c_einAus;
+                    if (einnahme_ausgabe) {
+                        c_einAus = new Chunk("Einnahme");
+                    } else {
+                        c_einAus = new Chunk("Ausgabe");
+                    }
+
+                    einAus.add(c_einAus);
+                    c = new PdfPCell(einAus);
+                    table_ausgaben.addCell(c);
+
                 }
                 document.add(table_ausgaben);
 

@@ -91,7 +91,7 @@ public class PasswordEncryption {
                                              String securedPassword, String salt) {
         boolean returnValue;
 
-        // Generiert neues Sicherheitspasswort mit zugeteilten salt
+        // Speichert neues Sicherheitspasswort mit zugeteilten salt in String
         String newSecurePassword = generateSecurePassword(providedPassword, salt);
 
         // Vergleicht die Passwörter zur Validierung der Logindaten

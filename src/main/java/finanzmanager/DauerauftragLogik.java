@@ -15,7 +15,7 @@ import java.time.*;
  * Datum: 01.07.2022
  *
  * @author Sami Taieb
- * @version 1.6.3
+ * @version 1.6.4
  */
 public class DauerauftragLogik {
 

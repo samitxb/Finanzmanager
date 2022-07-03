@@ -36,8 +36,10 @@ public class PasswordEncryption {
     /**
      * Funktion getSalt(int length) zur Erstellung des salt, basierend auf die final-Variablen RANDOM und ALPHABET
      *
+     * @param length - Beschreibt Zeichenlänge von returnValue
      * @return returnValue
      */
+
     public static String getSalt(int length) {
         StringBuilder returnValue = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -49,7 +51,11 @@ public class PasswordEncryption {
     /**
      * Funktion hash(char[] password, byte[] salt) greift auf die final-Variablen ITERATIONS und KEY_LENGTH zu
      * Mittels des PBE-Schlüsselgenerator wird das Passwort mit PBKDF2-generierten hashes kodiert
+     *
+     * @param password - Variable für das gewünschte Nutzerpasswort
+     * @param salt - Salt für die zusätzliche Sicherheit bei der Passwortverschlüsselung
      */
+
     public static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
@@ -68,10 +74,11 @@ public class PasswordEncryption {
      * und salt das verschlüsselte Passwort
      * Es wird dabei erst mit der hash-Funktion erfasst und per Base64 verschlüsselt
      *
-     * @param password -Erster Wert für Userpasswort
-     * @param salt     -Zweiter Wert zur Verschlüsselung des Userpasswort
+     * @param password - Wert für gewünschtes Userpasswort
+     * @param salt     - Wert zur Verschlüsselung des Userpasswort
      * @return returnValue
      */
+
     public static String generateSecurePassword(String password, String salt) {
         String returnValue;
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
@@ -82,10 +89,13 @@ public class PasswordEncryption {
     }
 
     /**
-     * @param providedPassword
-     * @param securedPassword
-     * @param salt
-     * @return
+     * verifyUserPassword()-Funktion zur Validierung des eingegebenen Passworts mit dem zugehörigen verschlüsselten
+     * Passworts des Nutzers in der Datenbank
+     *
+     * @param providedPassword - Variable für das eingegeben Passwort im Passwortfeld
+     * @param securedPassword - Variable für das Passwort in der Datenbank
+     * @param salt - Salt zur Generierung eines verschlüsselten Passworts
+     * @return returnValue
      */
     public static boolean verifyUserPassword(String providedPassword,
                                              String securedPassword, String salt) {

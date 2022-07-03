@@ -46,6 +46,13 @@ public class NurNummern {
         }
     }
 
+    /**
+     * Funktion rundet den Wert auf zwei Nachkommastellen
+     *
+     * @param wert der zu überprüfende Wert
+     * @param stellen Anzahl der Nachkommastellen
+     * @return Gerundeten Wert
+     */
     public static float runden(float wert, int stellen) {
         if (stellen < 0) throw new IllegalArgumentException();
 

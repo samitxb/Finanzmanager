@@ -56,8 +56,8 @@ public class SettingsController implements Initializable {
     /**
      * Beim start des Controllers werden diese Funktionen ausgeführt.
      *
-     * @param url            .
-     * @param resourceBundle .
+     * @param url            Pfad des root-Objekts
+     * @param resourceBundle Ressourcen
      */
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

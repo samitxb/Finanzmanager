@@ -617,15 +617,25 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Wenn man Ausgabe auswählt, wird Einnahme deaktiviert.
      * Wenn man Einnahme auswählt, wird Ausgabe deaktiviert.
      *
      * @param actionEvent → wird beim Drücken der Checkbox ausgeführt.
      */
-    public void checkCheckBoxesDauerauftrag(ActionEvent actionEvent) {
+    public void checkCheckBoxesDauerauftragE(ActionEvent actionEvent) {
+        if (dauerauftragEinnahme.isSelected()) {
+            dauerauftragAusgabe.setSelected(false);
+        }
+    }
+
+    /**
+     * Wenn man Ausgabe auswählt, wird Einnahme deaktiviert.
+     *
+     * @param actionEvent → wird beim Drücken der Checkbox ausgeführt.
+     */
+    public void checkCheckBoxesDauerauftragA(ActionEvent actionEvent) {
         if (dauerauftragAusgabe.isSelected()) {
             dauerauftragEinnahme.setSelected(false);
-        } else dauerauftragAusgabe.setSelected(false);
+        }
     }
 
     /**

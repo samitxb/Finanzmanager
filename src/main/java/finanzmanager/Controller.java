@@ -85,6 +85,20 @@ public class Controller implements Initializable {
     @FXML
     private Button ausgabenListLoeschenBtn;
 
+    /*=======================================Daueraufträge=======================================*/
+    @FXML
+    private TableColumn<Dauerauftraege, Float> dauerauftraegeListBetrag;
+    @FXML
+    private TableColumn<Dauerauftraege, String> dauerauftraegeListBezeichnung;
+    @FXML
+    private TableColumn<Dauerauftraege, String> dauerauftraegeListDatum;
+    @FXML
+    private TableView<Dauerauftraege> dauerauftraegeView;
+    @FXML
+    private TableColumn<Dauerauftraege, String> dauerauftraegeListDauer;
+    @FXML
+    private Button dauerauftragListLoeschenBtn;
+
     /*=======================================Einnahmen=======================================*/
     @FXML
     private TableView<Einnahmen> einnahmenViewUebersicht;
@@ -122,32 +136,27 @@ public class Controller implements Initializable {
     /*=======================================Daueraufträge=======================================*/
     @FXML
     private MenuButton menubarZeitspanneDauerauftrag;
+
     @FXML
     private TextField dauerauftragBezeichnung;
+
     @FXML
     private CheckBox dauerauftragAusgabe;
+
     @FXML
     private TextField dauerauftragBetrag;
+
     @FXML
     private CheckBox dauerauftragEinnahme;
+
     @FXML
     private TextField dauerauftragZeitspanneText;
+
     @FXML
     private DatePicker dauerauftragDate;
+
     @FXML
     private Label labelDauerauftraege;
-    @FXML
-    private TableColumn<Dauerauftraege, Float> dauerauftraegeListBetrag;
-    @FXML
-    private TableColumn<Dauerauftraege, String> dauerauftraegeListBezeichnung;
-    @FXML
-    private TableColumn<Dauerauftraege, String> dauerauftraegeListDatum;
-    @FXML
-    private TableView<Dauerauftraege> dauerauftraegeView;
-    @FXML
-    private TableColumn<Dauerauftraege, String> dauerauftraegeListDauer;
-    @FXML
-    private Button dauerauftragListLoeschenBtn;
 
     /*=======================================Quit=======================================*/
     @FXML
@@ -192,38 +201,6 @@ public class Controller implements Initializable {
         NurNummern.numericOnly(ausgabenBetrag);
         NurNummern.numericOnly(einnahmenBetrag);
         NurNummern.numericOnly(dauerauftragBetrag);
-    }
-
-    @FXML
-    /**
-     * Beim Betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
-     */
-    void quitApp(ActionEvent event) throws IOException {
-        Stage stage = (Stage) quitBtn.getScene().getWindow();
-        stage.close();
-        Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginView.fxml")));
-        primaryStage.setTitle("User Login");
-        primaryStage.setScene(new Scene(root, 657, 532));
-        primaryStage.setResizable(false);
-        primaryStage.show();
-    }
-
-    /**
-     * Beim Drücken des Buttons Settings öffnet sich das Fenster mit den Einstellungen
-     *
-     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
-     * @throws IOException → wirft einen Fehler.
-     */
-    @FXML
-    public void enterSettings(ActionEvent actionEvent) throws IOException {
-        Stage secondaryStage = new Stage();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SettingsView.fxml")));
-        secondaryStage.setTitle("Einstellungen");
-        secondaryStage.setScene(new Scene(root, 400, 500));
-        secondaryStage.setResizable(false);
-        secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.show();
     }
 
     /**
@@ -326,6 +303,38 @@ public class Controller implements Initializable {
 
         gesamtEinnahmen = Uebersicht.einnahmenZusammenRechnen();
         gesamtEinnahmenUebersicht.setText(df.format(gesamtEinnahmen) + " €");
+    }
+
+    @FXML
+    /**
+     * Beim Betätigen des Quit Buttons wird man zurück in den LoginScreen geworfen.
+     */
+    void quitApp(ActionEvent event) throws IOException {
+        Stage stage = (Stage) quitBtn.getScene().getWindow();
+        stage.close();
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginView.fxml")));
+        primaryStage.setTitle("User Login");
+        primaryStage.setScene(new Scene(root, 657, 532));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+
+    /**
+     * Beim Drücken des Buttons Settings öffnet sich das Fenster mit den Einstellungen
+     *
+     * @param actionEvent → wird beim Drücken des Knopfes ausgeführt.
+     * @throws IOException → wirft einen Fehler.
+     */
+    @FXML
+    public void enterSettings(ActionEvent actionEvent) throws IOException {
+        Stage secondaryStage = new Stage();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SettingsView.fxml")));
+        secondaryStage.setTitle("Einstellungen");
+        secondaryStage.setScene(new Scene(root, 400, 500));
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.show();
     }
 
     /**
@@ -593,7 +602,6 @@ public class Controller implements Initializable {
             exportEinnahmen.setSelected(false);
         }
     }
-
     /**
      * Wenn Daueraufträge ausgewählt wird, werden beide anderen Checkboxes abgewählt
      */
@@ -604,7 +612,6 @@ public class Controller implements Initializable {
             exportEinnahmen.setSelected(false);
         }
     }
-
     /**
      * Wenn Einnahmen ausgewählt wird, werden beide anderen Checkboxes abgewählt
      */
@@ -615,18 +622,28 @@ public class Controller implements Initializable {
             exportDauerauftraege.setSelected(false);
         }
     }
-
     /**
-     * Wenn man Ausgabe auswählt, wird Einnahme deaktiviert.
      * Wenn man Einnahme auswählt, wird Ausgabe deaktiviert.
      *
      * @param actionEvent → wird beim Drücken der Checkbox ausgeführt.
      */
-    public void checkCheckBoxesDauerauftrag(ActionEvent actionEvent) {
+    public void checkCheckBoxesDauerauftragE(ActionEvent actionEvent) {
+        if (dauerauftragEinnahme.isSelected()) {
+            dauerauftragAusgabe.setSelected(false);
+        }
+    }
+
+    /**
+     * Wenn man Ausgabe auswählt, wird Einnahme deaktiviert.
+     *
+     * @param actionEvent → wird beim Drücken der Checkbox ausgeführt.
+     */
+    public void checkCheckBoxesDauerauftragA(ActionEvent actionEvent) {
         if (dauerauftragAusgabe.isSelected()) {
             dauerauftragEinnahme.setSelected(false);
-        } else dauerauftragAusgabe.setSelected(false);
+        }
     }
+
 
     /**
      * Beim Wechseln des Tabs werden alle Labels auf leer gesetzt.

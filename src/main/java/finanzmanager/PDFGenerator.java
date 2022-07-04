@@ -23,7 +23,7 @@ import java.sql.SQLException;
  * Datum: 01.07.2022
  *
  * @author Sami Taieb
- * @version 1.7.2
+ * @version 1.7.3
  *
  * Zum erstellen des PDF Dokuments wird iText (vers. 5.5.13.2) verwendet.
  */
@@ -33,7 +33,6 @@ public class PDFGenerator {
         int id = UserLogin.id;
 
         try {
-            System.out.println("TEST: " + id);
             //spezifizieren der Dokumenteigenschaften
             Document document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(speicherort + "\\" + name + ".pdf"));
@@ -60,7 +59,6 @@ public class PDFGenerator {
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden
 
             try {
-                System.out.println("TEST: " + id);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM ausgaben WHERE user_ausgabenid=?");
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
@@ -156,7 +154,6 @@ public class PDFGenerator {
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden
 
             try {
-                System.out.println("TEST: " + id);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM dauerauftrag WHERE user_dauerauftragid=?");
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
@@ -265,8 +262,7 @@ public class PDFGenerator {
             Connection connection = javaPostgres.getConnection();               //SQL Exception schon in Klasse JavaPostgres vorhanden, System.out fehlt (In JavaPostgres). -> PostgreSQL v.42.4.0
 
             try {
-                System.out.println("TEST: " + id);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");        //Welcher User
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM einnahmen WHERE user_einnahmenid=?");
                 statement.setInt(1, id);
                 ResultSet res = statement.executeQuery();
 

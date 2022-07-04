@@ -48,6 +48,10 @@ class Postgres {
             statementDb.execute("DROP TABLE IF EXISTS userinfo ");
 
 
+            /**
+             * SQL-Befehle zur Erstellung der relationalen Datenbanktabellen mit Primär- und Fremdschlüsseln
+             */
+
             String sqlUser = "CREATE TABLE USERINFO " +
                     "(userID                  INT      GENERATED ALWAYS AS IDENTITY NOT NULL," +
                     " fullname                VARCHAR(100)     NOT NULL," +
